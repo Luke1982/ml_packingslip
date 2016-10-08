@@ -639,7 +639,7 @@
 <handler><![CDATA[isViewPermitted]]></handler>
 </customlink>
 <customlink>
-<linktype>LISTVIEWBASIC</linktype>
+<linktype>DETAILVIEWBASIC</linktype>
 <linklabel>Remove PackingSlip Module</linklabel>
 <linkurl><![CDATA[index.php?module=PackingSlip&action=PackingSlipAjax&file=deletePackingSlip]]></linkurl>
 <linkicon><![CDATA[]]></linkicon>
