@@ -13,11 +13,22 @@ $mod_strings = Array(
 	'SINGLE_ModuleName' => 'Module Name',
 	'ModuleName ID' => 'Module Name ID',
 
-	'LBL_CUSTOM_INFORMATION' => 'Custom Information',
-	'LBL_MODULEBLOCK_INFORMATION' => 'ModuleBlock Information',
-	'LBL_DESCRIPTION_INFORMATION' => 'Verkoopkans omschrijving',
-
 	'ModuleFieldLabel' => 'ModuleFieldLabel Text',
+	// Block titles
+	'LBL_PACKINGSLIP_INFO' => 'Pakbon informatie',
+	'LBL_ADDRESS_INFORMATION' => 'Adres informatie',
+	'LBL_DESCRIPTION_INFO' => 'Omschrijving',
+	// Field labels
+	'PackingSlip No' => 'Pakbon nummer',
+	'PackingSlip Issuedate' => 'Afgiftedatum pakbon',
+	'Deliver Date' => 'Afleverdatum zending',
+	'Related Account' => 'Gerelateerde klant',
+	'Related Contact' => 'Gerelateerd contact',
+	'Postal Code' => 'Postcode',
+	'Province' => 'Provincie',
+	// Helptexts
+	'LBL_DELIVERDATE_HELPTEXT' => 'Voer een afleverdatum in voor de goederen van deze pakbon.',
+	'LBL_ISSUEDATE_HELPTEXT' => 'Voer een afgiftedatum in van deze pakbon. Dit zal meestal de huidige datum zijn.'
 );
 
 ?>
