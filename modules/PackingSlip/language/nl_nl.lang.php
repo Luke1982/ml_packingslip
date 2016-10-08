@@ -9,8 +9,8 @@
  ************************************************************************************/
 
 $mod_strings = Array(
-	'ModuleName' => 'Module Name',
-	'SINGLE_ModuleName' => 'Module Name',
+	'PackingSlip' => 'Pakbonnen',
+	'SINGLE_PackingSlip' => 'Pakbon',
 	'ModuleName ID' => 'Module Name ID',
 
 	'ModuleFieldLabel' => 'ModuleFieldLabel Text',
