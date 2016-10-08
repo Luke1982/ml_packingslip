@@ -422,6 +422,10 @@ class PackingSlip extends CRMEntity {
 		if($event_type == 'module.postinstall') {
 			// TODO Handle post installation actions
 			$this->setModuleSeqNumber('configure', $modulename, $modulename.'-', '0000001');
+			// Install an action link in salesorders
+			include_once('vtlib/Vtiger/Module.php');
+			$mod_so = Vtiger_Module::getInstance('SalesOrder');
+			$mod_so->addLink('DETAILVIEWBASIC', 'Create Packing Slip', 'index.php?module=PackingSlip&action=EditView&return_action=ListView&parent_so=$RECORD$');
 		} else if($event_type == 'module.disabled') {
 			// TODO Handle actions when this module is disabled.
 		} else if($event_type == 'module.enabled') {
