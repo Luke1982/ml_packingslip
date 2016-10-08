@@ -1,7 +1,7 @@
 <?xml version='1.0'?>
 <module>
-<name>PackinSlip</name>
-<label>PackinSlip</label>
+<name>PackingSlip</name>
+<label>PackingSlip</label>
 <parent>Inventory</parent>
 <version>0.1</version>
 <dependencies>
