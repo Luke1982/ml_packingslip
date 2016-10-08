@@ -60,7 +60,7 @@
 </table>
 <table>
 <name>vtiger_packingslipcf</name>
-<sql><![CDATA[CREATE TABLE `vtiger_packinslipcf` (
+<sql><![CDATA[CREATE TABLE `vtiger_packingslipcf` (
   `packingslipid` int(19) NOT NULL,
   PRIMARY KEY (`packingslipid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8]]></sql>
@@ -68,7 +68,7 @@
 </tables>
 <blocks>
 <block>
-<label>LBL_PACKINSLIP_INFO</label>
+<label>LBL_PACKINGSLIP_INFO</label>
 <fields>
 <field>
 <fieldname>packingslip_no</fieldname>
@@ -100,7 +100,7 @@
 <columnname>issue_date</columnname>
 <tablename>vtiger_packingslip</tablename>
 <generatedtype>1</generatedtype>
-<fieldlabel>PackinSlip Issuedate</fieldlabel>
+<fieldlabel>PackingSlip Issuedate</fieldlabel>
 <readonly>1</readonly>
 <presence>0</presence>
 <defaultvalue></defaultvalue>
@@ -289,7 +289,7 @@
 <fieldname>postal_code</fieldname>
 <uitype>1</uitype>
 <columnname>postal_code</columnname>
-<tablename>vtiger_packinslip</tablename>
+<tablename>vtiger_packingslip</tablename>
 <generatedtype>1</generatedtype>
 <fieldlabel>Postal Code</fieldlabel>
 <readonly>1</readonly>
@@ -402,7 +402,7 @@
 <fieldname>txtAdjustment</fieldname>
 <uitype>72</uitype>
 <columnname>adjustment</columnname>
-<tablename>vtiger_packinslip</tablename>
+<tablename>vtiger_packingslip</tablename>
 <generatedtype>1</generatedtype>
 <fieldlabel>Adjustment</fieldlabel>
 <readonly>1</readonly>
@@ -422,7 +422,7 @@
 <fieldname>hdnSubTotal</fieldname>
 <uitype>72</uitype>
 <columnname>subtotal</columnname>
-<tablename>vtiger_packinslip</tablename>
+<tablename>vtiger_packingslip</tablename>
 <generatedtype>1</generatedtype>
 <fieldlabel>Sub Total</fieldlabel>
 <readonly>1</readonly>
@@ -442,7 +442,7 @@
 <fieldname>hdnGrandTotal</fieldname>
 <uitype>72</uitype>
 <columnname>total</columnname>
-<tablename>vtiger_packinslip</tablename>
+<tablename>vtiger_packingslip</tablename>
 <generatedtype>1</generatedtype>
 <fieldlabel>Total</fieldlabel>
 <readonly>1</readonly>
@@ -462,7 +462,7 @@
 <fieldname>hdnTaxType</fieldname>
 <uitype>16</uitype>
 <columnname>taxtype</columnname>
-<tablename>vtiger_packinslip</tablename>
+<tablename>vtiger_packingslip</tablename>
 <generatedtype>1</generatedtype>
 <fieldlabel>Tax Type</fieldlabel>
 <readonly>1</readonly>
@@ -484,7 +484,7 @@
 <fieldname>hdnDiscountPercent</fieldname>
 <uitype>1</uitype>
 <columnname>discount_percent</columnname>
-<tablename>vtiger_packinslip</tablename>
+<tablename>vtiger_packingslip</tablename>
 <generatedtype>1</generatedtype>
 <fieldlabel>Discount Percent</fieldlabel>
 <readonly>1</readonly>
@@ -504,7 +504,7 @@
 <fieldname>hdnDiscountAmount</fieldname>
 <uitype>72</uitype>
 <columnname>discount_amount</columnname>
-<tablename>vtiger_packinslip</tablename>
+<tablename>vtiger_packingslip</tablename>
 <generatedtype>1</generatedtype>
 <fieldlabel>Discount Amount</fieldlabel>
 <readonly>1</readonly>
@@ -524,7 +524,7 @@
 <fieldname>hdnS_H_Amount</fieldname>
 <uitype>72</uitype>
 <columnname>s_h_amount</columnname>
-<tablename>vtiger_packinslip</tablename>
+<tablename>vtiger_packingslip</tablename>
 <generatedtype>1</generatedtype>
 <fieldlabel>S&amp;H Amount</fieldlabel>
 <readonly>1</readonly>
@@ -544,7 +544,7 @@
 <fieldname>currency_id</fieldname>
 <uitype>117</uitype>
 <columnname>currency_id</columnname>
-<tablename>vtiger_packinslip</tablename>
+<tablename>vtiger_packingslip</tablename>
 <generatedtype>1</generatedtype>
 <fieldlabel>Currency</fieldlabel>
 <readonly>1</readonly>
@@ -564,7 +564,7 @@
 <fieldname>conversion_rate</fieldname>
 <uitype>1</uitype>
 <columnname>conversion_rate</columnname>
-<tablename>vtiger_packinslip</tablename>
+<tablename>vtiger_packingslip</tablename>
 <generatedtype>1</generatedtype>
 <fieldlabel>Conversion Rate</fieldlabel>
 <readonly>1</readonly>
