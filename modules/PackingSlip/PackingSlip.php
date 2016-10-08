@@ -434,6 +434,9 @@ class PackingSlip extends CRMEntity {
 			// Delete 'add packingslip' link in salesorders when PackingSlip module is deleted
 			global $adb;
 			$adb->pquery("DELETE FROM vtiger_links WHERE linklabel = ?", array('LBL_CREATE_PACKINGSLIP_FROM_SO'));
+			// Delete module tables
+			$adb->query("DROP TABLE vtiger_packingslip");
+			$adb->query("DROP TABLE vtiger_packingslipcf");
 			// TODO Handle actions when this module is about to be deleted.
 		} else if($event_type == 'module.preupdate') {
 			// TODO Handle actions before this module is updated.
