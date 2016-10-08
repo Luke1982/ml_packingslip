@@ -120,7 +120,7 @@
 <columnname>deliver_date</columnname>
 <tablename>vtiger_packingslip</tablename>
 <generatedtype>1</generatedtype>
-<fieldlabel>deliver_date</fieldlabel>
+<fieldlabel>Deliver Date</fieldlabel>
 <readonly>1</readonly>
 <presence>0</presence>
 <defaultvalue></defaultvalue>
@@ -140,7 +140,7 @@
 <columnname>accountid</columnname>
 <tablename>vtiger_packingslip</tablename>
 <generatedtype>1</generatedtype>
-<fieldlabel>accountid</fieldlabel>
+<fieldlabel>Related Account</fieldlabel>
 <readonly>1</readonly>
 <presence>2</presence>
 <defaultvalue></defaultvalue>
@@ -163,7 +163,7 @@
 <columnname>contactid</columnname>
 <tablename>vtiger_packingslip</tablename>
 <generatedtype>1</generatedtype>
-<fieldlabel>contactid</fieldlabel>
+<fieldlabel>Related Contact</fieldlabel>
 <readonly>1</readonly>
 <presence>2</presence>
 <defaultvalue></defaultvalue>
@@ -271,7 +271,7 @@
 <columnname>address</columnname>
 <tablename>vtiger_packingslip</tablename>
 <generatedtype>1</generatedtype>
-<fieldlabel>address</fieldlabel>
+<fieldlabel>Address</fieldlabel>
 <readonly>1</readonly>
 <presence>0</presence>
 <defaultvalue></defaultvalue>
@@ -291,7 +291,7 @@
 <columnname>postal_code</columnname>
 <tablename>vtiger_packinslip</tablename>
 <generatedtype>1</generatedtype>
-<fieldlabel>postal_code</fieldlabel>
+<fieldlabel>Postal Code</fieldlabel>
 <readonly>1</readonly>
 <presence>0</presence>
 <defaultvalue></defaultvalue>
@@ -311,7 +311,7 @@
 <columnname>city</columnname>
 <tablename>vtiger_packingslip</tablename>
 <generatedtype>1</generatedtype>
-<fieldlabel>city</fieldlabel>
+<fieldlabel>City</fieldlabel>
 <readonly>1</readonly>
 <presence>0</presence>
 <defaultvalue></defaultvalue>
@@ -331,7 +331,7 @@
 <columnname>province</columnname>
 <tablename>vtiger_packingslip</tablename>
 <generatedtype>1</generatedtype>
-<fieldlabel>province</fieldlabel>
+<fieldlabel>Province</fieldlabel>
 <readonly>1</readonly>
 <presence>0</presence>
 <defaultvalue></defaultvalue>
@@ -351,7 +351,7 @@
 <columnname>country</columnname>
 <tablename>vtiger_packingslip</tablename>
 <generatedtype>1</generatedtype>
-<fieldlabel>country</fieldlabel>
+<fieldlabel>Country</fieldlabel>
 <readonly>1</readonly>
 <presence>0</presence>
 <defaultvalue></defaultvalue>
