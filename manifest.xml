@@ -3,7 +3,7 @@
 <name>PackingSlip</name>
 <label>PackingSlip</label>
 <parent>Inventory</parent>
-<version>0.1</version>
+<version>0.2</version>
 <dependencies>
 <vtiger_version>5.5.0</vtiger_version>
 </dependencies>
@@ -275,7 +275,7 @@
 <readonly>1</readonly>
 <presence>0</presence>
 <defaultvalue></defaultvalue>
-<sequence>1</sequence>
+<sequence>10</sequence>
 <maximumlength>100</maximumlength>
 <typeofdata>V~O</typeofdata>
 <quickcreate>1</quickcreate>
@@ -295,7 +295,7 @@
 <readonly>1</readonly>
 <presence>0</presence>
 <defaultvalue></defaultvalue>
-<sequence>2</sequence>
+<sequence>11</sequence>
 <maximumlength>100</maximumlength>
 <typeofdata>V~O</typeofdata>
 <quickcreate>1</quickcreate>
@@ -315,7 +315,7 @@
 <readonly>1</readonly>
 <presence>0</presence>
 <defaultvalue></defaultvalue>
-<sequence>3</sequence>
+<sequence>12</sequence>
 <maximumlength>100</maximumlength>
 <typeofdata>V~O</typeofdata>
 <quickcreate>1</quickcreate>
@@ -335,7 +335,7 @@
 <readonly>1</readonly>
 <presence>0</presence>
 <defaultvalue></defaultvalue>
-<sequence>4</sequence>
+<sequence>13</sequence>
 <maximumlength>100</maximumlength>
 <typeofdata>V~O</typeofdata>
 <quickcreate>1</quickcreate>
@@ -355,7 +355,7 @@
 <readonly>1</readonly>
 <presence>0</presence>
 <defaultvalue></defaultvalue>
-<sequence>5</sequence>
+<sequence>14</sequence>
 <maximumlength>100</maximumlength>
 <typeofdata>V~O</typeofdata>
 <quickcreate>1</quickcreate>
@@ -383,7 +383,7 @@
 <readonly>1</readonly>
 <presence>0</presence>
 <defaultvalue></defaultvalue>
-<sequence>1</sequence>
+<sequence>15</sequence>
 <maximumlength>100</maximumlength>
 <typeofdata>V~O</typeofdata>
 <quickcreate>1</quickcreate>
@@ -408,7 +408,7 @@
 <readonly>1</readonly>
 <presence>2</presence>
 <defaultvalue></defaultvalue>
-<sequence>10</sequence>
+<sequence>16</sequence>
 <maximumlength>100</maximumlength>
 <typeofdata>NN~O</typeofdata>
 <quickcreate>3</quickcreate>
@@ -428,7 +428,7 @@
 <readonly>1</readonly>
 <presence>2</presence>
 <defaultvalue></defaultvalue>
-<sequence>13</sequence>
+<sequence>17</sequence>
 <maximumlength>100</maximumlength>
 <typeofdata>N~O</typeofdata>
 <quickcreate>3</quickcreate>
@@ -448,7 +448,7 @@
 <readonly>1</readonly>
 <presence>2</presence>
 <defaultvalue></defaultvalue>
-<sequence>14</sequence>
+<sequence>18</sequence>
 <maximumlength>100</maximumlength>
 <typeofdata>N~O</typeofdata>
 <quickcreate>3</quickcreate>
@@ -468,7 +468,7 @@
 <readonly>1</readonly>
 <presence>2</presence>
 <defaultvalue></defaultvalue>
-<sequence>15</sequence>
+<sequence>19</sequence>
 <maximumlength>100</maximumlength>
 <typeofdata>V~O</typeofdata>
 <quickcreate>3</quickcreate>
@@ -490,7 +490,7 @@
 <readonly>1</readonly>
 <presence>2</presence>
 <defaultvalue></defaultvalue>
-<sequence>16</sequence>
+<sequence>20</sequence>
 <maximumlength>100</maximumlength>
 <typeofdata>N~O</typeofdata>
 <quickcreate>3</quickcreate>
@@ -510,7 +510,7 @@
 <readonly>1</readonly>
 <presence>2</presence>
 <defaultvalue></defaultvalue>
-<sequence>17</sequence>
+<sequence>21</sequence>
 <maximumlength>100</maximumlength>
 <typeofdata>N~O</typeofdata>
 <quickcreate>3</quickcreate>
@@ -530,7 +530,7 @@
 <readonly>1</readonly>
 <presence>2</presence>
 <defaultvalue></defaultvalue>
-<sequence>18</sequence>
+<sequence>22</sequence>
 <maximumlength>100</maximumlength>
 <typeofdata>N~O</typeofdata>
 <quickcreate>3</quickcreate>
@@ -550,7 +550,7 @@
 <readonly>1</readonly>
 <presence>2</presence>
 <defaultvalue></defaultvalue>
-<sequence>20</sequence>
+<sequence>23</sequence>
 <maximumlength>100</maximumlength>
 <typeofdata>I~O</typeofdata>
 <quickcreate>3</quickcreate>
@@ -570,7 +570,7 @@
 <readonly>1</readonly>
 <presence>2</presence>
 <defaultvalue>1</defaultvalue>
-<sequence>19</sequence>
+<sequence>24</sequence>
 <maximumlength>100</maximumlength>
 <typeofdata>N~O</typeofdata>
 <quickcreate>3</quickcreate>
