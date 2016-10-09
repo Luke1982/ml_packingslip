@@ -39,7 +39,7 @@
   `ps_deliver_date` date DEFAULT NULL,
   `ps_accountid` int(11) DEFAULT NULL,
   `ps_contactid` int(11) DEFAULT NULL,
-  `ps_salesorderid` int(11) DEFAULT NULL',
+  `ps_salesorderid` int(11) DEFAULT NULL,
   `ps_address` varchar(150) DEFAULT NULL,
   `ps_postal_code` varchar(15) DEFAULT NULL,
   `ps_city` varchar(150) DEFAULT NULL,
