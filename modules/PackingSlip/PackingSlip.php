@@ -124,7 +124,38 @@ class PackingSlip extends CRMEntity {
 		if ($this->HasDirectImageField) {
 			$this->insertIntoAttachment($this->id,$module);
 		}
+		//in ajax save we should not call this function, because this will delete all the existing product values
+		if(isset($_REQUEST)) {
+			if($_REQUEST['action'] != 'PackingSlipAjax' && $_REQUEST['ajxaction'] != 'DETAILVIEW' && $_REQUEST['action'] != 'MassEditSave')
+			{
+				//Based on the total Number of rows we will save the product relationship with this entity
+				save_packingslip_inventory_product_details($this, 'PackingSlip');
+			}
+		}
+		// Update the currency id and the conversion rate for the invoice
+		$update_query = "update vtiger_packingslip set currency_id=?, conversion_rate=? where packingslipid=?";
+		$update_params = array($this->column_fields['currency_id'], $this->column_fields['conversion_rate'], $this->id); 
+		$this->db->pquery($update_query, $update_params);		
 	}
+
+	function restore($module, $id) {
+		global $current_user;
+		$this->db->println("TRANS restore starts $module");
+		$this->db->startTransaction();		
+		$this->db->pquery('UPDATE vtiger_crmentity SET deleted=0 WHERE crmid = ?', array($id));
+		//Restore related entities/records
+		$this->restoreRelatedRecords($module,$id);
+		$product_info = $this->db->pquery("SELECT productid, quantity, sequence_no, incrementondel from vtiger_inventoryproductrel WHERE id=?",array($id));
+		$numrows = $this->db->num_rows($product_info);
+		for($index = 0;$index < $numrows;$index++){
+			$productid = $this->db->query_result($product_info,$index,'productid');
+			$qty = $this->db->query_result($product_info,$index,'quantity');
+			deductFromProductStock($productid,$qty);
+		}
+		
+		$this->db->completeTransaction();
+		$this->db->println("TRANS restore ends");
+	}	
 
 	/**
 	 * Return query to use based on given modulename, fieldname
@@ -472,5 +503,223 @@ class PackingSlip extends CRMEntity {
 	 * You can override the behavior by re-defining it here.
 	 */
 	//function get_dependents_list($id, $cur_tab_id, $rel_tab_id, $actions=false) { }
+}
+
+function get_packingslip_inventory_taxtype($id)
+{
+	global $log, $adb;
+	$log->debug("Entering into function get_packingslip_inventory_taxtype($id).");
+	$res = $adb->pquery("select taxtype from vtiger_packingslip where packingslipid=?", array($id));
+	$taxtype = $adb->query_result($res,0,'taxtype');
+	$log->debug("Exit from function get_packingslip_inventory_taxtype($id).");
+	return $taxtype;
+}
+
+function get_packingslip_inventory_currency_info($id)
+{
+	global $log, $adb;
+	$log->debug("Entering into function get_packingslip_inventory_currency_info($id).");
+	$res = $adb->pquery("select currency_id, vtiger_packingslip.conversion_rate as conv_rate, vtiger_currency_info.* from vtiger_packingslip
+						inner join vtiger_currency_info on vtiger_packingslip.currency_id = vtiger_currency_info.id
+						where packingslipid=?", array($id));
+	$currency_info = array();
+	$currency_info['currency_id'] = $adb->query_result($res,0,'currency_id');
+	$currency_info['conversion_rate'] = $adb->query_result($res,0,'conv_rate');
+	$currency_info['currency_name'] = $adb->query_result($res,0,'currency_name');
+	$currency_info['currency_code'] = $adb->query_result($res,0,'currency_code');
+	$currency_info['currency_symbol'] = $adb->query_result($res,0,'currency_symbol');
+	$log->debug("Exit from function get_packingslip_inventory_currency_info($id).");
+	return $currency_info;
+}
+function save_packingslip_inventory_product_details($focus, $module, $update_prod_stock='false', $updateDemand='') {
+	global $log, $adb;
+	$id=$focus->id;
+	$log->debug("Entering into function save_packingslip_inventory_product_details($module).");
+	//Added to get the convertid
+	if(isset($_REQUEST['convert_from']) && $_REQUEST['convert_from'] !='')
+	{
+		$id=$_REQUEST['return_id'];
+	}
+	else if(isset($_REQUEST['duplicate_from']) && $_REQUEST['duplicate_from'] !='')
+	{
+		$id=$_REQUEST['duplicate_from'];
+	}
+	$ext_prod_arr = Array();
+	if($focus->mode == 'edit')
+	{
+		if($_REQUEST['taxtype'] == 'group')
+			$all_available_taxes = getAllTaxes('available','','edit',$id);
+			
+		$return_old_values = 'return_old_values';
+		delete_packingslip_inventory_product_details($focus);
+	}
+	else
+	{
+	if($_REQUEST['taxtype'] == 'group')
+		$all_available_taxes = getAllTaxes('available','','edit',$id);
+	}
+	$tot_no_prod = $_REQUEST['totalProductCount'];
+	//If the taxtype is group then retrieve all available taxes, else retrive associated taxes for each product inside loop
+	$prod_seq=1;
+	for($i=1; $i<=$tot_no_prod; $i++)
+	{
+		//if the product is deleted then we should avoid saving the deleted products
+		if($_REQUEST["deleted".$i] == 1)
+			continue;
+	    $prod_id = $_REQUEST['hdnProductId'.$i];
+
+		if(isset($_REQUEST['productDescription'.$i]))
+			$description = $_REQUEST['productDescription'.$i];
+    		$qty = $_REQUEST['qty'.$i];
+     		$listprice = $_REQUEST['listPrice'.$i];
+			$comment = $_REQUEST['comment'.$i];
+	  		deductFromProductStock($prod_id,$qty);
+			$query ="insert into vtiger_inventoryproductrel(id, productid, sequence_no, quantity, listprice, comment, description) values(?,?,?,?,?,?,?)";
+			$qparams = array($focus->id,$prod_id,$prod_seq,$qty,$listprice,$comment,$description);
+			$adb->pquery($query,$qparams);
+			$sub_prod_str = $_REQUEST['subproduct_ids'.$i];
+
+		if (!empty($sub_prod_str)) {
+			$sub_prod = explode(":",$sub_prod_str);
+			for($j=0;$j<count($sub_prod);$j++){
+				$query ="insert into vtiger_inventorysubproductrel(id, sequence_no, productid) values(?,?,?)";
+				$qparams = array($focus->id,$prod_seq,$sub_prod[$j]);
+				$adb->pquery($query,$qparams);
+			}
+		}
+		$prod_seq++;
+		//we should update discount and tax details
+		$updatequery = "update vtiger_inventoryproductrel set ";
+		$updateparams = array();
+		//set the discount percentage or discount amount in update query, then set the tax values
+		if($_REQUEST['discount_type'.$i] == 'percentage')
+		{
+			$updatequery .= " discount_percent=?,";
+			array_push($updateparams, $_REQUEST['discount_percentage'.$i]);
+		}
+		elseif($_REQUEST['discount_type'.$i] == 'amount')
+		{
+			$updatequery .= " discount_amount=?,";
+			$discount_amount = $_REQUEST['discount_amount'.$i];
+			array_push($updateparams, $discount_amount);
+		}
+		if($_REQUEST['taxtype'] == 'group')
+		{
+			for($tax_count=0;$tax_count<count($all_available_taxes);$tax_count++)
+			{
+				$tax_name = $all_available_taxes[$tax_count]['taxname'];
+				$tax_val = $all_available_taxes[$tax_count]['percentage'];
+				$request_tax_name = $tax_name."_group_percentage";
+				if(isset($_REQUEST[$request_tax_name]))
+					$tax_val =$_REQUEST[$request_tax_name];
+				$updatequery .= " $tax_name = ?,";
+				array_push($updateparams,$tax_val);
+			}
+				$updatequery = trim($updatequery,',')." where id=? and productid=?";
+				array_push($updateparams,$focus->id,$prod_id);
+		}
+		else
+		{
+			$taxes_for_product = getTaxDetailsForProduct($prod_id,'all');
+			for($tax_count=0;$tax_count<count($taxes_for_product);$tax_count++)
+			{
+				$tax_name = $taxes_for_product[$tax_count]['taxname'];
+				$request_tax_name = $tax_name."_percentage".$i;
+			
+				$updatequery .= " $tax_name = ?,";
+				array_push($updateparams, $_REQUEST[$request_tax_name]);
+			}
+				$updatequery = trim($updatequery,',')." where id=? and productid=?";
+				array_push($updateparams, $focus->id,$prod_id);
+		}
+		// jens 2006/08/19 - protect against empy update queries
+ 		if( !preg_match( '/set\s+where/i', $updatequery)) {
+ 		    $adb->pquery($updatequery,$updateparams);
+ 		}
+	}
+	//we should update the netprice (subtotal), taxtype, group discount, S&H charge, S&H taxes, adjustment and total
+	//netprice, group discount, taxtype, S&H amount, adjustment and total to entity table
+	$updatequery  = " update $focus->table_name set ";
+	$updateparams = array();
+	$subtotal = $_REQUEST['subtotal'];
+	$updatequery .= " subtotal=?,";
+	array_push($updateparams, $subtotal);
+	$updatequery .= " taxtype=?,";
+	array_push($updateparams, $_REQUEST['taxtype']);
+	//for discount percentage or discount amount
+	if($_REQUEST['discount_type_final'] == 'percentage')
+	{
+		$updatequery .= " discount_percent=?,";
+		array_push($updateparams, $_REQUEST['discount_percentage_final']);
+	}
+	elseif($_REQUEST['discount_type_final'] == 'amount')
+	{
+		$discount_amount_final = $_REQUEST['discount_amount_final'];
+		$updatequery .= " discount_amount=?,";
+		array_push($updateparams, $discount_amount_final);
+	}
+	
+	$shipping_handling_charge = $_REQUEST['shipping_handling_charge'];
+	$updatequery .= " s_h_amount=?,";
+	array_push($updateparams, $shipping_handling_charge);
+	//if the user gave - sign in adjustment then add with the value
+	$adjustmentType = '';
+	if($_REQUEST['adjustmentType'] == '-')
+		$adjustmentType = $_REQUEST['adjustmentType'];
+	$adjustment = $_REQUEST['adjustment'];
+	$updatequery .= " adjustment=?,";
+	array_push($updateparams, $adjustmentType.$adjustment);
+	$total = $_REQUEST['total'];
+	$updatequery .= " total=?";
+	array_push($updateparams, $total);
+	//$id_array = Array('PurchaseOrder'=>'purchaseorderid','SalesOrder'=>'salesorderid','Quotes'=>'quoteid','Invoice'=>'invoiceid');
+	//Added where condition to which entity we want to update these values
+	$updatequery .= " where ".$focus->table_index."=?";
+	array_push($updateparams, $focus->id);
+	$adb->pquery($updatequery,$updateparams);
+	//to save the S&H tax details in vtiger_inventoryshippingrel table
+	$sh_tax_details = getAllTaxes('all','sh');
+	$sh_query_fields = "id,";
+	$sh_query_values = "?,";
+	$sh_query_params = array($focus->id);
+	for($i=0;$i<count($sh_tax_details);$i++)
+	{
+		$tax_name = $sh_tax_details[$i]['taxname']."_sh_percent";
+		if($_REQUEST[$tax_name] != '')
+		{
+			$sh_query_fields .= $sh_tax_details[$i]['taxname'].",";
+			$sh_query_values .= "?,";
+			array_push($sh_query_params, $_REQUEST[$tax_name]);
+		}
+	}
+	$sh_query_fields = trim($sh_query_fields,',');
+	$sh_query_values = trim($sh_query_values,',');
+	$sh_query = "insert into vtiger_inventoryshippingrel($sh_query_fields) values($sh_query_values)";
+	$adb->pquery($sh_query,$sh_query_params);
+	$log->debug("Exit from function save_packingslip_inventory_product_details($module).");
+}
+
+function delete_packingslip_inventory_product_details($focus, $sql_del = true) {
+	global $log, $adb,$updateInventoryProductRel_update_product_array;
+	$log->debug("Entering into function delete_packingslip_inventory_product_details(".$focus->id.").");
+	
+	$product_info = $adb->pquery("SELECT productid, quantity, sequence_no, incrementondel from vtiger_inventoryproductrel WHERE id=?",array($focus->id));
+	$numrows = $adb->num_rows($product_info);
+	for($index = 0;$index <$numrows;$index++){
+		$productid = $adb->query_result($product_info,$index,'productid');
+		$sequence_no = $adb->query_result($product_info,$index,'sequence_no');
+		$qty = $adb->query_result($product_info,$index,'quantity');
+		
+		addToProductStock($productid,$qty);
+	}
+	
+	if ($sql_del)
+	{
+    $adb->pquery("delete from vtiger_inventoryproductrel where id=?", array($focus->id));
+    $adb->pquery("delete from vtiger_inventorysubproductrel where id=?", array($focus->id));
+    $adb->pquery("delete from vtiger_inventoryshippingrel where id=?", array($focus->id));
+  }
+  
+	$log->debug("Exit from function delete_packingslip_inventory_product_details(".$focus->id.")");
 }
 ?>
