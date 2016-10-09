@@ -34,15 +34,16 @@
 <sql><![CDATA[CREATE TABLE `vtiger_packingslip` (
   `packingslipid` int(19) NOT NULL,
   `packingslip_no` varchar(100) DEFAULT NULL,
-  `issue_date` date DEFAULT NULL,
-  `deliver_date` date DEFAULT NULL,
-  `accountid` int(11) DEFAULT NULL,
-  `contactid` int(11) DEFAULT NULL,
-  `address` varchar(150) DEFAULT NULL,
-  `postal_code` varchar(15) DEFAULT NULL,
-  `city` varchar(150) DEFAULT NULL,
-  `province` varchar(150) DEFAULT NULL,
-  `country` varchar(150) DEFAULT NULL,
+  `ps_issue_date` date DEFAULT NULL,
+  `ps_deliver_date` date DEFAULT NULL,
+  `ps_accountid` int(11) DEFAULT NULL,
+  `ps_contactid` int(11) DEFAULT NULL,
+  'ps_salesorderid int(11) DEFAULT NULL',
+  `ps_address` varchar(150) DEFAULT NULL,
+  `ps_postal_code` varchar(15) DEFAULT NULL,
+  `ps_city` varchar(150) DEFAULT NULL,
+  `ps_province` varchar(150) DEFAULT NULL,
+  `ps_country` varchar(150) DEFAULT NULL,
   `type` varchar(100) DEFAULT NULL,
   `adjustment` decimal(25,3) DEFAULT NULL,
   `salescommission` decimal(29,3) DEFAULT NULL,
@@ -95,9 +96,9 @@
 </entityidentifier>
 </field>
 <field>
-<fieldname>issue_date</fieldname>
+<fieldname>ps_issue_date</fieldname>
 <uitype>5</uitype>
-<columnname>issue_date</columnname>
+<columnname>ps_issue_date</columnname>
 <tablename>vtiger_packingslip</tablename>
 <generatedtype>1</generatedtype>
 <fieldlabel>PackingSlip Issuedate</fieldlabel>
@@ -115,9 +116,9 @@
 <masseditable>1</masseditable>
 </field>
 <field>
-<fieldname>deliver_date</fieldname>
+<fieldname>ps_deliver_date</fieldname>
 <uitype>5</uitype>
-<columnname>deliver_date</columnname>
+<columnname>ps_deliver_date</columnname>
 <tablename>vtiger_packingslip</tablename>
 <generatedtype>1</generatedtype>
 <fieldlabel>Deliver Date</fieldlabel>
@@ -135,14 +136,14 @@
 <masseditable>1</masseditable>
 </field>
 <field>
-<fieldname>accountid</fieldname>
+<fieldname>ps_accountid</fieldname>
 <uitype>10</uitype>
-<columnname>accountid</columnname>
+<columnname>ps_accountid</columnname>
 <tablename>vtiger_packingslip</tablename>
 <generatedtype>1</generatedtype>
 <fieldlabel>Related Account</fieldlabel>
 <readonly>1</readonly>
-<presence>2</presence>
+<presence>0</presence>
 <defaultvalue></defaultvalue>
 <sequence>4</sequence>
 <maximumlength>100</maximumlength>
@@ -158,14 +159,14 @@
 </relatedmodules>
 </field>
 <field>
-<fieldname>contactid</fieldname>
+<fieldname>ps_contactid</fieldname>
 <uitype>10</uitype>
-<columnname>contactid</columnname>
+<columnname>ps_contactid</columnname>
 <tablename>vtiger_packingslip</tablename>
 <generatedtype>1</generatedtype>
 <fieldlabel>Related Contact</fieldlabel>
 <readonly>1</readonly>
-<presence>2</presence>
+<presence>0</presence>
 <defaultvalue></defaultvalue>
 <sequence>5</sequence>
 <maximumlength>100</maximumlength>
@@ -181,6 +182,29 @@
 </relatedmodules>
 </field>
 <field>
+<fieldname>ps_salesorderid</fieldname>
+<uitype>10</uitype>
+<columnname>ps_salesorderid</columnname>
+<tablename>vtiger_packingslip</tablename>
+<generatedtype>1</generatedtype>
+<fieldlabel>Related Sales Order</fieldlabel>
+<readonly>1</readonly>
+<presence>0</presence>
+<defaultvalue></defaultvalue>
+<sequence>6</sequence>
+<maximumlength>100</maximumlength>
+<typeofdata>V~O</typeofdata>
+<quickcreate>1</quickcreate>
+<quickcreatesequence>5</quickcreatesequence>
+<displaytype>1</displaytype>
+<info_type>BAS</info_type>
+<helpinfo><![CDATA[]]></helpinfo>
+<masseditable>1</masseditable>
+<relatedmodules>
+<relatedmodule>SalesOrder</relatedmodule>
+</relatedmodules>
+</field>
+<field>
 <fieldname>assigned_user_id</fieldname>
 <uitype>53</uitype>
 <columnname>smownerid</columnname>
@@ -190,7 +214,7 @@
 <readonly>1</readonly>
 <presence>0</presence>
 <defaultvalue></defaultvalue>
-<sequence>6</sequence>
+<sequence>7</sequence>
 <maximumlength>100</maximumlength>
 <typeofdata>V~M</typeofdata>
 <quickcreate>1</quickcreate>
@@ -210,7 +234,7 @@
 <readonly>1</readonly>
 <presence>0</presence>
 <defaultvalue></defaultvalue>
-<sequence>7</sequence>
+<sequence>8</sequence>
 <maximumlength>100</maximumlength>
 <typeofdata>DT~O</typeofdata>
 <quickcreate>1</quickcreate>
@@ -230,7 +254,7 @@
 <readonly>1</readonly>
 <presence>0</presence>
 <defaultvalue></defaultvalue>
-<sequence>8</sequence>
+<sequence>9</sequence>
 <maximumlength>100</maximumlength>
 <typeofdata>DT~O</typeofdata>
 <quickcreate>1</quickcreate>
@@ -250,7 +274,7 @@
 <readonly>1</readonly>
 <presence>0</presence>
 <defaultvalue></defaultvalue>
-<sequence>9</sequence>
+<sequence>10</sequence>
 <maximumlength>100</maximumlength>
 <typeofdata>V~O</typeofdata>
 <quickcreate>1</quickcreate>
