@@ -8,8 +8,8 @@
  * All Rights Reserved.
  ************************************************************************************/
 
-error_reporting(E_ALL);
-ini_set("display_errors", "on"); 
+// error_reporting(E_ALL);
+// ini_set("display_errors", "on"); 
 
 require_once('Smarty_setup.php');
 require_once('data/Tracker.php');
@@ -114,7 +114,7 @@ $focus->markAsViewed($current_user->id);
 
 $smarty->assign('DETAILVIEW_AJAX_EDIT', PerformancePrefs::getBoolean('DETAILVIEW_AJAX_EDIT', true));
 
-$smarty->display("modules/PackingSlipgSlip/InventoryDetailView.tpl");
+$smarty->display("modules/PackingSlip/InventoryDetailView.tpl");
 
 
 function get_packingslip_detail_assoc_products($module,$focus)
