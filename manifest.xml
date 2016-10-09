@@ -313,7 +313,7 @@
 <field>
 <fieldname>ps_address</fieldname>
 <uitype>1</uitype>
-<columnname>address</columnname>
+<columnname>ps_address</columnname>
 <tablename>vtiger_packingslip</tablename>
 <generatedtype>1</generatedtype>
 <fieldlabel>Address</fieldlabel>
@@ -333,7 +333,7 @@
 <field>
 <fieldname>ps_postal_code</fieldname>
 <uitype>1</uitype>
-<columnname>postal_code</columnname>
+<columnname>ps_postal_code</columnname>
 <tablename>vtiger_packingslip</tablename>
 <generatedtype>1</generatedtype>
 <fieldlabel>Postal Code</fieldlabel>
@@ -353,7 +353,7 @@
 <field>
 <fieldname>ps_city</fieldname>
 <uitype>1</uitype>
-<columnname>city</columnname>
+<columnname>ps_city</columnname>
 <tablename>vtiger_packingslip</tablename>
 <generatedtype>1</generatedtype>
 <fieldlabel>City</fieldlabel>
@@ -373,7 +373,7 @@
 <field>
 <fieldname>ps_province</fieldname>
 <uitype>1</uitype>
-<columnname>province</columnname>
+<columnname>ps_province</columnname>
 <tablename>vtiger_packingslip</tablename>
 <generatedtype>1</generatedtype>
 <fieldlabel>Province</fieldlabel>
@@ -393,7 +393,7 @@
 <field>
 <fieldname>ps_country</fieldname>
 <uitype>1</uitype>
-<columnname>country</columnname>
+<columnname>ps_country</columnname>
 <tablename>vtiger_packingslip</tablename>
 <generatedtype>1</generatedtype>
 <fieldlabel>Country</fieldlabel>
