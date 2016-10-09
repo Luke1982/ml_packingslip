@@ -34,7 +34,7 @@
 <sql><![CDATA[CREATE TABLE `vtiger_packingslip` (
   `packingslipid` int(19) NOT NULL,
   `packingslip_no` varchar(100) DEFAULT NULL,
-  'packingslipname' varchar(100) DEFAULT NULL,
+  `packingslipname` varchar(100) DEFAULT NULL,
   `ps_issue_date` date DEFAULT NULL,
   `ps_deliver_date` date DEFAULT NULL,
   `ps_accountid` int(11) DEFAULT NULL,
