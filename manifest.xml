@@ -275,7 +275,7 @@
 <readonly>1</readonly>
 <presence>0</presence>
 <defaultvalue></defaultvalue>
-<sequence>10</sequence>
+<sequence>1</sequence>
 <maximumlength>100</maximumlength>
 <typeofdata>V~O</typeofdata>
 <quickcreate>1</quickcreate>
@@ -295,7 +295,7 @@
 <readonly>1</readonly>
 <presence>0</presence>
 <defaultvalue></defaultvalue>
-<sequence>11</sequence>
+<sequence>2</sequence>
 <maximumlength>100</maximumlength>
 <typeofdata>V~O</typeofdata>
 <quickcreate>1</quickcreate>
@@ -315,7 +315,7 @@
 <readonly>1</readonly>
 <presence>0</presence>
 <defaultvalue></defaultvalue>
-<sequence>12</sequence>
+<sequence>3</sequence>
 <maximumlength>100</maximumlength>
 <typeofdata>V~O</typeofdata>
 <quickcreate>1</quickcreate>
@@ -335,7 +335,7 @@
 <readonly>1</readonly>
 <presence>0</presence>
 <defaultvalue></defaultvalue>
-<sequence>13</sequence>
+<sequence>4</sequence>
 <maximumlength>100</maximumlength>
 <typeofdata>V~O</typeofdata>
 <quickcreate>1</quickcreate>
@@ -355,7 +355,7 @@
 <readonly>1</readonly>
 <presence>0</presence>
 <defaultvalue></defaultvalue>
-<sequence>14</sequence>
+<sequence>5</sequence>
 <maximumlength>100</maximumlength>
 <typeofdata>V~O</typeofdata>
 <quickcreate>1</quickcreate>
@@ -383,7 +383,7 @@
 <readonly>1</readonly>
 <presence>0</presence>
 <defaultvalue></defaultvalue>
-<sequence>15</sequence>
+<sequence>1</sequence>
 <maximumlength>100</maximumlength>
 <typeofdata>V~O</typeofdata>
 <quickcreate>1</quickcreate>
@@ -408,7 +408,7 @@
 <readonly>1</readonly>
 <presence>2</presence>
 <defaultvalue></defaultvalue>
-<sequence>16</sequence>
+<sequence>1</sequence>
 <maximumlength>100</maximumlength>
 <typeofdata>NN~O</typeofdata>
 <quickcreate>3</quickcreate>
@@ -428,7 +428,7 @@
 <readonly>1</readonly>
 <presence>2</presence>
 <defaultvalue></defaultvalue>
-<sequence>17</sequence>
+<sequence>2</sequence>
 <maximumlength>100</maximumlength>
 <typeofdata>N~O</typeofdata>
 <quickcreate>3</quickcreate>
@@ -448,7 +448,7 @@
 <readonly>1</readonly>
 <presence>2</presence>
 <defaultvalue></defaultvalue>
-<sequence>18</sequence>
+<sequence>3</sequence>
 <maximumlength>100</maximumlength>
 <typeofdata>N~O</typeofdata>
 <quickcreate>3</quickcreate>
@@ -468,7 +468,7 @@
 <readonly>1</readonly>
 <presence>2</presence>
 <defaultvalue></defaultvalue>
-<sequence>19</sequence>
+<sequence>4</sequence>
 <maximumlength>100</maximumlength>
 <typeofdata>V~O</typeofdata>
 <quickcreate>3</quickcreate>
@@ -490,7 +490,7 @@
 <readonly>1</readonly>
 <presence>2</presence>
 <defaultvalue></defaultvalue>
-<sequence>20</sequence>
+<sequence>5</sequence>
 <maximumlength>100</maximumlength>
 <typeofdata>N~O</typeofdata>
 <quickcreate>3</quickcreate>
@@ -510,7 +510,7 @@
 <readonly>1</readonly>
 <presence>2</presence>
 <defaultvalue></defaultvalue>
-<sequence>21</sequence>
+<sequence>6</sequence>
 <maximumlength>100</maximumlength>
 <typeofdata>N~O</typeofdata>
 <quickcreate>3</quickcreate>
@@ -530,7 +530,7 @@
 <readonly>1</readonly>
 <presence>2</presence>
 <defaultvalue></defaultvalue>
-<sequence>22</sequence>
+<sequence>7</sequence>
 <maximumlength>100</maximumlength>
 <typeofdata>N~O</typeofdata>
 <quickcreate>3</quickcreate>
@@ -550,7 +550,7 @@
 <readonly>1</readonly>
 <presence>2</presence>
 <defaultvalue></defaultvalue>
-<sequence>23</sequence>
+<sequence>8</sequence>
 <maximumlength>100</maximumlength>
 <typeofdata>I~O</typeofdata>
 <quickcreate>3</quickcreate>
@@ -570,7 +570,7 @@
 <readonly>1</readonly>
 <presence>2</presence>
 <defaultvalue>1</defaultvalue>
-<sequence>24</sequence>
+<sequence>9</sequence>
 <maximumlength>100</maximumlength>
 <typeofdata>N~O</typeofdata>
 <quickcreate>3</quickcreate>
@@ -633,7 +633,7 @@
 <linklabel>View History</linklabel>
 <linkurl><![CDATA[javascript:ModTrackerCommon.showhistory('$RECORD$')]]></linkurl>
 <linkicon><![CDATA[]]></linkicon>
-<sequence>0</sequence>
+<sequence>1</sequence>
 <handler_path><![CDATA[modules/ModTracker/ModTracker.php]]></handler_path>
 <handler_class><![CDATA[ModTracker]]></handler_class>
 <handler><![CDATA[isViewPermitted]]></handler>
@@ -643,7 +643,7 @@
 <linklabel>Remove PackingSlip Module</linklabel>
 <linkurl><![CDATA[index.php?module=PackingSlip&action=PackingSlipAjax&file=deletePackingSlip]]></linkurl>
 <linkicon><![CDATA[]]></linkicon>
-<sequence>0</sequence>
+<sequence>2</sequence>
 <handler_path><![CDATA[]]></handler_path>
 <handler_class><![CDATA[]]></handler_class>
 <handler><![CDATA[]]></handler>
