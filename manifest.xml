@@ -86,7 +86,7 @@
 <maximumlength>100</maximumlength>
 <typeofdata>V~M</typeofdata>
 <quickcreate>0</quickcreate>
-<quickcreatesequence>1</quickcreatesequence>
+<quickcreatesequence></quickcreatesequence>
 <displaytype>1</displaytype>
 <info_type>BAS</info_type>
 <helpinfo><![CDATA[]]></helpinfo>
@@ -95,6 +95,26 @@
 <entityidfield>packingslipid</entityidfield>
 <entityidcolumn>packingslipid</entityidcolumn>
 </entityidentifier>
+</field>
+<field>
+<fieldname>packingslipname</fieldname>
+<uitype>1</uitype>
+<columnname>packingslipname</columnname>
+<tablename>vtiger_packingslip</tablename>
+<generatedtype>1</generatedtype>
+<fieldlabel>PackingSlip Name</fieldlabel>
+<readonly>1</readonly>
+<presence>0</presence>
+<defaultvalue></defaultvalue>
+<sequence>2</sequence>
+<maximumlength>100</maximumlength>
+<typeofdata>V~M</typeofdata>
+<quickcreate>1</quickcreate>
+<quickcreatesequence>1</quickcreatesequence>
+<displaytype>1</displaytype>
+<info_type>BAS</info_type>
+<helpinfo><![CDATA[]]></helpinfo>
+<masseditable>0</masseditable>
 </field>
 <field>
 <fieldname>ps_issue_date</fieldname>
@@ -106,7 +126,7 @@
 <readonly>1</readonly>
 <presence>0</presence>
 <defaultvalue></defaultvalue>
-<sequence>2</sequence>
+<sequence>3</sequence>
 <maximumlength>100</maximumlength>
 <typeofdata>D~O</typeofdata>
 <quickcreate>1</quickcreate>
@@ -126,7 +146,7 @@
 <readonly>1</readonly>
 <presence>0</presence>
 <defaultvalue></defaultvalue>
-<sequence>3</sequence>
+<sequence>4</sequence>
 <maximumlength>100</maximumlength>
 <typeofdata>D~O</typeofdata>
 <quickcreate>1</quickcreate>
@@ -144,9 +164,9 @@
 <generatedtype>1</generatedtype>
 <fieldlabel>Related Account</fieldlabel>
 <readonly>1</readonly>
-<presence>0</presence>
+<presence>2</presence>
 <defaultvalue></defaultvalue>
-<sequence>4</sequence>
+<sequence>5</sequence>
 <maximumlength>100</maximumlength>
 <typeofdata>V~O</typeofdata>
 <quickcreate>1</quickcreate>
@@ -167,9 +187,9 @@
 <generatedtype>1</generatedtype>
 <fieldlabel>Related Contact</fieldlabel>
 <readonly>1</readonly>
-<presence>0</presence>
+<presence>2</presence>
 <defaultvalue></defaultvalue>
-<sequence>5</sequence>
+<sequence>6</sequence>
 <maximumlength>100</maximumlength>
 <typeofdata>V~O</typeofdata>
 <quickcreate>1</quickcreate>
@@ -190,9 +210,9 @@
 <generatedtype>1</generatedtype>
 <fieldlabel>Related Sales Order</fieldlabel>
 <readonly>1</readonly>
-<presence>0</presence>
+<presence>2</presence>
 <defaultvalue></defaultvalue>
-<sequence>6</sequence>
+<sequence>7</sequence>
 <maximumlength>100</maximumlength>
 <typeofdata>V~O</typeofdata>
 <quickcreate>1</quickcreate>
@@ -215,7 +235,7 @@
 <readonly>1</readonly>
 <presence>0</presence>
 <defaultvalue></defaultvalue>
-<sequence>7</sequence>
+<sequence>8</sequence>
 <maximumlength>100</maximumlength>
 <typeofdata>V~M</typeofdata>
 <quickcreate>1</quickcreate>
@@ -235,7 +255,7 @@
 <readonly>1</readonly>
 <presence>0</presence>
 <defaultvalue></defaultvalue>
-<sequence>8</sequence>
+<sequence>9</sequence>
 <maximumlength>100</maximumlength>
 <typeofdata>DT~O</typeofdata>
 <quickcreate>1</quickcreate>
@@ -255,7 +275,7 @@
 <readonly>1</readonly>
 <presence>0</presence>
 <defaultvalue></defaultvalue>
-<sequence>9</sequence>
+<sequence>10</sequence>
 <maximumlength>100</maximumlength>
 <typeofdata>DT~O</typeofdata>
 <quickcreate>1</quickcreate>
@@ -275,7 +295,7 @@
 <readonly>1</readonly>
 <presence>0</presence>
 <defaultvalue></defaultvalue>
-<sequence>10</sequence>
+<sequence>11</sequence>
 <maximumlength>100</maximumlength>
 <typeofdata>V~O</typeofdata>
 <quickcreate>1</quickcreate>
