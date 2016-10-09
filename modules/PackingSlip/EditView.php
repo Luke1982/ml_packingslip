@@ -27,38 +27,38 @@ $smarty->assign("SEARCH", $searchurl);
 $currencyid = fetchCurrency($current_user->id);
 $rate_symbol = getCurrencySymbolandCRate($currencyid);
 $rate = $rate_symbol['rate'];
-// if (isset ($_REQUEST['record']) && $_REQUEST['record'] != '') 
-// {
-// 		if (isset ($_REQUEST['convertmode']) && $_REQUEST['convertmode'] == 'quotetoissuecard') {
-// 				$quoteid = $_REQUEST['record'];
-// 				$quote_focus = new Quotes();
-// 				$quote_focus->id = $quoteid;
-// 				$quote_focus->retrieve_entity_info($quoteid, "Quotes");
+if (isset ($_REQUEST['record']) && $_REQUEST['record'] != '') 
+{
+		if (isset ($_REQUEST['convertmode']) && $_REQUEST['convertmode'] == 'quotetoissuecard') {
+				$quoteid = $_REQUEST['record'];
+				$quote_focus = new Quotes();
+				$quote_focus->id = $quoteid;
+				$quote_focus->retrieve_entity_info($quoteid, "Quotes");
 				
-// 				$focus->column_fields['description'] = $quote_focus->column_fields['description'];
-// 				$focus->column_fields['currency_id'] = $quote_focus->column_fields['currency_id'];
-// 				$focus->column_fields['conversion_rate'] = $quote_focus->column_fields['conversion_rate'];
+				$focus->column_fields['description'] = $quote_focus->column_fields['description'];
+				$focus->column_fields['currency_id'] = $quote_focus->column_fields['currency_id'];
+				$focus->column_fields['conversion_rate'] = $quote_focus->column_fields['conversion_rate'];
 				
-// 				// Reset the value w.r.t Quote Selected
-// 				$currencyid = $quote_focus->column_fields['currency_id'];
-// 				$rate = $quote_focus->column_fields['conversion_rate'];
+				// Reset the value w.r.t Quote Selected
+				$currencyid = $quote_focus->column_fields['currency_id'];
+				$rate = $quote_focus->column_fields['conversion_rate'];
 		
-// 				//Added to display the Quote's associated vtiger_products -- when we create vtiger_invoice from Quotes DetailView 
-// 				$associated_prod = getAssociatedProducts("Quotes", $quote_focus);
-// 				$txtTax = (($quote_focus->column_fields['txtTax'] != '') ? $quote_focus->column_fields['txtTax'] : '0.000');
-// 				$txtAdj = (($quote_focus->column_fields['txtAdjustment'] != '') ? $quote_focus->column_fields['txtAdjustment'] : '0.000');
+				//Added to display the Quote's associated vtiger_products -- when we create vtiger_invoice from Quotes DetailView 
+				$associated_prod = getAssociatedProducts("Quotes", $quote_focus);
+				$txtTax = (($quote_focus->column_fields['txtTax'] != '') ? $quote_focus->column_fields['txtTax'] : '0.000');
+				$txtAdj = (($quote_focus->column_fields['txtAdjustment'] != '') ? $quote_focus->column_fields['txtAdjustment'] : '0.000');
 		
-// 				$smarty->assign("CONVERT_MODE", vtlib_purify($_REQUEST['convertmode']));
-// 				$smarty->assign("ASSOCIATEDPRODUCTS", $associated_prod);
-// 				$smarty->assign("MODE", $quote_focus->mode);
-// 				$smarty->assign("AVAILABLE_PRODUCTS", 'true');
-// 		}else{
-// 				$focus->id = $_REQUEST['record'];
-// 				$focus->mode = 'edit';
-// 				$focus->retrieve_entity_info($_REQUEST['record'], "Issuecards");
-// 				$focus->name = $focus->column_fields['subject'];
-// 		}
-// }
+				$smarty->assign("CONVERT_MODE", vtlib_purify($_REQUEST['convertmode']));
+				$smarty->assign("ASSOCIATEDPRODUCTS", $associated_prod);
+				$smarty->assign("MODE", $quote_focus->mode);
+				$smarty->assign("AVAILABLE_PRODUCTS", 'true');
+		}else{
+				$focus->id = $_REQUEST['record'];
+				$focus->mode = 'edit';
+				$focus->retrieve_entity_info($_REQUEST['record'], "Issuecards");
+				$focus->name = $focus->column_fields['subject'];
+		}
+}
 
 if (isset ($_REQUEST['isDuplicate']) && $_REQUEST['isDuplicate'] == 'true') {
 	$smarty->assign("DUPLICATE_FROM", $focus->id);
