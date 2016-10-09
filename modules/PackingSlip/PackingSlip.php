@@ -49,7 +49,7 @@ class PackingSlip extends CRMEntity {
 		// tablename should not have prefix 'vtiger_'
 		'Packing Slip Name'=> Array('packingslip' => 'packingslipname'),
 		'Assigned To' => Array('crmentity' => 'smownerid'),
-		'Delivered' => Array('packingslip' => 'deliver_date'),
+		'Delivered' => Array('packingslip' => 'ps_deliver_date'),
 		'Related Sales Order' => Array('salesorder' => 'salesorderid'),
 		'Related Account' => Array('account' => 'accountid')
 	);
@@ -57,7 +57,7 @@ class PackingSlip extends CRMEntity {
 		/* Format: Field Label => fieldname */
 		'Packing Slip Name'=> 'packingslipname',
 		'Assigned To' => 'assigned_user_id',
-		'Delivered' => 'deliver_date',
+		'Delivered' => 'ps_deliver_date',
 		'Related Sales Order' => 'salesorderid',
 		'Related Account' => 'accountid'
 	);
@@ -70,14 +70,14 @@ class PackingSlip extends CRMEntity {
 		/* Format: Field Label => Array(tablename => columnname) */
 		// tablename should not have prefix 'vtiger_'
 		'Packing Slip Name'=> Array('packingslip' => 'packingslipname'),
-		'Delivered' => Array('packingslip' => 'deliver_date'),
+		'Delivered' => Array('packingslip' => 'ps_deliver_date'),
 		'Related Sales Order' => Array('salesorder' => 'salesorderid'),
 		'Related Account' => Array('account' => 'accountid')		
 	);
 	var $search_fields_name = Array(
 		/* Format: Field Label => fieldname */
 		'Packing Slip Name'=> 'packingslipname',
-		'Delivered' => 'deliver_date',
+		'Delivered' => 'ps_deliver_date',
 		'Related Sales Order' => 'salesorderid',
 		'Related Account' => 'accountid'
 	);
