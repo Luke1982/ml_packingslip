@@ -15,7 +15,7 @@ require_once ('modules/Potentials/Potentials.php');
 require_once ('include/CustomFieldUtil.php');
 require_once ('include/utils/utils.php');
 
-global $app_strings, $mod_strings, $currentModule, $log, $current_user;
+global $app_strings, $mod_strings, $currentModule, $log, $current_user, $adb;
 
 $focus = CRMEntity::getInstance($currentModule);
 $smarty = new vtigerCRM_Smarty();
@@ -58,6 +58,11 @@ if (isset ($_REQUEST['record']) && $_REQUEST['record'] != '')
 				$focus->retrieve_entity_info($_REQUEST['record'], "Issuecards");
 				$focus->name = $focus->column_fields['subject'];
 		}
+}
+
+// Check if this PackingSlip was created from an SO
+if (isset($_REQUEST['parent_so']) && $_REQUEST['parent_so'] != '') {
+	$focus->column_fields['ps_salesorderid'] = $_REQUEST['parent_so'];
 }
 
 if (isset ($_REQUEST['isDuplicate']) && $_REQUEST['isDuplicate'] == 'true') {
@@ -185,7 +190,6 @@ $smarty->assign("VALIDATION_DATA_FIELDNAME", $data['fieldname']);
 $smarty->assign("VALIDATION_DATA_FIELDDATATYPE", $data['datatype']);
 $smarty->assign("VALIDATION_DATA_FIELDLABEL", $data['fieldlabel']);
 
-global $adb;
 // Module Sequence Numbering
 $mod_seq_field = getModuleSequenceField($currentModule);
 if ($focus->mode != 'edit' && $mod_seq_field != null) {
