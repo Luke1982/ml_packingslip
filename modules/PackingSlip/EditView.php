@@ -63,6 +63,16 @@ if (isset ($_REQUEST['record']) && $_REQUEST['record'] != '')
 // Check if this PackingSlip was created from an SO
 if (isset($_REQUEST['parent_so']) && $_REQUEST['parent_so'] != '') {
 	$focus->column_fields['ps_salesorderid'] = $_REQUEST['parent_so'];
+
+	// Get the account and address info
+	$account_address_info = $adb->pquery("SELECT vtiger_salesorder.accountid, vtiger_soshipads.ship_city, vtiger_soshipads.ship_code, vtiger_soshipads.ship_street, vtiger_soshipads.ship_country FROM vtiger_salesorder INNER JOIN vtiger_soshipads ON vtiger_salesorder.salesorderid=vtiger_soshipads.soshipaddressid WHERE vtiger_salesorder.salesorderid=?", array($_REQUEST['parent_so']));
+	$account_address_info = $adb->fetch_array($account_address_info);
+
+	$focus->column_fields['ps_accountid'] = $account_address_info['accountid'];	
+	$focus->column_fields['ps_city'] = $account_address_info['ship_city'];	
+	$focus->column_fields['ps_postal_code'] = $account_address_info['ship_code'];	
+	$focus->column_fields['ps_address'] = $account_address_info['ship_street'];	
+	$focus->column_fields['ps_country'] = $account_address_info['ship_country'];
 }
 
 if (isset ($_REQUEST['isDuplicate']) && $_REQUEST['isDuplicate'] == 'true') {
