@@ -75,16 +75,22 @@ if (isset($_REQUEST['parent_so']) && $_REQUEST['parent_so'] != '') {
 	$focus->column_fields['ps_country'] = $account_address_info['ship_country'];
 
 	// Get the inventory line info from the SO
-	require_once('include/Webservices/Retrieve.php');
-	$user = new Users();
-	$current_user = $user->retrieveCurrentUserInfoFromFile(Users::getActiveAdminId());
-	// Get the salesorder in question
-	$wsid = vtws_getWebserviceEntityId('SalesOrder', $_REQUEST['parent_so']);
-	$so = vtws_retrieve($wsid, $current_user);
+	$so_focus = new SalesOrder();
+	$so_focus->id = $_REQUEST['parent_so'];
+	$so_focus->retrieve_entity_info($_REQUEST['parent_so'], "SalesOrder");
 
-	echo "<pre>";
-	print_r($so['pdoInformation']);
-	echo "</pre>";
+	$focus->column_fields['description'] = $so_focus->column_fields['description'];
+	$focus->column_fields['currency_id'] = $so_focus->column_fields['currency_id'];
+	$focus->column_fields['conversion_rate'] = $so_focus->column_fields['conversion_rate'];	
+
+	$associated_prod = getAssociatedProducts("SalesOrder", $so_focus);
+	$txtTax = (($so_focus->column_fields['txtTax'] != '') ? $so_focus->column_fields['txtTax'] : '0.000');
+	$txtAdj = (($so_focus->column_fields['txtAdjustment'] != '') ? $so_focus->column_fields['txtAdjustment'] : '0.000');	
+
+	$smarty->assign("CONVERT_MODE", vtlib_purify($_REQUEST['convertmode']));
+	$smarty->assign("ASSOCIATEDPRODUCTS", $associated_prod);
+	$smarty->assign("MODE", $so_focus->mode);
+	$smarty->assign("AVAILABLE_PRODUCTS", 'true');
 }
 
 if (isset ($_REQUEST['isDuplicate']) && $_REQUEST['isDuplicate'] == 'true') {
