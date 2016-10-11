@@ -73,6 +73,16 @@ if (isset($_REQUEST['parent_so']) && $_REQUEST['parent_so'] != '') {
 	$focus->column_fields['ps_postal_code'] = $account_address_info['ship_code'];	
 	$focus->column_fields['ps_address'] = $account_address_info['ship_street'];	
 	$focus->column_fields['ps_country'] = $account_address_info['ship_country'];
+
+	// Get the inventory line info from the SO
+	$user = new Users();
+	$current_user = $user->retrieveCurrentUserInfoFromFile(Users::getActiveAdminId());
+	// Get the salesorder in question
+	$so = vtws_retrieve($_REQUEST['parent_so'], $current_user);
+
+	echo "<pre>";
+	print_r($so['pdoInformation']);
+	echo "</pre>";
 }
 
 if (isset ($_REQUEST['isDuplicate']) && $_REQUEST['isDuplicate'] == 'true') {
