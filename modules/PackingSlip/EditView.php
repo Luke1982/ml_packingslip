@@ -75,10 +75,12 @@ if (isset($_REQUEST['parent_so']) && $_REQUEST['parent_so'] != '') {
 	$focus->column_fields['ps_country'] = $account_address_info['ship_country'];
 
 	// Get the inventory line info from the SO
+	require_once('include/Webservices/Retrieve.php');
 	$user = new Users();
 	$current_user = $user->retrieveCurrentUserInfoFromFile(Users::getActiveAdminId());
 	// Get the salesorder in question
-	$so = vtws_retrieve($_REQUEST['parent_so'], $current_user);
+	$wsid = vtws_getWebserviceEntityId('SalesOrder', $_REQUEST['parent_so']);
+	$so = vtws_retrieve($wsid, $current_user);
 
 	echo "<pre>";
 	print_r($so['pdoInformation']);
