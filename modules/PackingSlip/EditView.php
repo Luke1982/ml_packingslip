@@ -74,23 +74,28 @@ if (isset($_REQUEST['parent_so']) && $_REQUEST['parent_so'] != '') {
 	$focus->column_fields['ps_address'] = $account_address_info['ship_street'];	
 	$focus->column_fields['ps_country'] = $account_address_info['ship_country'];
 
-	// Get the inventory line info from the SO
-	$so_focus = new SalesOrder();
-	$so_focus->id = $_REQUEST['parent_so'];
-	$so_focus->retrieve_entity_info($_REQUEST['parent_so'], "SalesOrder");
+	// Get the INVENTORY DETAILS LINES line info from the SO
+	$so_inv_details = $adb->pquery("SELECT 
+		vtiger_inventoryproductrel.comment, 
+		vtiger_inventorydetails.sequence_no, 
+		vtiger_inventorydetails.quantity, 
+		vtiger_inventorydetails.listprice, 
+		vtiger_inventorydetails.tax_percent, 
+		vtiger_inventorydetails.extgross, 
+		vtiger_inventorydetails.discount_percent, 
+		vtiger_inventorydetails.discount_amount, 
+		vtiger_inventorydetails.extnet, 
+		vtiger_inventorydetails.linetax, 
+		vtiger_inventorydetails.linetotal, 
+		FROM vtiger_inventorydetails 
+		INNER JOIN vtiger_inventoryproductrel.id ON vtiger_inventorydetails.related_to 
+		WHERE vtiger_inventorydetails.related_to = ?", array($_REQUEST['parent_so']));
 
-	$focus->column_fields['description'] = $so_focus->column_fields['description'];
-	$focus->column_fields['currency_id'] = $so_focus->column_fields['currency_id'];
-	$focus->column_fields['conversion_rate'] = $so_focus->column_fields['conversion_rate'];	
-
-	$associated_prod = getAssociatedProducts("SalesOrder", $so_focus);
-	$txtTax = (($so_focus->column_fields['txtTax'] != '') ? $so_focus->column_fields['txtTax'] : '0.000');
-	$txtAdj = (($so_focus->column_fields['txtAdjustment'] != '') ? $so_focus->column_fields['txtAdjustment'] : '0.000');	
-
-	$smarty->assign("CONVERT_MODE", vtlib_purify($_REQUEST['convertmode']));
-	$smarty->assign("ASSOCIATEDPRODUCTS", $associated_prod);
-	$smarty->assign("MODE", $so_focus->mode);
-	$smarty->assign("AVAILABLE_PRODUCTS", 'true');
+	while ($details = $adb->fetch_array($so_inv_details)) {
+		echo "<pre>";
+		print_r($details);
+		echo "</pre>";
+	}
 }
 
 if (isset ($_REQUEST['isDuplicate']) && $_REQUEST['isDuplicate'] == 'true') {

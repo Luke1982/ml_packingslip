@@ -3,7 +3,7 @@
 <name>PackingSlip</name>
 <label>PackingSlip</label>
 <parent>Inventory</parent>
-<version>0.44</version>
+<version>0.45</version>
 <dependencies>
 <vtiger_version>5.5.0</vtiger_version>
 </dependencies>
