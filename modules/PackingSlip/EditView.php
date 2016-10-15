@@ -155,7 +155,7 @@ else
 
 if ($focus->mode == 'edit') {
 	$smarty->assign("UPDATEINFO", updateInfo($focus->id));
-	$associated_prod = get_ps_ass_products($focus);
+	$associated_prod = get_ass_products_ps($focus);
 	$smarty->assign("ASSOCIATEDPRODUCTS", $associated_prod);
 	$smarty->assign("MODE", $focus->mode);
 }
@@ -256,6 +256,18 @@ if ($focus->mode == 'edit')
 	$smarty->display("modules/PackingSlip/InventoryEditView.tpl");
 else
 	$smarty->display('modules/PackingSlip/InventoryCreateView.tpl');
+
+function get_ass_products_ps($focus) {
+	require_once('classes/ProductCollection.php');
+	global $adb;
+	$product_coll = new ProductCollection($adb);
+	$ass_prod = $product_coll->get($focus->id);
+	echo "<pre>";
+	print_r($ass_prod);
+	echo "</pre>";
+}
+
+$get_ass_products_ps($focus);
 
 function get_ps_ass_products($focus,$seid='')
 {
