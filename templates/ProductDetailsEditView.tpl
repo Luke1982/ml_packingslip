@@ -9,7 +9,7 @@
  ********************************************************************************/
 -->*}
 
-<script type="text/javascript" src="include/js/Inventory.js"></script>
+{* <script type="text/javascript" src="include/js/Inventory.js"></script> *}
 <!-- Insert yet another jQuery version -->
 <script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"></script>
 <script type="text/javascript" src="modules/PackingSlip/lib/js/jquery-ui-1.12.1.sortable.min.js"></script>
@@ -94,6 +94,77 @@ function displayCoords(currObj,obj,mode,curr_row)
 
 
 <tr><td colspan="4" align="left">
+
+<!-- MajorLabel new inventory lines -->
+<pre>{$ASSOCIATEDPRODUCTS|print_r}</pre>
+<table width="100%"  border="0" align="center" cellpadding="5" cellspacing="0" class="crmTable" id="proTab">
+	<tbody id="proBody">
+		{foreach from=$ASSOCIATEDPRODUCTS item=product_line key=row_no name=name}
+		{* Some discount logic *}
+		{if $product_line.discount_type == 'd'}
+			{assign var="show_discount" value=$product_line.disc_am scope=local}
+		{elseif $product_line.discount_type == 'p'}
+			{assign var="show_discount" value=$product_line.disc_perc|cat:'%' scope=local}
+		{/if}
+		<tr>
+			<!-- Column 1: tools -->
+			<td width=5% valign="top" class="lvtCol" align="right"></td>
+			<!-- Column 2: product of service details -->
+			<td width=50% valign="top" class="lvtCol" align="right">
+				<table width="100%"  border="0" cellspacing="0" cellpadding="1">
+				   <tr>
+						<td class="small" valign="top">
+							<input type="text" id="{$product_line.product_name}" name="{$product_line.product_name}" value="{$product_line.product_name}" class="small" style="width: 100%;" />
+							<input type="hidden" id="{$product_line.product_id}" name="{$product_line.product_id}" value="{$product_line.product_id}" />
+							<input type="hidden" id="{$product_line.product_id}" name="{$product_line.product_id}" value="{$product_line.entity_type}" />
+						</td>
+				   </tr>
+				   <tr>
+						<td class="small setComment">
+							<textarea id="{$product_line.comment}" name="{$product_line.comment}" class=small style="width:100%;height:40px">{$product_line.comment}</textarea>
+							<img src="{'clear_field.gif'|@vtiger_imageurl:$THEME}" onClick=""; style="cursor:pointer;" />
+						</td>
+				   </tr>
+				</table>				
+			</td>
+			<!-- column 3 - Quantity - starts -->
+			<td width=10% class="lvtCol" valign="top">
+				<input id="{$product_line.qty}" name="{$product_line.qty}" type="text" class="small " style="width:50px" value="{$product_line.qty}"/>
+			</td>
+			<!-- column 3 - Quantity - ends -->
+			<!-- Column 4 -->
+			<td width=20% valign="top" class="lvtCol" align="right">
+				<table width="100%" cellpadding="0" cellspacing="0">
+					<tr>
+						<td align="right" style="padding:5px;" nowrap>
+							<b>{$APP.LBL_LIST_PRICE} : </b><input id="{$product_line.list_price}" name="{$product_line.list_price}" value="{$product_line.list_price}" type="text" class="small" style="width:70px">
+						</td>
+					</tr>
+					<tr>
+						<td align="right" style="padding:5px;" nowrap>
+							<b>{$APP.LBL_DISCOUNT} : </b><input type="text" class="product_discount" name="product_discount" value="{$show_discount}" class="small" style="width: 70px;">
+						</td>
+					</tr>
+					<tr>
+						<td align="right" style="padding:5px;" nowrap>
+							<b>{$APP.LBL_TOTAL_AFTER_DISCOUNT} : </b></b><input type="text" class="product_net" name="product_net" value="{$product_line.line_net_total}" class="small" style="width: 70px;">
+						</td>
+					</tr>
+					<tr>
+						<td align="right" style="padding:5px;" nowrap>
+							<b>{$APP.LBL_TAX} : </b><input type="text" class="product_tax" name="product_tax" class="small" style="width: 70px;">
+						</td>
+					</tr>
+				</table>				
+			</td>
+			<!-- Column 5 -->
+			<td width=15% valign="top" class="lvtCol" align="right"></td>
+		</tr>	
+		{/foreach}
+	</tbody>
+</table>
+<!-- End MajorLabel new inventory lines -->
+
 
 <table width="100%"  border="0" align="center" cellpadding="5" cellspacing="0" class="crmTable">
    <tr>
