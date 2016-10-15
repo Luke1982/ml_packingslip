@@ -7,6 +7,9 @@
  * Portions created by vtiger are Copyright (C) vtiger.
  * All Rights Reserved.
  ************************************************************************************/
+error_reporting(E_ALL);
+ini_set("display_errors", "on"); 
+
 require_once ('Smarty_setup.php');
 require_once ('data/Tracker.php');
 require_once ('modules/Quotes/Quotes.php');
@@ -75,21 +78,10 @@ if (isset($_REQUEST['parent_so']) && $_REQUEST['parent_so'] != '') {
 	$focus->column_fields['ps_country'] = $account_address_info['ship_country'];
 
 	// Get the INVENTORY DETAILS LINES line info from the SO
-	$so_inv_details = $adb->pquery("SELECT 
-		vtiger_inventoryproductrel.comment, 
-		vtiger_inventorydetails.sequence_no, 
-		vtiger_inventorydetails.quantity, 
-		vtiger_inventorydetails.listprice, 
-		vtiger_inventorydetails.tax_percent, 
-		vtiger_inventorydetails.extgross, 
-		vtiger_inventorydetails.discount_percent, 
-		vtiger_inventorydetails.discount_amount, 
-		vtiger_inventorydetails.extnet, 
-		vtiger_inventorydetails.linetax, 
-		vtiger_inventorydetails.linetotal, 
-		FROM vtiger_inventorydetails 
-		INNER JOIN vtiger_inventoryproductrel.id ON vtiger_inventorydetails.related_to 
-		WHERE vtiger_inventorydetails.related_to = ?", array($_REQUEST['parent_so']));
+	$so_inv_details = $adb->pquery("SELECT vtiger_inventorydetails.sequence_no, vtiger_inventorydetails.quantity, vtiger_inventorydetails.listprice, vtiger_inventorydetails.tax_percent, vtiger_inventorydetails.extgross, vtiger_inventorydetails.discount_percent, vtiger_inventorydetails.discount_amount, vtiger_inventorydetails.extnet, vtiger_inventorydetails.linetax, vtiger_inventorydetails.linetotal FROM vtiger_inventorydetails INNER JOIN vtiger_crmentity ON vtiger_inventorydetails.inventorydetailsid=vtiger_crmentity.crmid WHERE vtiger_inventorydetails.related_to = ? AND vtiger_crmentity.deleted = ?", array($_REQUEST['parent_so'], 0));	
+	// $so_inv_details = $adb->pquery("SELECT vtiger_inventoryproductrel.comment, vtiger_inventorydetails.sequence_no, vtiger_inventorydetails.quantity, vtiger_inventorydetails.listprice, vtiger_inventorydetails.tax_percent, vtiger_inventorydetails.extgross, vtiger_inventorydetails.discount_percent, vtiger_inventorydetails.discount_amount, vtiger_inventorydetails.extnet, vtiger_inventorydetails.linetax, vtiger_inventorydetails.linetotal FROM vtiger_inventoryproductrel INNER JOIN vtiger_inventorydetails ON vtiger_inventoryproductrel.id=vtiger_inventorydetails.related_to WHERE vtiger_inventoryproductrel.id = ?", array($_REQUEST['parent_so']));	
+
+	echo $adb->num_rows($so_inv_details);
 
 	while ($details = $adb->fetch_array($so_inv_details)) {
 		echo "<pre>";
