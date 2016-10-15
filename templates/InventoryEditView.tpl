@@ -152,7 +152,7 @@ function sensex_info()
 									   <!-- Added to display the Product Details in Inventory-->
 									   <tr>
 										<td colspan=4>
-											{include file="modules/Issuecards/ProductDetailsEditView.tpl"}
+											{include file="modules/PackingSlip/ProductDetailsEditView.tpl"}
 										</td>
 									   </tr>
 
