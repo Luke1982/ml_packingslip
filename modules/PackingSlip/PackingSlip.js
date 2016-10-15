@@ -7,6 +7,19 @@
  * All Rights Reserved.
  *
  ********************************************************************************/
+$(function(){
+	$("#proBody").sortable({
+		placeholder: "ui-state-highlight",
+		helper: fixHelper
+	});
+});
+
+var fixHelper = function(e, ui) {  
+  ui.children().each(function() {  
+    $(this).width($(this).width());  
+  });  
+  return ui;  
+};
 
 function set_return(issuecards_id, issuecards_name) {
   window.opener.document.EditView.parent_name.value = issuecards_name;

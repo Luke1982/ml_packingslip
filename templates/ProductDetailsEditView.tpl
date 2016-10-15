@@ -10,6 +10,9 @@
 -->*}
 
 <script type="text/javascript" src="include/js/Inventory.js"></script>
+<script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"></script>
+<script type="text/javascript" src="modules/PackingSlip/lib/js/jquery-ui-1.12.1.sortable.min.js"></script>
+<script type="text/javascript" src="modules/PackingSlip/PackingSlip.js"></script>
 <!-- Added to display the Product Details -->
 <script type="text/javascript">
 if(typeof(e) != 'undefined')
@@ -88,7 +91,7 @@ function displayCoords(currObj,obj,mode,curr_row)
 
 <tr><td colspan="4" align="left">
 
-<table width="100%"  border="0" align="center" cellpadding="5" cellspacing="0" class="crmTable" id="proTab">
+<table width="100%"  border="0" align="center" cellpadding="5" cellspacing="0" class="crmTable">
    <tr>
    	<td colspan="2" class="dvInnerHeader">
 		<b>{$APP.LBL_ITEM_DETAILS}</b>
@@ -135,7 +138,8 @@ function displayCoords(currObj,obj,mode,curr_row)
 	<td width=13% valign="top" class="lvtCol" align="right"><b>{$APP.LBL_NET_PRICE}</b></td>
    </tr>
 </table>
-<table>
+<table width="100%"  border="0" align="center" cellpadding="5" cellspacing="0" class="crmTable" id="proTab">
+<tbody id="proBody">
    {foreach key=row_no item=data from=$ASSOCIATEDPRODUCTS name=outer1}
 	{assign var="deleted" value="deleted"|cat:$row_no}
 	{assign var="hdnProductId" value="hdnProductId"|cat:$row_no}
@@ -332,6 +336,7 @@ function displayCoords(currObj,obj,mode,curr_row)
    </tr>
    <!-- Product Details First row - Ends -->
    {/foreach}
+   </tbody>
 </table>
 
 <table width="100%"  border="0" align="center" cellpadding="5" cellspacing="0" class="crmTable">
