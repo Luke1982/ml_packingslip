@@ -1,6 +1,24 @@
+.ui-sortable-handle {
+	-webkit-box-shadow: 0px 0px 60px -60px rgba(117,117,117,1);
+	-moz-box-shadow: 0px 0px 60px -60px rgba(117,117,117,1);
+	box-shadow: 0px 0px 60px -60px rgba(117,117,117,1);
+
+	-webkit-transform: scale(1,1);
+	-moz-transform: scale(1,1);
+	transform: scale(1,1);	
+
+	-webkit-transition: box-shadow 300ms ease-out, transform 300ms ease-out;
+	-moz-transition: box-shadow 300ms ease-out, transform 300ms ease-out;
+	transition: box-shadow 300ms ease-out, transform 300ms ease-out;
+}
+
 .ui-sortable-helper {
 	background-color: #fff;
--webkit-box-shadow: 0px 0px 60px -15px rgba(117,117,117,1);
--moz-box-shadow: 0px 0px 60px -15px rgba(117,117,117,1);
-box-shadow: 0px 0px 60px -15px rgba(117,117,117,1);	
+	-webkit-box-shadow: 0px 0px 60px -15px rgba(117,117,117,1);
+	-moz-box-shadow: 0px 0px 60px -15px rgba(117,117,117,1);
+	box-shadow: 0px 0px 60px -15px rgba(117,117,117,1);
+
+	-webkit-transform: scale(1.05, 1.05);
+	-moz-transform: scale(1.05, 1.05);
+	transform: scale(1.05, 1.05);
 }
