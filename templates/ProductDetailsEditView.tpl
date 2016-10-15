@@ -182,12 +182,12 @@ function displayCoords(currObj,obj,mode,curr_row)
 		{if $row_no neq 1}
 			<img src="{'delete.gif'|@vtiger_imageurl:$THEME}" border="0" onclick="deleteRow('{$MODULE}',{$row_no},'{$IMAGE_PATH}')">
 		{/if}<br/><br/>
-		{if $row_no neq 1}
+		{*{if $row_no neq 1}
 			&nbsp;<a href="javascript:moveUpDown('UP','{$MODULE}',{$row_no})" title="Move Upward"><img src="{'up_layout.gif'|@vtiger_imageurl:$THEME}" border="0"></a>
 		{/if}
 		{if not $smarty.foreach.outer1.last}
 			&nbsp;<a href="javascript:moveUpDown('DOWN','{$MODULE}',{$row_no})" title="Move Downward"><img src="{'down_layout.gif'|@vtiger_imageurl:$THEME}" border="0" ></a>
-		{/if}
+		{/if}*}
 		<input type="hidden" id="{$deleted}" name="{$deleted}" value="0">
 	</td>
 
