@@ -55,7 +55,7 @@ if (isset ($_REQUEST['record']) && $_REQUEST['record'] != '')
 		}else{
 				$focus->id = $_REQUEST['record'];
 				$focus->mode = 'edit';
-				$focus->retrieve_entity_info($_REQUEST['record'], "Issuecards");
+				$focus->retrieve_entity_info($_REQUEST['record'], "PackingSlip");
 				$focus->name = $focus->column_fields['subject'];
 		}
 }
