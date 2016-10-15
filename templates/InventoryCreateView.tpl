@@ -160,9 +160,9 @@ function sensex_info()
 								   	<!-- Added to display the product details -->
 									<!-- This if is added when we want to populate product details from the related entity  for ex. populate product details in new SO page when select Quote -->
 									{if $AVAILABLE_PRODUCTS eq true}
-										{include file="modules/Issuecards/ProductDetailsEditView.tpl"}
+										{include file="modules/PackingSlip/ProductDetailsEditView.tpl"}
 									{else}
-										{include file="modules/Issuecards/ProductDetails.tpl"}
+										{include file="modules/PackingSlip/ProductDetails.tpl"}
 									{/if}
 								   {/if}
 
