@@ -10,9 +10,13 @@
 -->*}
 
 <script type="text/javascript" src="include/js/Inventory.js"></script>
+<!-- Insert yet another jQuery version -->
 <script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"></script>
 <script type="text/javascript" src="modules/PackingSlip/lib/js/jquery-ui-1.12.1.sortable.min.js"></script>
-<script type="text/javascript" src="modules/PackingSlip/PackingSlip.js"></script>
+<!-- Insert Custom PackinSlip JS file -->
+<script type="text/javascript" src="modules/PackingSlip/lib/js/PackingSlipCustom.js"></script>
+<!-- Insert Custom PackingSlip CSS file -->
+<link rel="stylesheet" type="text/css" href="modules/PackingSlip/lib/css/PackingSlip.css">
 <!-- Added to display the Product Details -->
 <script type="text/javascript">
 if(typeof(e) != 'undefined')

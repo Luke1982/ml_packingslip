@@ -7,23 +7,6 @@
  * All Rights Reserved.
  *
  ********************************************************************************/
-$(function(){
-	$("#proBody").sortable({
-		placeholder: "ui-state-highlight",
-		helper: fixHelper,
-	    start: function(e, ui){
-	        ui.placeholder.height(ui.item.height());
-	    }
-	});
-});
-
-var fixHelper = function(e, ui) {  
-  ui.children().each(function() {  
-    $(this).width($(this).width());  
-  });  
-  return ui;  
-};
-
 function set_return(issuecards_id, issuecards_name) {
   window.opener.document.EditView.parent_name.value = issuecards_name;
   window.opener.document.EditView.parent_id.value = issuecards_id;
