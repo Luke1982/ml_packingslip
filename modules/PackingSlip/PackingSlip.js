@@ -10,7 +10,10 @@
 $(function(){
 	$("#proBody").sortable({
 		placeholder: "ui-state-highlight",
-		helper: fixHelper
+		helper: fixHelper,
+	    start: function(e, ui){
+	        ui.placeholder.height(ui.item.height());
+	    }
 	});
 });
 
