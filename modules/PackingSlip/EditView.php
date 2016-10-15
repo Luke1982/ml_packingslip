@@ -261,10 +261,7 @@ function get_ass_products_ps($focus) {
 	require_once('classes/ProductCollection.php');
 	global $adb;
 	$product_coll = new ProductCollection($adb);
-	$ass_prod = $product_coll->get($focus->id);
-	echo "<pre>";
-	print_r($ass_prod);
-	echo "</pre>";
+	return $product_coll->get($focus->id);
 }
 
 $get_ass_products_ps($focus);
