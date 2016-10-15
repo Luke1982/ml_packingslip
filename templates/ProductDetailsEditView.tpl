@@ -134,7 +134,8 @@ function displayCoords(currObj,obj,mode,curr_row)
 	<td width=12% nowrap class="lvtCol" align="right"><b>{$APP.LBL_TOTAL}</b></td>
 	<td width=13% valign="top" class="lvtCol" align="right"><b>{$APP.LBL_NET_PRICE}</b></td>
    </tr>
-
+</table>
+<table>
    {foreach key=row_no item=data from=$ASSOCIATEDPRODUCTS name=outer1}
 	{assign var="deleted" value="deleted"|cat:$row_no}
 	{assign var="hdnProductId" value="hdnProductId"|cat:$row_no}
