@@ -91,7 +91,7 @@ Class ProductCollection {
 
 	private function calcLineNetTotal($gross_total, $disc_perc = 0, $disc_amount = 0, $disc_type) {
 		if ($disc_type == 'p') {
-			$ret = $gross_total - ($gross_total * (1 - ($disc_perc / 100)));
+			$ret = $gross_total * (1 - ($disc_perc / 100));
 			return $ret;
 		} else {
 			$ret = $gross_total - $disc_amount;
