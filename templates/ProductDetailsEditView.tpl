@@ -106,6 +106,12 @@ function displayCoords(currObj,obj,mode,curr_row)
 		{elseif $product_line.discount_type == 'p'}
 			{assign var="show_discount" value=$product_line.disc_perc|cat:'%' scope=local}
 		{/if}
+		{* Currency logic *}
+		{foreach item=currency_details key=count from=$CURRENCIES_LIST}
+			{if $currency_details.curid == $INV_CURRENCY_ID}
+				{assign var=selected_cur_symbol value=$currency_details.currencysymbol}
+			{/if}
+		{/foreach}
 		<tr>
 			<!-- Column 1: tools -->
 			<td width=5% valign="top" class="lvtCol" align="right"></td>
@@ -135,30 +141,47 @@ function displayCoords(currObj,obj,mode,curr_row)
 			<!-- Column 4 -->
 			<td width=20% valign="top" class="lvtCol" align="right">
 				<table width="100%" cellpadding="0" cellspacing="0">
-					<tr>
-						<td align="right" style="padding:5px;" nowrap>
-							<b>{$APP.LBL_LIST_PRICE} : </b><input id="{$product_line.list_price}" name="{$product_line.list_price}" value="{$product_line.list_price}" type="text" class="small" style="width:70px">
-						</td>
-					</tr>
-					<tr>
-						<td align="right" style="padding:5px;" nowrap>
-							<b>{$APP.LBL_DISCOUNT} : </b><input type="text" class="product_discount" name="product_discount" value="{$show_discount}" class="small" style="width: 70px;">
-						</td>
-					</tr>
-					<tr>
-						<td align="right" style="padding:5px;" nowrap>
-							<b>{$APP.LBL_TOTAL_AFTER_DISCOUNT} : </b></b><input type="text" class="product_net" name="product_net" value="{$product_line.line_net_total}" class="small" style="width: 70px;">
-						</td>
-					</tr>
-					<tr>
-						<td align="right" style="padding:5px;" nowrap>
-							<b>{$APP.LBL_TAX} : </b><input type="text" class="product_tax" name="product_tax" class="small" style="width: 70px;">
-						</td>
-					</tr>
+					<tbody>
+						<tr>
+							<td align="right" style="padding:5px;" nowrap>
+								<b>{$APP.LBL_LIST_PRICE} : </b><input id="{$product_line.list_price}" name="{$product_line.list_price}" value="{$product_line.list_price}" type="text" class="small" style="width:70px">
+							</td>
+						</tr>
+						<tr>
+							<td align="right" style="padding:5px;" nowrap>
+								<b>{$APP.LBL_DISCOUNT} : </b><input type="text" class="product_discount" name="product_discount" value="{$show_discount}" class="small" style="width: 70px;">
+							</td>
+						</tr>
+						<tr>
+							<td align="right" style="padding:5px;" nowrap>
+								<b>{$APP.LBL_TAX} : </b><input type="text" class="product_tax" name="product_tax" class="small" style="width: 70px;">
+							</td>
+						</tr>
+					</tbody>						
 				</table>				
 			</td>
 			<!-- Column 5 -->
-			<td width=15% valign="top" class="lvtCol" align="right"></td>
+			<td width=15% valign="top" class="lvtCol" align="right">
+				<table width="100%" cellpadding="0" cellspacing="0">
+					<tbody>
+						<tr>
+							<td align="right" width="50%" style="padding:5px;" nowrap><b>{$APP.LBL_TOTAL_AFTER_DISCOUNT} : </b></td>
+							<td align="right" width="5%" style="padding:5px;" nowrap><b>{$selected_cur_symbol}</b></td>
+							<td align="right" width="45%" style="padding:5px;" nowrap><span class="product_net" style="width: 70px;">{$product_line.line_net_total}</span></td>
+						</tr>
+						<tr>
+							<td align="right" width="50%" style="padding:5px;" nowrap><b>{$APP.LBL_TAX} : </b></td>
+							<td align="right" width="5%" style="padding:5px;" nowrap><b>{$selected_cur_symbol}</b></td>
+							<td align="right" width="45%" style="padding:5px;" nowrap><span class="product_net" style="width: 70px;">{$product_line.line_net_total}</span></td>
+						</tr>
+						<tr>
+							<td align="right" width="50%" style="padding:5px;" nowrap><b>{$APP.LBL_NET_TOTAL} : </b></td>
+							<td align="right" width="5%" style="padding:5px;" nowrap><b>{$selected_cur_symbol}</b></td>
+							<td align="right" width="45%" style="padding:5px;" nowrap><span class="product_net" style="width: 70px;">{$product_line.line_net_total}</span></td>
+						</tr>
+					</tbody>								
+				</table>				
+			</td>
 		</tr>	
 		{/foreach}
 	</tbody>
