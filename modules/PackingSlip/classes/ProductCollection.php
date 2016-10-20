@@ -44,6 +44,7 @@ Class ProductCollection {
 			'tax1'				=>		0,
 			'tax2'				=>		0,
 			'tax3'				=>		0,
+			'tax_amount'		=>		0,
 			'line_gross_total'	=>		0,
 			'discount_type'		=>		'',
 			'line_net_total'	=>		0,
@@ -64,7 +65,7 @@ Class ProductCollection {
 		$this->productProps['product_id'] 			= $product['productid'];
 		$this->productProps['seq'] 					= $product['sequence_no'];
 		$this->productProps['qty'] 					= $product['quantity'];
-		$this->productProps['list_price'] 			= $product['unit_price'];
+		$this->productProps['list_price'] 			= $product['listprice'];
 		$this->productProps['disc_perc'] 			= $product['discount_percent'];
 		$this->productProps['disc_am'] 				= $product['discount_amount'];
 		$this->productProps['comment'] 				= $product['comment'];
@@ -72,9 +73,11 @@ Class ProductCollection {
 		$this->productProps['tax1'] 				= $product['tax1'];
 		$this->productProps['tax2'] 				= $product['tax2'];
 		$this->productProps['tax3'] 				= $product['tax3'];
-		$this->productProps['line_gross_total'] 	= $this->calcLineGrossTotal($product['quantity'], $product['unit_price']);
-		$this->productProps['discount_type']		= $this->getDiscountType($product['discount_percent'], $product['discount_amount']);
+		$this->productProps['line_gross_total'] 	= $this->calcLineGrossTotal($this->productProps['qty'], $this->productProps['list_price']);
+		$this->productProps['discount_type']		= $this->getDiscountType($this->productProps['disc_perc'], $this->productProps['disc_am']);
 		$this->productProps['line_net_total'] 		= $this->calcLineNetTotal($this->productProps['line_gross_total'], $product['discount_percent'], $product['discount_amount'], $this->productProps['discount_type']);
+		$this->productProps['tax_amount']			= $this->getLineTaxAmount($product['tax1'], $this->productProps['line_net_total']);	
+		$this->productProps['total_after_tax']		= $this->productProps['line_net_total'] + $this->productProps['tax_amount'];	
 		$this->productProps['product_name']			= $product['productname'];
 		$this->productProps['product_no']			= $product['productcode'];
 		$this->productProps['entity_type']			= $product['entitytype'];
@@ -105,6 +108,10 @@ Class ProductCollection {
 		} else {
 			return 'd';
 		}
+	}
+
+	private function getLineTaxAmount($tax = 0, $line_net_total = 0) {
+		return ($line_net_total * ($tax / 100)) > 0 ? ($line_net_total * ($tax / 100)) : 0;
 	}
 
 }
