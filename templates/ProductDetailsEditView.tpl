@@ -22,7 +22,7 @@
 
 <pre>{$ASSOCIATEDPRODUCTS|print_r}</pre>
 
-<table width="100%"  border="0" align="center" cellpadding="5" cellspacing="0" class="crmTable product_table" id="proTab">
+<table width="100%"  border="0" align="center" cellpadding="5" cellspacing="0" class="crmTable editview_inventory_table" id="proTab">
 	<tbody id="proBody">
 
 {foreach from=$ASSOCIATEDPRODUCTS item=product_line key=row_no name=name}
@@ -42,9 +42,9 @@
 
 		<tr>
 			<!-- Column 1: tools -->
-			<td width=5% valign="top" class="lvtCol" align="right"></td>
+			<td width=5% valign="top" class="lvtCol editview_inv_toolcol" align="right"></td>
 			<!-- Column 2: product of service details -->
-			<td width=50% valign="top" class="lvtCol" align="right">
+			<td width=50% valign="top" class="lvtCol editview_inv_detailcol" align="right">
 				<table width="100%"  border="0" cellspacing="0" cellpadding="1">
 				   <tr>
 						<td class="small" valign="top">
@@ -62,12 +62,12 @@
 				</table>				
 			</td>
 			<!-- column 3 - Quantity - starts -->
-			<td width=10% class="lvtCol" valign="top">
+			<td width=10% class="lvtCol editview_inv_qtycol" valign="top">
 				<input id="{$product_line.qty}" name="{$product_line.qty}" type="text" class="small " style="width:50px" value="{$product_line.qty}"/>
 			</td>
 			<!-- column 3 - Quantity - ends -->
 			<!-- Column 4 -->
-			<td width=20% valign="top" class="lvtCol" align="right">
+			<td width=20% valign="top" class="lvtCol editview_inv_adjustcol" align="right">
 				<table width="100%" cellpadding="0" cellspacing="0">
 					<tbody>
 						<tr>
@@ -89,7 +89,7 @@
 				</table>				
 			</td>
 			<!-- Column 5 -->
-			<td width=15% valign="top" class="lvtCol" align="right">
+			<td width=15% valign="top" class="lvtCol editview_inv_totalscol" align="right">
 				<table width="100%" cellpadding="0" cellspacing="0">
 					<tbody>
 						<tr>
