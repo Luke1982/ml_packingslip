@@ -48,14 +48,12 @@
 				<table width="100%"  border="0" cellspacing="0" cellpadding="1">
 				   <tr>
 						<td class="small" valign="top">
-							<input type="text" id="{$product_line.product_name}" name="{$product_line.product_name}" value="{$product_line.product_name}" class="small" style="width: 100%;" />
-							<input type="hidden" id="{$product_line.product_id}" name="{$product_line.product_id}" value="{$product_line.product_id}" />
-							<input type="hidden" id="{$product_line.product_id}" name="{$product_line.product_id}" value="{$product_line.entity_type}" />
+							<input type="text" name="{$product_line.product_name}" value="{$product_line.product_name}" class="small" style="width: 100%;" />
 						</td>
 				   </tr>
 				   <tr>
 						<td class="small setComment">
-							<textarea id="{$product_line.comment}" name="{$product_line.comment}" class=small style="width:100%;height:40px">{$product_line.comment}</textarea>
+							<textarea name="product_line_comment" class="small product_line_comment" style="width:100%;height:40px">{$product_line.comment}</textarea>
 							<img src="{'clear_field.gif'|@vtiger_imageurl:$THEME}" onClick=""; style="cursor:pointer;" />
 						</td>
 				   </tr>
@@ -63,7 +61,7 @@
 			</td>
 			<!-- column 3 - Quantity - starts -->
 			<td width=10% class="lvtCol editview_inv_qtycol" valign="top">
-				<input id="{$product_line.qty}" name="{$product_line.qty}" type="number" class="small " style="width:50px" value="{$product_line.qty}"/>
+				<input name="product_line_qty" type="number" class="small product_line_qty" style="width:50px" value="{$product_line.qty}"/>
 			</td>
 			<!-- column 3 - Quantity - ends -->
 			<!-- Column 4 -->
@@ -72,17 +70,17 @@
 					<tbody>
 						<tr>
 							<td align="right" style="padding:5px;" nowrap>
-								<b>{$APP.LBL_LIST_PRICE} : </b><input id="{$product_line.list_price}" name="{$product_line.list_price}" value="{$product_line.list_price}" type="text" class="small" style="width:70px">
+								<b>{$APP.LBL_LIST_PRICE} : </b><input value="{$product_line.list_price}" type="text" name="product_line_listprice" class="small product_line_listprice" style="width:70px">
 							</td>
 						</tr>
 						<tr>
 							<td align="right" style="padding:5px;" nowrap>
-								<b>{$APP.LBL_DISCOUNT} : </b><input type="text" class="product_discount" name="product_discount" value="{$show_discount}" class="small" style="width: 70px;">
+								<b>{$APP.LBL_DISCOUNT} : </b><input type="text" name="product_line_discount" value="{$show_discount}" class="small product_line_discount" style="width: 70px;">
 							</td>
 						</tr>
 						<tr>
 							<td align="right" style="padding:5px;" nowrap>
-								<b>{$APP.LBL_TAX} : </b><input type="text" class="product_tax" name="product_tax" class="small" value="{$product_line.tax1}" style="width: 70px;">
+								<b>{$APP.LBL_TAX} : </b><input type="text" name="product_line_tax" class="small product_line_tax" value="{$product_line.tax1}" style="width: 70px;">
 							</td>
 						</tr>
 					</tbody>						
@@ -95,27 +93,40 @@
 						<tr>
 							<td align="right" width="50%" style="padding:5px;" nowrap><b>{$APP.LBL_TOTAL} : </b></td>
 							<td align="right" width="5%" style="padding:5px;" nowrap><b>{$selected_cur_symbol}</b></td>
-							<td align="right" width="45%" style="padding:5px;" nowrap><span class="product_net" style="width: 70px;">{$product_line.line_gross_total}</span></td>
+							<td align="right" width="45%" style="padding:5px;" nowrap><span class="product_line_gross" style="width: 70px;">{$product_line.line_gross_total}</span></td>
 						</tr>
 						<tr>
 							<td align="right" width="50%" style="padding:5px;" nowrap><b>{$APP.LBL_TOTAL_AFTER_DISCOUNT} : </b></td>
 							<td align="right" width="5%" style="padding:5px;" nowrap><b>{$selected_cur_symbol}</b></td>
-							<td align="right" width="45%" style="padding:5px;" nowrap><span class="product_net" style="width: 70px;">{$product_line.line_net_total}</span></td>
+							<td align="right" width="45%" style="padding:5px;" nowrap><span class="product_line_net" style="width: 70px;">{$product_line.line_net_total}</span></td>
 						</tr>
 						<tr>
 							<td align="right" width="50%" style="padding:5px;" nowrap><b>{$APP.LBL_TAX} : </b></td>
 							<td align="right" width="5%" style="padding:5px;" nowrap><b>{$selected_cur_symbol}</b></td>
-							<td align="right" width="45%" style="padding:5px;" nowrap><span class="product_net" style="width: 70px;">{$product_line.tax_amount}</span></td>
+							<td align="right" width="45%" style="padding:5px;" nowrap><span class="product_line_tax" style="width: 70px;">{$product_line.tax_amount}</span></td>
 						</tr>
 						<tr>
 							<td align="right" width="50%" style="padding:5px;" nowrap><b>{$APP.LBL_NET_TOTAL} : </b></td>
 							<td align="right" width="5%" style="padding:5px;" nowrap><b>{$selected_cur_symbol}</b></td>
-							<td align="right" width="45%" style="padding:5px;" nowrap><span class="product_net" style="width: 70px;">{$product_line.total_after_tax}</span></td>
+							<td align="right" width="45%" style="padding:5px;" nowrap><span class="product_line_after_tax" style="width: 70px;">{$product_line.total_after_tax}</span></td>
 						</tr>
 					</tbody>								
 				</table>				
 			</td>
-		</tr>	
+			<!-- Hidden column that represents all hidden inputs with behind the scenes data -->
+			<td width="0" class="productline_props" style="display: none">
+				<input type="hidden" class="hdn_product_crm_id" name="hdn_product_crm_id" value="{$product_line.product_id}" />
+				<input type="hidden" class="hdn_product_entity_type" name="hdn_product_entity_type" value="{$product_line.entity_type}" />
+				<input type="hidden" class="hdn_product_qty" name="hdn_product_qty" value="{$product_line.qty}" />
+				<input type="hidden" class="hdn_product_listprice" name="hdn_product_listprice" value="{$product_line.list_price}" />
+				<input type="hidden" class="hdn_product_discount" name="hdn_product_discount" value="{$show_discount}" />
+				<input type="hidden" class="hdn_product_tax_p" name="hdn_product_tax_p" value="{$product_line.tax1}" />
+				<input type="hidden" class="hdn_product_gross" name="hdn_product_gross" value="{$product_line.line_gross_total}" />
+				<input type="hidden" class="hdn_product_net" name="hdn_product_net" value="{$product_line.line_net_total}" />
+				<input type="hidden" class="hdn_product_tax_am" name="hdn_product_tax_am" value="{$product_line.tax_amount}" />
+				<input type="hidden" class="hdn_product_total" name="hdn_product_total" value="{$product_line.total_after_tax}" />
+			</div>
+		</tr>
 {/foreach}
 	</tbody>
 </table>
