@@ -154,7 +154,7 @@ function displayCoords(currObj,obj,mode,curr_row)
 						</tr>
 						<tr>
 							<td align="right" style="padding:5px;" nowrap>
-								<b>{$APP.LBL_TAX} : </b><input type="text" class="product_tax" name="product_tax" class="small" style="width: 70px;">
+								<b>{$APP.LBL_TAX} : </b><input type="text" class="product_tax" name="product_tax" class="small" value="{$product_line.tax1}" style="width: 70px;">
 							</td>
 						</tr>
 					</tbody>						
@@ -172,7 +172,7 @@ function displayCoords(currObj,obj,mode,curr_row)
 						<tr>
 							<td align="right" width="50%" style="padding:5px;" nowrap><b>{$APP.LBL_TAX} : </b></td>
 							<td align="right" width="5%" style="padding:5px;" nowrap><b>{$selected_cur_symbol}</b></td>
-							<td align="right" width="45%" style="padding:5px;" nowrap><span class="product_net" style="width: 70px;">{$product_line.line_net_total}</span></td>
+							<td align="right" width="45%" style="padding:5px;" nowrap><span class="product_net" style="width: 70px;">{$product_line.tax1}</span></td>
 						</tr>
 						<tr>
 							<td align="right" width="50%" style="padding:5px;" nowrap><b>{$APP.LBL_NET_TOTAL} : </b></td>
