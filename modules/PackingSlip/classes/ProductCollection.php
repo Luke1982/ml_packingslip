@@ -73,10 +73,10 @@ Class ProductCollection {
 		$this->productProps['tax1'] 				= $product['tax1'];
 		$this->productProps['tax2'] 				= $product['tax2'];
 		$this->productProps['tax3'] 				= $product['tax3'];
-		$this->productProps['line_gross_total'] 	= $this->calcLineGrossTotal($this->productProps['qty'], $this->productProps['list_price']);
-		$this->productProps['discount_type']		= $this->getDiscountType($this->productProps['disc_perc'], $this->productProps['disc_am']);
-		$this->productProps['line_net_total'] 		= $this->calcLineNetTotal($this->productProps['line_gross_total'], $product['discount_percent'], $product['discount_amount'], $this->productProps['discount_type']);
-		$this->productProps['tax_amount']			= $this->getLineTaxAmount($product['tax1'], $this->productProps['line_net_total']);	
+		$this->productProps['line_gross_total'] 	= $this->calcLineGrossTotal();
+		$this->productProps['discount_type']		= $this->getDiscountType();
+		$this->productProps['line_net_total'] 		= $this->calcLineNetTotal();
+		$this->productProps['tax_amount']			= $this->getLineTaxAmount();	
 		$this->productProps['total_after_tax']		= $this->productProps['line_net_total'] + $this->productProps['tax_amount'];	
 		$this->productProps['product_name']			= $product['productname'];
 		$this->productProps['product_no']			= $product['productcode'];
@@ -88,30 +88,30 @@ Class ProductCollection {
 		return $this->productProps;
 	}
 
-	private function calcLineGrossTotal($qty, $list_price) {
-		return $qty * $list_price;
+	private function calcLineGrossTotal() {
+		return $this->productProps['qty'] * $this->productProps['list_price'];
 	}
 
-	private function calcLineNetTotal($gross_total, $disc_perc = 0, $disc_amount = 0, $disc_type) {
-		if ($disc_type == 'p') {
-			$ret = $gross_total * (1 - ($disc_perc / 100));
+	private function calcLineNetTotal() {
+		if ($this->productProps['discount_type'] == 'p') {
+			$ret = $this->productProps['line_gross_total'] * (1 - ($this->productProps['disc_perc'] / 100));
 			return $ret;
 		} else {
-			$ret = $gross_total - $disc_amount;
+			$ret = $this->productProps['line_gross_total'] - $this->productProps['disc_am'];
 			return $ret;
 		}
 	}
 
-	private function getDiscountType($perc = 0, $am = 0) {
-		if ($perc != NULL && $perc != '') {
+	private function getDiscountType() {
+		if ($this->productProps['disc_perc'] != NULL && $this->productProps['disc_perc'] != '') {
 			return 'p';
 		} else {
 			return 'd';
 		}
 	}
 
-	private function getLineTaxAmount($tax = 0, $line_net_total = 0) {
-		return ($line_net_total * ($tax / 100)) > 0 ? ($line_net_total * ($tax / 100)) : 0;
+	private function getLineTaxAmount() {
+		return ($this->productProps['line_net_total'] * ($this->productProps['tax1'] / 100)) > 0 ? ($this->productProps['line_net_total'] * ($this->productProps['tax1'] / 100)) : 0;
 	}
 
 }
