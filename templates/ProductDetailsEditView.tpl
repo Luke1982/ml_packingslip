@@ -10,10 +10,11 @@
 -->*}
 
 <!-- Insert yet another jQuery version -->
-<script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"></script>
-<script type="text/javascript" src="modules/PackingSlip/lib/js/jquery-ui-1.12.1.sortable.min.js"></script>
+<script type="text/javascript" src="modules/PackingSlip/lib/js/sortable.min.js"></script>
 <!-- Insert Custom PackingSlip CSS file -->
 <link rel="stylesheet" type="text/css" href="modules/PackingSlip/lib/css/PackingSlip.css">
+<!-- Insert InvetoryLine JS class -->
+<script type="text/javascript" src="modules/PackingSlip/lib/js/InventoryLine.js"></script>
 
 <!-- MajorLabel new inventory lines -->
 
@@ -67,7 +68,7 @@
 	{assign var="show_discount" value=$product_line.disc_perc scope=local}
 {/if}
 
-		<tr>
+		<tr class="product_line">
 			<!-- Column 1: tools -->
 			<td width=5% valign="top" class="lvtCol editview_inv_toolcol" align="right"></td>
 			<!-- Column 2: product of service details -->
