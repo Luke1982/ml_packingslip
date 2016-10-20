@@ -17,101 +17,29 @@
 <script type="text/javascript" src="modules/PackingSlip/lib/js/PackingSlipCustom.js"></script>
 <!-- Insert Custom PackingSlip CSS file -->
 <link rel="stylesheet" type="text/css" href="modules/PackingSlip/lib/css/PackingSlip.css">
-<!-- Added to display the Product Details -->
-<script type="text/javascript">
-if(typeof(e) != 'undefined')
-	window.captureEvents(Event.MOUSEMOVE);
-
-//  window.onmousemove= displayCoords;
-//  window.onclick = fnRevert;
-function displayCoords(currObj,obj,mode,curr_row) 
-{ldelim}
-	if(mode != 'discount_final' && mode != 'sh_tax_div_title' && mode != 'group_tax_div_title')
-	{ldelim}
-		var curr_productid = document.getElementById("hdnProductId"+curr_row).value;
-		if(curr_productid == '')
-		{ldelim}
-			alert("{$APP.PLEASE_SELECT_LINE_ITEM}");
-			return false;
-		{rdelim}
-		var curr_quantity = document.getElementById("qty"+curr_row).value;
-		if(curr_quantity == '')
-		{ldelim}
-			alert("{$APP.PLEASE_FILL_QUANTITY}");
-			return false;
-		{rdelim}
-	{rdelim}
-
-	//Set the Header value for Discount
-	if(mode == 'discount')
-	{ldelim}
-		document.getElementById("discount_div_title"+curr_row).innerHTML = '<b>{$APP.LABEL_SET_DISCOUNT_FOR_X_COLON} '+document.getElementById("productTotal"+curr_row).innerHTML+'</b>';
-	{rdelim}
-	else if(mode == 'tax')
-	{ldelim}
-		document.getElementById("tax_div_title"+curr_row).innerHTML = "<b>{$APP.LABEL_SET_TAX_FOR} "+document.getElementById("totalAfterDiscount"+curr_row).innerHTML+'</b>';
-	{rdelim}
-	else if(mode == 'discount_final')
-	{ldelim}
-		document.getElementById("discount_div_title_final").innerHTML = '<b>{$APP.LABEL_SET_DISCOUNT_FOR_COLON} '+document.getElementById("netTotal").innerHTML+'</b>';
-	{rdelim}
-	else if(mode == 'sh_tax_div_title')
-	{ldelim}
-		document.getElementById("sh_tax_div_title").innerHTML = '<b>{$APP.LABEL_SET_SH_TAX_FOR_COLON} '+document.getElementById("shipping_handling_charge").value+'</b>';
-	{rdelim}
-	else if(mode == 'group_tax_div_title')
-	{ldelim}
-		var net_total_after_discount = eval(document.getElementById("netTotal").innerHTML)-eval(document.getElementById("discountTotal_final").innerHTML);
-		document.getElementById("group_tax_div_title").innerHTML = '<b>{$APP.LABEL_SET_GROUP_TAX_FOR_COLON} '+net_total_after_discount+'</b>';
-	{rdelim}
-
-	fnvshobj(currObj,'tax_container');
-	if(document.all)
-	{ldelim}
-		var divleft = document.getElementById("tax_container").style.left;
-		var divabsleft = divleft.substring(0,divleft.length-2);
-		document.getElementById(obj).style.left = eval(divabsleft) - 120;
-
-		var divtop = document.getElementById("tax_container").style.top;
-		var divabstop =  divtop.substring(0,divtop.length-2);
-		document.getElementById(obj).style.top = eval(divabstop);
-	{rdelim}else
-	{ldelim}
-		document.getElementById(obj).style.left =  document.getElementById("tax_container").left;
-		document.getElementById(obj).style.top = document.getElementById("tax_container").top;
-	{rdelim}
-	document.getElementById(obj).style.display = "block";
-
-{rdelim}
-  
-	function doNothing(){ldelim}
-	{rdelim}
-	
-	function fnHidePopDiv(obj){ldelim}
-		document.getElementById(obj).style.display = 'none';
-	{rdelim}
-</script>
-
-
-<tr><td colspan="4" align="left">
 
 <!-- MajorLabel new inventory lines -->
+
 <pre>{$ASSOCIATEDPRODUCTS|print_r}</pre>
-<table width="100%"  border="0" align="center" cellpadding="5" cellspacing="0" class="crmTable" id="proTab">
+
+<table width="100%"  border="0" align="center" cellpadding="5" cellspacing="0" class="crmTable product_table" id="proTab">
 	<tbody id="proBody">
-		{foreach from=$ASSOCIATEDPRODUCTS item=product_line key=row_no name=name}
-		{* Some discount logic *}
-		{if $product_line.discount_type == 'd'}
-			{assign var="show_discount" value=$product_line.disc_am scope=local}
-		{elseif $product_line.discount_type == 'p'}
-			{assign var="show_discount" value=$product_line.disc_perc|cat:'%' scope=local}
-		{/if}
-		{* Currency logic *}
-		{foreach item=currency_details key=count from=$CURRENCIES_LIST}
-			{if $currency_details.curid == $INV_CURRENCY_ID}
-				{assign var=selected_cur_symbol value=$currency_details.currencysymbol}
-			{/if}
-		{/foreach}
+
+{foreach from=$ASSOCIATEDPRODUCTS item=product_line key=row_no name=name}
+
+{* Some discount logic *}
+{if $product_line.discount_type == 'd'}
+	{assign var="show_discount" value=$product_line.disc_am scope=local}
+{elseif $product_line.discount_type == 'p'}
+	{assign var="show_discount" value=$product_line.disc_perc|cat:'%' scope=local}
+{/if}
+{* Currency logic *}
+{foreach item=currency_details key=count from=$CURRENCIES_LIST}
+	{if $currency_details.curid == $INV_CURRENCY_ID}
+		{assign var=selected_cur_symbol value=$currency_details.currencysymbol}
+	{/if}
+{/foreach}
+
 		<tr>
 			<!-- Column 1: tools -->
 			<td width=5% valign="top" class="lvtCol" align="right"></td>
@@ -165,6 +93,11 @@ function displayCoords(currObj,obj,mode,curr_row)
 				<table width="100%" cellpadding="0" cellspacing="0">
 					<tbody>
 						<tr>
+							<td align="right" width="50%" style="padding:5px;" nowrap><b>{$APP.LBL_TOTAL} : </b></td>
+							<td align="right" width="5%" style="padding:5px;" nowrap><b>{$selected_cur_symbol}</b></td>
+							<td align="right" width="45%" style="padding:5px;" nowrap><span class="product_net" style="width: 70px;">{$product_line.line_gross_total}</span></td>
+						</tr>
+						<tr>
 							<td align="right" width="50%" style="padding:5px;" nowrap><b>{$APP.LBL_TOTAL_AFTER_DISCOUNT} : </b></td>
 							<td align="right" width="5%" style="padding:5px;" nowrap><b>{$selected_cur_symbol}</b></td>
 							<td align="right" width="45%" style="padding:5px;" nowrap><span class="product_net" style="width: 70px;">{$product_line.line_net_total}</span></td>
@@ -183,7 +116,7 @@ function displayCoords(currObj,obj,mode,curr_row)
 				</table>				
 			</td>
 		</tr>	
-		{/foreach}
+{/foreach}
 	</tbody>
 </table>
 <!-- End MajorLabel new inventory lines -->
@@ -607,7 +540,7 @@ so we will get that array, parse that array and fill the details
 		<input type="hidden" name="totalProductCount" id="totalProductCount" value="{$row_no}">
 		<input type="hidden" name="subtotal" id="subtotal" value="">
 		<input type="hidden" name="total" id="total" value="">
-</td></tr>
+</td>
 <!-- Upto this Added to display the Product Details -->
 
 {foreach key=row_no item=data from=$ASSOCIATEDPRODUCTS}
