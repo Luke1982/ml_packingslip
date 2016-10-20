@@ -63,7 +63,7 @@
 			</td>
 			<!-- column 3 - Quantity - starts -->
 			<td width=10% class="lvtCol editview_inv_qtycol" valign="top">
-				<input id="{$product_line.qty}" name="{$product_line.qty}" type="text" class="small " style="width:50px" value="{$product_line.qty}"/>
+				<input id="{$product_line.qty}" name="{$product_line.qty}" type="number" class="small " style="width:50px" value="{$product_line.qty}"/>
 			</td>
 			<!-- column 3 - Quantity - ends -->
 			<!-- Column 4 -->
