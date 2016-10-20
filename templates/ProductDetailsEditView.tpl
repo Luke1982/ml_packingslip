@@ -53,7 +53,6 @@
 				   <tr>
 						<td class="small setComment">
 							<textarea name="product_line_comment" class="small product_line_comment" style="width:100%;height:40px">{$product_line.comment}</textarea>
-							<img src="{'clear_field.gif'|@vtiger_imageurl:$THEME}" onClick=""; style="cursor:pointer;" />
 						</td>
 				   </tr>
 				</table>				
