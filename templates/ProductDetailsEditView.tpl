@@ -26,6 +26,33 @@
 
 	<!-- Inventory table subheader -->
 	<tr class="editview_inventory_subheader">
+		<td width=65% colspan="3" valign="top" class="lvtCol editview_inv_item_header" align="left">{$APP.LBL_ITEM_DETAILS}</td>
+		<td width=20% colspan="1" valign="top" class="lvtCol editview_inv_item_header" align="left">
+			{$APP.LBL_CURRENCY}
+			<select class="small" id="inventory_currency" name="inventory_currency">
+			{* Currency logic *}
+			{foreach item=currency_details key=count from=$CURRENCIES_LIST}
+				{if $currency_details.curid == $INV_CURRENCY_ID}
+					{assign var=selected_cur_symbol value=$currency_details.currencysymbol}
+					<option value="{$currency_details.curid}" selected="selected">{$currency_details.currencylabel|@getTranslatedCurrencyString} ({$currency_details.currencysymbol})</option>
+				{else}
+					<option value="{$currency_details.curid}">{$currency_details.currencylabel|@getTranslatedCurrencyString} ({$currency_details.currencysymbol})</option>
+				{/if}
+			{/foreach}				
+			</select>
+		</td>
+		<td width=15% colspan="1" valign="top" class="lvtCol editview_inv_item_header" align="left">
+			{$APP.LBL_TAX_MODE}
+			{* TODO: create a class method for PackingSlip class that gets and sets the taxtype in editview *}
+			<select class="small" id="taxtype" name="taxtype">
+				<option value="individual">{$APP.LBL_INDIVIDUAL}</option> 
+				<option value="group">{$APP.LBL_GROUP}</option>
+			<select>
+		</td>
+	</tr>	
+
+	<!-- Inventory table subheader -->
+	<tr class="editview_inventory_subheader">
 		<td width=5% valign="top" class="lvtCol editview_inv_toolcol_header" align="left">{$APP.LBL_TOOLS}</td>
 		<td width=50% valign="top" class="lvtCol editview_inv_detailcol_header" align="left">{$APP.LBL_ITEM_NAME}</td>
 		<td width=10% valign="top" class="lvtCol editview_inv_qtycol_header" align="left">{$APP.LBL_QTY}</td>
@@ -41,12 +68,6 @@
 {elseif $product_line.discount_type == 'p'}
 	{assign var="show_discount" value=$product_line.disc_perc scope=local}
 {/if}
-{* Currency logic *}
-{foreach item=currency_details key=count from=$CURRENCIES_LIST}
-	{if $currency_details.curid == $INV_CURRENCY_ID}
-		{assign var=selected_cur_symbol value=$currency_details.currencysymbol}
-	{/if}
-{/foreach}
 
 		<tr>
 			<!-- Column 1: tools -->
