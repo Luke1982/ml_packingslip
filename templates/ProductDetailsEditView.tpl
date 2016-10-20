@@ -68,7 +68,7 @@
 					<tbody>
 						<tr>
 							<td align="right" style="padding:5px;" nowrap>
-								<b>{$APP.LBL_LIST_PRICE} : </b><input value="{$product_line.list_price}" type="text" name="product_line_listprice" class="small product_line_listprice" style="width:70px">
+								<b>{$APP.LBL_LIST_PRICE} : </b><input value="{$product_line.list_price}" type="number" name="product_line_listprice" class="small product_line_listprice" style="width:70px">
 							</td>
 						</tr>
 						<tr>
@@ -78,7 +78,7 @@
 						</tr>
 						<tr>
 							<td align="right" style="padding:5px;" nowrap>
-								<b>{$APP.LBL_TAX} : </b><input type="text" name="product_line_tax" class="small product_line_tax" value="{$product_line.tax1}" style="width: 70px;">
+								<b>{$APP.LBL_TAX} : </b><input type="number" name="product_line_tax" class="small product_line_tax" value="{$product_line.tax1}" style="width: 70px;">
 							</td>
 						</tr>
 					</tbody>						
