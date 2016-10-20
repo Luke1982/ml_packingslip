@@ -165,6 +165,39 @@
 {/foreach}
 	</tbody>
 </table>
+<!-- Start product totals table -->
+<table width="100%"  border="0" align="center" cellpadding="5" cellspacing="0" class="crmTable editview_inventory_totals">
+	<tbody>
+		<tr>
+			<td width="85%" align="right"><span class="inv_totals_text editview_inventory_subtot_label">{$APP.LBL_NET_TOTAL}</span></td>
+			<td width="15%" align="right"><span class="inv_totals_text editview_inventory_subtot_value">{* TOTAL HERE *}</span></td>
+		</tr>
+		<tr>
+			<td align="right"><span class="inv_totals_text editview_inventory_disc_tot_label">{$APP.LBL_DISCOUNT}</span></td>
+			<td align="right"><span class="inv_totals_text editview_inventory_disc_tot_value">{* TOTAL HERE *}</span></td>
+		</tr>
+		<tr>
+			<td align="right"><span class="inv_totals_text editview_inventory_tax_tot_label">{$APP.LBL_TAX}</span></td>
+			<td align="right"><span class="inv_totals_text editview_inventory_tax_tot_value">{* TOTAL HERE *}</span></td>
+		</tr>
+		<tr>
+			<td align="right"><span class="inv_totals_text editview_inventory_sh_tot_label">{$APP.LBL_SHIPPING_AND_HANDLING_CHARGES}</span></td>
+			<td align="right"><span class="inv_totals_text editview_inventory_sh_tot_value">{* TOTAL HERE *}</span></td>
+		</tr>
+		<tr>
+			<td align="right"><span class="inv_totals_text editview_inventory_shtax_tot_label">{$APP.LBL_TAX_FOR_SHIPPING_AND_HANDLING}</span></td>
+			<td align="right"><span class="inv_totals_text editview_inventory_shtax_tot_value">{* TOTAL HERE *}</span></td>
+		</tr>
+		<tr>
+			<td align="right"><span class="inv_totals_text editview_inventory_adj_tot_label">{$APP.LBL_ADJUSTMENT}</span></td>
+			<td align="right"><span class="inv_totals_text editview_inventory_adj_tot_value">{* TOTAL HERE *}</span></td>
+		</tr>
+		<tr>
+			<td align="right"><span class="inv_totals_text editview_inventory_gt_tot_label">{$APP.LBL_GRAND_TOTAL}</span></td>
+			<td align="right"><span class="inv_totals_text editview_inventory_gt_tot_value">{* TOTAL HERE *}</span></td>
+		</tr>
+	</tbody>
+</table>
 <!-- End MajorLabel new inventory lines -->
 
 
