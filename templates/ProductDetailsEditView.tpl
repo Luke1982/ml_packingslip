@@ -148,6 +148,7 @@
 			<!-- Hidden column that represents all hidden inputs with behind the scenes data -->
 			<td width="0" class="productline_props" style="display: none">
 				<input type="hidden" class="hdn_product_isdeleted" name="hdn_product_isdeleted" value="false" />
+				<input type="hidden" class="hdn_product_line_id" name="hdn_product_line_id" value="{$product_line.line_id}" />
 				<input type="hidden" class="hdn_product_seq" name="hdn_product_seq" value="{$product_line.seq}" />
 				<input type="hidden" class="hdn_product_crm_id" name="hdn_product_crm_id" value="{$product_line.product_id}" />
 				<input type="hidden" class="hdn_product_entity_type" name="hdn_product_entity_type" value="{$product_line.entity_type}" />
