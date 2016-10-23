@@ -1,23 +1,74 @@
-var int = setInterval(function(){
-	if (typeof jQuery === 'function') {
-		$(function(){
-			$("#proBody").sortable({
-				placeholder: "ui-state-highlight",
-				helper: fixHelper,
-			    start: function(e, ui){
-			        ui.placeholder.height(ui.item.height());
-			    }
-			});
+var inventoryLines = [];
+
+window.addEventListener("load", function(){
+
+	var int = setInterval(function(){
+		if (typeof InventoryLine === "function") {
+			buildInventory();
+			clearInterval(int);
+		}
+	},100);
+
+	// Use the sortable library
+	// https://rubaxa.github.io/Sortable/
+	var list = document.getElementById("proBody");
+	Sortable.create(list, {
+		onUpdate: function(){
+			updateInventory();
+			console.log("dragged");
+		}
+	});
+
+});
+
+/*
+* Function that builds an array of all inventory lines in JS memory
+* 
+*/
+function buildInventory() {
+	var lines = document.getElementsByClassName("product_line");
+	for (var i = 0; i < lines.length; i++) {
+		var line = new InventoryLine({
+			"source" 	: lines[i],
+			"index"		: i
 		});
-
-		var fixHelper = function(e, ui) {  
-		  ui.children().each(function() {  
-		    $(this).width($(this).width());  
-		  });  
-		  return ui;  
-		};
-
-		console.log("jQuery detected");
-		clearInterval(int);
+		line.props = line.setProps(line.propInputs);
+		inventoryLines.push(line);
 	}
-},100);
+	console.log(inventoryLines);
+}
+
+/*
+ * Function that updates the JS array of inventory lines
+ * or a single line if passed into the function
+ */
+function updateInventory(line) {
+	if (line != undefined) {
+		// If called for a single line
+		var toUpdate = checkLineId(line);
+		toUpdate.line.updateLine(line, toUpdate.index);
+	} else {
+		// Call it for all lines
+		var lines = document.getElementsByClassName("product_line");
+		for (var i = 0; i < lines.length; i++) {
+			(function(_i){
+				// checkLineId(lines[_i]);
+				// console.log(_i);
+			})(i);
+		}
+	}
+}
+
+/*
+ * Function that checks a DOM line against the JS array of lines
+ * and performs the update method on the line that matches
+ */
+function checkLineId(domLine) {
+	var domLineId = domLine.getElementsByClassName("hdn_product_line_id")[0].value;
+	for (var i = 0; i < inventoryLines.length; i++) {
+		var idToCheck = inventoryLines[i].props.line_id;
+		if (domLineId == idToCheck) {
+			return {"line" : inventoryLines[i], "index" : i};
+		}
+	}
+}
