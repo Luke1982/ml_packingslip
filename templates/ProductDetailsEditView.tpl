@@ -88,7 +88,7 @@
 			</td>
 			<!-- column 3 - Quantity - starts -->
 			<td width=10% class="lvtCol editview_inv_qtycol" valign="top">
-				<input name="product_line_qty" type="number" class="small product_line_qty" style="width:50px" value="{$product_line.qty}"/>
+				
 			</td>
 			<!-- column 3 - Quantity - ends -->
 			<!-- Column 4 -->
@@ -96,22 +96,27 @@
 				<table width="100%" cellpadding="0" cellspacing="0">
 					<tbody>
 						<tr>
-							<td align="right" colspan="2" style="padding:5px;" nowrap>
+							<td align="left" colspan="1" style="padding:5px;" nowrap>
+								<span class="product_line_qty_lbl">{$APP.LBL_QTY} :</span>&nbsp;
+								<input name="product_line_qty" type="number" class="small product_line_qty" style="width:50px" value="{$product_line.qty}"/>
+							</td>
+							<td align="center" colspan="1" style="padding:5px;" nowrap>X</td>
+							<td align="right" colspan="1" style="padding:5px;" nowrap>
 								<b>{$APP.LBL_LIST_PRICE} : </b><input value="{$product_line.list_price}" type="number" name="product_line_listprice" class="small product_line_listprice" style="width:70px">
 							</td>
 						</tr>
 						<tr>
-							<td align="left" style="padding:5px;" nowrap>
+							<td align="left" colspan="2" style="padding:5px;" nowrap>
 								<input type="radio" {if $product_line.discount_type eq 'p'}checked="checked"{/if} name="product_line_disc_type_{$row_no}" class="product_line_disc_radio" value="p">% {$APP.LBL_OF_PRICE}
 								<br>
 								<input type="radio" {if $product_line.discount_type eq 'd'}checked="checked"{/if} name="product_line_disc_type_{$row_no}" class="product_line_disc_radio" value="d">{$APP.LBL_DIRECT_PRICE_REDUCTION}
 							</td>
-							<td align="right" style="padding:5px;" nowrap>
+							<td align="right" colspan="1" style="padding:5px;" nowrap>
 								<b>{$APP.LBL_DISCOUNT} : </b><input type="text" name="product_line_discount" value="{$show_discount}" class="small product_line_discount" style="width: 70px;">
 							</td>
 						</tr>
 						<tr>
-							<td align="right" colspan="2" style="padding:5px;" nowrap>
+							<td align="right" colspan="3" style="padding:5px;" nowrap>
 								<b>{$APP.LBL_TAX} : </b><input type="number" name="product_line_tax" class="small product_line_tax" value="{$product_line.tax1}" style="width: 70px;">
 							</td>
 						</tr>
