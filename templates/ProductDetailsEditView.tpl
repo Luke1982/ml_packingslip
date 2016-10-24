@@ -102,9 +102,9 @@
 						</tr>
 						<tr>
 							<td align="left" style="padding:5px;" nowrap>
-								<input type="radio" {if $product_line.discount_type eq 'p'}checked="checked"{/if} name="product_line_disc_type_{$row_no}">% {$APP.LBL_OF_PRICE}
+								<input type="radio" {if $product_line.discount_type eq 'p'}checked="checked"{/if} name="product_line_disc_type_{$row_no}" class="product_line_disc_radio">% {$APP.LBL_OF_PRICE}
 								<br>
-								<input type="radio" {if $product_line.discount_type eq 'd'}checked="checked"{/if} name="product_line_disc_type_{$row_no}">{$APP.LBL_DIRECT_PRICE_REDUCTION}
+								<input type="radio" {if $product_line.discount_type eq 'd'}checked="checked"{/if} name="product_line_disc_type_{$row_no}" class="product_line_disc_radio">{$APP.LBL_DIRECT_PRICE_REDUCTION}
 							</td>
 							<td align="right" style="padding:5px;" nowrap>
 								<b>{$APP.LBL_DISCOUNT} : </b><input type="text" name="product_line_discount" value="{$show_discount}" class="small product_line_discount" style="width: 70px;">
