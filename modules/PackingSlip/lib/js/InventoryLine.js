@@ -14,6 +14,7 @@ function InventoryLine(data) {
 	var qtyField = data.source.getElementsByClassName("product_line_qty")[0];
 	var priceField = data.source.getElementsByClassName("product_line_listprice")[0];
 	var discountField = data.source.getElementsByClassName("product_line_discount")[0];
+	var discountRadios = data.source.getElementsByClassName("product_line_disc_radio");
 
 	// Targets
 	var grossPrice = data.source.getElementsByClassName("product_line_gross")[0];
@@ -140,4 +141,12 @@ function InventoryLine(data) {
 		__calcDomLine(parentLine);
 		console.log("discount changed");		
 	});
+
+	for (var i = 0; i < discountRadios.length; i++) {
+		discountRadios[i].addEventListener("click", function(e){
+			var parentLine = e.srcElement.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode;
+			__calcDomLine(parentLine);
+			console.log("Discount type changed");
+		});
+	}
 }
