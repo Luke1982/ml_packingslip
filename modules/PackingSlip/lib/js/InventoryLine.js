@@ -10,6 +10,9 @@ function InventoryLine(data) {
 	this.props = {};
 	this.source = data.source;
 
+	// Tools
+	var newLineTool = data.source.getElementsByClassName("new_line_tool")[0];
+
 	// Inputs
 	var qtyField = data.source.getElementsByClassName("product_line_qty")[0];
 	var priceField = data.source.getElementsByClassName("product_line_listprice")[0];
@@ -146,7 +149,20 @@ function InventoryLine(data) {
 
 		// Finally, update the line in JS memory
 		updateInventory(domLine);
-	}	
+	}
+
+	function __cleanLine(line) {
+		var inputs = line.getElementsByTagName("input");
+		var tas = line.getElementsByTagName("textarea");
+		function emptyValues(coll) {
+			for (var i = 0; i < coll.length; i++) {
+				coll[i].value = "";
+			}
+		}
+		emptyValues(inputs);
+		emptyValues(tas);
+		return line;
+	}
 
 	// Event listeners
 	qtyField.addEventListener("input", function(e){
@@ -181,4 +197,20 @@ function InventoryLine(data) {
 			console.log("Tax Changed");
 		});
 	}
+
+	newLineTool.addEventListener("click", function(e){
+		var productTable = document.getElementById("proBody");
+		var parentLine = e.srcElement.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode;
+		var lineClone = parentLine.cloneNode(true);
+		var lineClone = __cleanLine(lineClone);
+
+		productTable.insertBefore(lineClone, parentLine.nextSibling);
+
+		var line = new InventoryLine({
+			"source"		: lineClone
+		});
+
+		line.props = line.setProps(line.propInputs);
+		inventoryLines.push(line);
+	});
 }
