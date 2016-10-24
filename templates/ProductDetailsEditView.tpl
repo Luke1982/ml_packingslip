@@ -118,6 +118,8 @@
 						<tr>
 							<td align="right" colspan="3" style="padding:5px;" nowrap>
 								<b>{$APP.LBL_TAX} : </b><input type="number" name="product_line_tax" class="small product_line_tax" value="{$product_line.tax1}" style="width: 70px;">
+								<b>{$APP.LBL_TAX} : </b><input type="number" name="product_line_tax" class="small product_line_tax" value="{$product_line.tax1}" style="width: 70px;">
+								<b>{$APP.LBL_TAX} : </b><input type="number" name="product_line_tax" class="small product_line_tax" value="{$product_line.tax1}" style="width: 70px;">
 							</td>
 						</tr>
 					</tbody>						
