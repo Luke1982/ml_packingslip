@@ -15,11 +15,12 @@ function InventoryLine(data) {
 	var priceField = data.source.getElementsByClassName("product_line_listprice")[0];
 	var discountField = data.source.getElementsByClassName("product_line_discount")[0];
 	var discountRadios = data.source.getElementsByClassName("product_line_disc_radio");
+	var taxInputs = data.source.getElementsByClassName("product_line_tax");
 
 	// Targets
 	var grossPrice = data.source.getElementsByClassName("product_line_gross")[0];
 	var netPrice = data.source.getElementsByClassName("product_line_net")[0];
-	var lineTax = data.source.getElementsByClassName("product_line_tax")[0];
+	var lineTax = data.source.getElementsByClassName("product_line_tax_amount")[0];
 	var lineFinal = data.source.getElementsByClassName("product_line_after_tax")[0];
 
 	// Hidden inputs
@@ -50,8 +51,8 @@ function InventoryLine(data) {
 
 	// Global helpers
 	__setNonEditableNo = function(amount, target) {
-		target.innerHTML = amount;
-		return amount;
+		target.innerHTML = amount.toFixed(2); // Always use two decimals for the filled amounts
+		return Math.round(amount * 100) / 100;
 	}
 
 	__setInput = function(input, newValue) {
@@ -104,6 +105,20 @@ function InventoryLine(data) {
 		}
 	}
 
+	__calculateTaxAmount = function(taxPerc, amount) {
+		return amount * (taxPerc / 100);
+	}
+
+	function __addTaxes() {
+		var totalTax = 0;
+		for (var i = 0; i < taxInputs.length; i++) {
+			var toAdd = parseFloat(taxInputs[i].value);
+			console.log(toAdd);
+			totalTax += toAdd;
+		}
+		return totalTax;
+	}
+
 	/*
 	 * Eventual function. Uses a DOM node passed into it, to update the
 	 * line. After that, it calls the "updateInventory" function for this line
@@ -115,10 +130,14 @@ function InventoryLine(data) {
 		// Set the gross line total
 		var newLineGross = __setNonEditableNo( (qtyField.value * __getInput(priceField)), grossPrice);
 		var newLineHdnGross = __setInput(hdnLineGrossField, newLineGross);
-		// Calculate the discount
+		// Calculate the discount and net lineprice
 		var discount = __determineDiscount(domLine);
 		var newLineNet = __setNonEditableNo(discount.net, netPrice);
 		var newLineHdnNet = __setInput(hdnLineNetField, newLineNet);
+		// Calculate the tax
+		var taxTotal = __addTaxes();
+		var taxAmount = __calculateTaxAmount(taxTotal, newLineNet);
+		var newLineTax = __setNonEditableNo(taxAmount, lineTax);
 
 		// Finally, update the line in JS memory
 		updateInventory(domLine);
@@ -126,7 +145,7 @@ function InventoryLine(data) {
 
 	// Event listeners
 	qtyField.addEventListener("input", function(e){
-		__calcDomLine(e.srcElement.parentNode.parentNode);
+		__calcDomLine(e.srcElement.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode);
 		console.log("qty changed");
 	});
 
