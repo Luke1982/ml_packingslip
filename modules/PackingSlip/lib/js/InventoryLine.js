@@ -17,10 +17,19 @@ function InventoryLine(data) {
 
 	// Targets
 	var grossPrice = data.source.getElementsByClassName("product_line_gross")[0];
+	var netPrice = data.source.getElementsByClassName("product_line_net")[0];
+	var lineTax = data.source.getElementsByClassName("product_line_tax")[0];
+	var lineFinal = data.source.getElementsByClassName("product_line_after_tax")[0];
 
 	// Hidden inputs
 	var hdnQtyField = data.source.getElementsByClassName("hdn_product_qty")[0];
+	var hdnDiscField = data.source.getElementsByClassName("hdn_product_discount")[0];
+	var hdnDiscTypeField = data.source.getElementsByClassName("hdn_product_discount_type")[0];
+	var hdnLineGrossField = data.source.getElementsByClassName("hdn_product_gross")[0];
+	var hdnLineNetField = data.source.getElementsByClassName("hdn_product_net")[0];
+	var hdnListPriceField = data.source.getElementsByClassName("hdn_product_listprice")[0];
 
+	// Instance methods
 	this.setProps = function(inputs) {
 		for (var i = 0; i < inputs.length; i++) {
 			var propName = inputs[i].className.replace("hdn_product_", "");
@@ -34,35 +43,101 @@ function InventoryLine(data) {
 	this.updateLine = function(updatedLine, index) {
 		var newPropInputs = __getInventoryLineProps(updatedLine);
 		var newProps = this.setProps(newPropInputs);
-		// console.log(updatedLine);
-		// console.log(newProps);
-		// console.log(index);
-		console.log(inventoryLines);
+		// console.log(inventoryLines);
 		// inventoryLines[index].props = newProps;
 	}
 
+	// Global helpers
 	__setNonEditableNo = function(amount, target) {
 		target.innerHTML = amount;
+		return amount;
 	}
 
 	__setInput = function(input, newValue) {
 		input.value = newValue;
+		return newValue;
 	}
 
-	// __determineDiscount = function() {
+	__getInput = function(input) {
+		return input.value;
+	}
 
-	// }
+	__triggerInput = function(field) {
+		field.dispatchEvent(new Event("input", {
+			"bubbles" : true 
+		}));
+	}
 
+	__getDiscountType = function(parent) {
+		var discRadios = parent.getElementsByClassName("product_line_disc_radio");
+		for (var i = 0; i < discRadios.length; i++) {
+			if (discRadios[i].checked) {
+				return discRadios[i].value;
+			}
+		}		
+	}
+
+	__determineDiscount = function(parent) {
+		var currentGross = parent.getElementsByClassName("product_line_gross")[0].innerHTML;
+		var discVal = parent.getElementsByClassName("product_line_discount")[0].value;
+		var discType = __getDiscountType(parent);
+		if (discType == "d") {
+			// Direct discount
+			return {
+				"discountValue" : discVal,
+				"discountType"	: discType,
+				"gross"			: currentGross,
+				"net"			: (currentGross - discVal)
+			};
+		} else if (discType == "p") {
+			// Discount percentage
+			discVal = currentGross * (discVal / 100);
+			discVal = Math.round(discVal * 100) / 100;
+			var newGross = Math.round((currentGross - discVal) * 100) / 100;
+			return {
+				"discountValue" : discVal,
+				"discountType"	: discType,
+				"gross"			: currentGross,
+				"net"			: newGross
+			};
+		}
+	}
+
+	/*
+	 * Eventual function. Uses a DOM node passed into it, to update the
+	 * line. After that, it calls the "updateInventory" function for this line
+	 */
+	function __calcDomLine(domLine) {
+		// Set some hidden inputs for "updateLine" method to pick up
+		var newHdnQty = __setInput(hdnQtyField, qtyField.value);
+		var newHdnListPrice = __setInput(hdnListPriceField, priceField.value);
+		// Set the gross line total
+		var newLineGross = __setNonEditableNo( (qtyField.value * __getInput(priceField)), grossPrice);
+		var newLineHdnGross = __setInput(hdnLineGrossField, newLineGross);
+		// Calculate the discount
+		var discount = __determineDiscount(domLine);
+		var newLineNet = __setNonEditableNo(discount.net, netPrice);
+		var newLineHdnNet = __setInput(hdnLineNetField, newLineNet);
+
+		// Finally, update the line in JS memory
+		updateInventory(domLine);
+	}	
+
+	// Event listeners
 	qtyField.addEventListener("input", function(e){
-		__setNonEditableNo((qtyField.value * priceField.value), grossPrice);
-		__setInput(hdnQtyField, qtyField.value);
-		updateInventory(e.srcElement.parentNode.parentNode);
+		__calcDomLine(e.srcElement.parentNode.parentNode);
 		console.log("qty changed");
 	});
-	priceField.addEventListener("input", function(){
-		__setNonEditableNo((qtyField.value * priceField.value), grossPrice);
+
+	priceField.addEventListener("input", function(e){
+		var parentLine = e.srcElement.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode;
+		__calcDomLine(parentLine);
+		console.log("listprice changed");
 	});
-	// discountField.addEventListener("input", function(){
-	// 	var discount = __determineDiscount();
-	// });
+
+	discountField.addEventListener("input", function(e){
+		var parentLine = e.srcElement.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode;
+		__calcDomLine(parentLine);
+		console.log("discount changed");		
+	});
 }
