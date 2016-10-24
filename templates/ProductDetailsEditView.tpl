@@ -142,7 +142,7 @@
 						<tr>
 							<td align="right" width="50%" style="padding:5px;" nowrap><b>{$APP.LBL_TAX} : </b></td>
 							<td align="right" width="5%" style="padding:5px;" nowrap><b>{$selected_cur_symbol}</b></td>
-							<td align="right" width="45%" style="padding:5px;" nowrap><span class="product_line_tax" style="width: 70px;">{$product_line.tax_amount}</span></td>
+							<td align="right" width="45%" style="padding:5px;" nowrap><span class="product_line_tax_amount" style="width: 70px;">{$product_line.tax_amount}</span></td>
 						</tr>
 						<tr>
 							<td align="right" width="50%" style="padding:5px;" nowrap><b>{$APP.LBL_NET_TOTAL} : </b></td>
