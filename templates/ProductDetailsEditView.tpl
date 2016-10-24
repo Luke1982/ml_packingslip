@@ -70,7 +70,17 @@
 
 		<tr class="product_line">
 			<!-- Column 1: tools -->
-			<td width=5% valign="top" class="lvtCol editview_inv_toolcol" align="right"></td>
+			<td width=5% valign="top" class="lvtCol editview_inv_toolcol" align="right">
+				<table width="100%" class="inv_line_tooltable">
+					<tbody>
+						<tr>
+							<td>
+								<a href="javascript:;" class="move_line_tool">Move Line</a>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</td>
 			<!-- Column 2: product of service details -->
 			<td width=50% valign="top" class="lvtCol editview_inv_detailcol" align="right">
 				<table width="100%"  border="0" cellspacing="0" cellpadding="1">
@@ -163,7 +173,7 @@
 				<input type="hidden" class="hdn_product_listprice" name="hdn_product_listprice" value="{$product_line.list_price}" />
 				<input type="hidden" class="hdn_product_discount" name="hdn_product_discount" value="{$show_discount}" />
 				<input type="hidden" class="hdn_product_discount_type" name="hdn_product_discount_type" value="{$product_line.discount_type}" />
-				<input type="hidden" class="hdn_product_tax_p" name="hdn_product_tax_p" value="{$product_line.tax1}" />
+				{* <input type="hidden" class="hdn_product_tax_p" name="hdn_product_tax_p" value="{$product_line.tax1}" /> *}
 				<input type="hidden" class="hdn_product_gross" name="hdn_product_gross" value="{$product_line.line_gross_total}" />
 				<input type="hidden" class="hdn_product_net" name="hdn_product_net" value="{$product_line.line_net_total}" />
 				<input type="hidden" class="hdn_product_tax_am" name="hdn_product_tax_am" value="{$product_line.tax_amount}" />

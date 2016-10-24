@@ -14,9 +14,11 @@ window.addEventListener("load", function(){
 	var list = document.getElementById("proBody");
 	Sortable.create(list, {
 		onUpdate: function(){
-			updateInventory();
+			// updateInventory();
 			console.log("dragged");
-		}
+		},
+		animation : 150,
+		handle: ".move_line_tool"
 	});
 
 });
@@ -57,6 +59,7 @@ function updateInventory(line) {
 			})(i);
 		}
 	}
+	console.log(inventoryLines);
 }
 
 /*
