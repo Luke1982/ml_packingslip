@@ -78,6 +78,11 @@
 								<a href="javascript:;" class="move_line_tool">Move Line</a>
 							</td>
 						</tr>
+						<tr>
+							<td>
+								<a href="javascript:;" class="new_line_tool">New Line</a>
+							</td>
+						</tr>
 					</tbody>
 				</table>
 			</td>
@@ -164,6 +169,7 @@
 			</td>
 			<!-- Hidden column that represents all hidden inputs with behind the scenes data -->
 			<td width="0" class="productline_props" style="display: none">
+				<input type="hidden" class="hdn_product_id" name="hdn_product_id" value="{$row_no}" />
 				<input type="hidden" class="hdn_product_isdeleted" name="hdn_product_isdeleted" value="false" />
 				<input type="hidden" class="hdn_product_line_id" name="hdn_product_line_id" value="{$product_line.line_id}" />
 				<input type="hidden" class="hdn_product_seq" name="hdn_product_seq" value="{$product_line.seq}" />
