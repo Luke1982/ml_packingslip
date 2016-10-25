@@ -147,22 +147,22 @@
 						<tr>
 							<td align="right" width="50%" style="padding:5px;" nowrap><b>{$APP.LBL_TOTAL} : </b></td>
 							<td align="right" width="5%" style="padding:5px;" nowrap><b>{$selected_cur_symbol}</b></td>
-							<td align="right" width="45%" style="padding:5px;" nowrap><span class="product_line_gross" style="width: 70px;">{$product_line.line_gross_total}</span></td>
+							<td align="right" width="45%" style="padding:5px;" nowrap><span class="product_line_gross target" style="width: 70px;">{$product_line.line_gross_total}</span></td>
 						</tr>
 						<tr>
 							<td align="right" width="50%" style="padding:5px;" nowrap><b>{$APP.LBL_TOTAL_AFTER_DISCOUNT} : </b></td>
 							<td align="right" width="5%" style="padding:5px;" nowrap><b>{$selected_cur_symbol}</b></td>
-							<td align="right" width="45%" style="padding:5px;" nowrap><span class="product_line_net" style="width: 70px;">{$product_line.line_net_total}</span></td>
+							<td align="right" width="45%" style="padding:5px;" nowrap><span class="product_line_net target" style="width: 70px;">{$product_line.line_net_total}</span></td>
 						</tr>
 						<tr>
 							<td align="right" width="50%" style="padding:5px;" nowrap><b>{$APP.LBL_TAX} : </b></td>
 							<td align="right" width="5%" style="padding:5px;" nowrap><b>{$selected_cur_symbol}</b></td>
-							<td align="right" width="45%" style="padding:5px;" nowrap><span class="product_line_tax_amount" style="width: 70px;">{$product_line.tax_amount}</span></td>
+							<td align="right" width="45%" style="padding:5px;" nowrap><span class="product_line_tax_amount target" style="width: 70px;">{$product_line.tax_amount}</span></td>
 						</tr>
 						<tr>
 							<td align="right" width="50%" style="padding:5px;" nowrap><b>{$APP.LBL_NET_TOTAL} : </b></td>
 							<td align="right" width="5%" style="padding:5px;" nowrap><b>{$selected_cur_symbol}</b></td>
-							<td align="right" width="45%" style="padding:5px;" nowrap><span class="product_line_after_tax" style="width: 70px;">{$product_line.total_after_tax}</span></td>
+							<td align="right" width="45%" style="padding:5px;" nowrap><span class="product_line_after_tax target" style="width: 70px;">{$product_line.total_after_tax}</span></td>
 						</tr>
 					</tbody>								
 				</table>				

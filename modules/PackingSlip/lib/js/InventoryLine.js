@@ -155,13 +155,19 @@ function InventoryLine(data) {
 	function __cleanLine(line) {
 		var inputs = line.getElementsByTagName("input");
 		var tas = line.getElementsByTagName("textarea");
+		var targets = line.getElementsByClassName("target");
 		function emptyValues(coll) {
 			for (var i = 0; i < coll.length; i++) {
-				coll[i].value = "";
+				// Don't clear tax fields
+				if (inputs[i].className.indexOf("product_line_tax") == -1) {
+					coll[i].value = "";
+					coll[i].innerHTML = 0;
+				}
 			}
 		}
 		emptyValues(inputs);
 		emptyValues(tas);
+		emptyValues(targets);
 		return line;
 	}
 
