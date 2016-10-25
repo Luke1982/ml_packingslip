@@ -9,6 +9,7 @@ function InventoryLine(data) {
 	this.propInputs = __getInventoryLineProps(data.source);
 	this.props = {};
 	this.source = data.source;
+	this.props.id = data.id;
 
 	// Tools
 	var newLineTool = data.source.getElementsByClassName("new_line_tool")[0];
@@ -164,6 +165,22 @@ function InventoryLine(data) {
 		return line;
 	}
 
+	function __insertEmptyLine(parent, line) {
+		var lineClone = line.cloneNode(true);
+		var lineClone = __cleanLine(lineClone);
+
+		parent.insertBefore(lineClone, line.nextSibling);
+
+		var line = new InventoryLine({
+			"source"		: lineClone
+		});
+
+		line.props = line.setProps(line.propInputs);
+		line.props.id = inventoryLines.length;
+
+		inventoryLines.push(line);
+	}
+
 	// Event listeners
 	qtyField.addEventListener("input", function(e){
 		__calcDomLine(e.srcElement.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode);
@@ -201,16 +218,9 @@ function InventoryLine(data) {
 	newLineTool.addEventListener("click", function(e){
 		var productTable = document.getElementById("proBody");
 		var parentLine = e.srcElement.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode;
-		var lineClone = parentLine.cloneNode(true);
-		var lineClone = __cleanLine(lineClone);
 
-		productTable.insertBefore(lineClone, parentLine.nextSibling);
+		__insertEmptyLine(productTable, parentLine);
 
-		var line = new InventoryLine({
-			"source"		: lineClone
-		});
-
-		line.props = line.setProps(line.propInputs);
-		inventoryLines.push(line);
+		console.log(inventoryLines);
 	});
 }

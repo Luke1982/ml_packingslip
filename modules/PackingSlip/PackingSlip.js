@@ -32,7 +32,7 @@ function buildInventory() {
 	for (var i = 0; i < lines.length; i++) {
 		var line = new InventoryLine({
 			"source" 	: lines[i],
-			"index"		: i
+			"id"		: i
 		});
 		line.props = line.setProps(line.propInputs);
 		inventoryLines.push(line);
