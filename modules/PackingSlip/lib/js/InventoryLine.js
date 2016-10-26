@@ -211,6 +211,9 @@ function InventoryLine(data) {
 		line.props.id = inventoryLines.length;
 
 		inventoryLines.push(line);
+
+		// Update the sequence
+		updateSeq();		
 	}
 
 	/*
@@ -230,7 +233,10 @@ function InventoryLine(data) {
 		line.props = line.setProps(line.propInputs);
 		line.props.id = inventoryLines.length;
 
-		inventoryLines.push(line);		
+		inventoryLines.push(line);
+
+		// Update the sequence
+		updateSeq();	
 	}
 
 	/*
@@ -240,6 +246,9 @@ function InventoryLine(data) {
 		domLine.getElementsByClassName("hdn_product_isdeleted")[0].value = "true";
 		updateInventory(domLine);
 		domLine.style.display = "none";
+
+		// Update the sequence
+		updateSeq();		
 	}
 
 	// Event listeners

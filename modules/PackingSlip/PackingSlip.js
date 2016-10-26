@@ -14,7 +14,7 @@ window.addEventListener("load", function(){
 	var list = document.getElementById("proBody");
 	Sortable.create(list, {
 		onUpdate: function(){
-			// updateInventory();
+			updateSeq();
 			console.log("dragged");
 		},
 		animation : 150,
@@ -74,4 +74,32 @@ function checkLineId(domLine) {
 			return {"line" : inventoryLines[i]};
 		}
 	}
+}
+
+/*
+ * Function that updates the sequence (visible order) of the lines
+ */
+function updateSeq() {
+	var domLines = getNonDeletedDomLines();
+	for (var i = 0; i < domLines.length; i++) {
+		var lineID = domLines[i].getElementsByClassName("hdn_product_id")[0].value;
+		var seqInput = domLines[i].getElementsByClassName("hdn_product_seq")[0];
+		inventoryLines[lineID].props.seq = i + 1;
+		seqInput.value = i + 1;
+	}
+}
+
+/*
+ * Helper for the updateSeq function.
+ * returns an array of non-deleted domLines
+ */
+function getNonDeletedDomLines() {
+	var domLines = document.getElementsByClassName("product_line");
+	var nonDeletedLines = [];
+	for (var i = 0; i < domLines.length; i++) {
+		if (domLines[i].getElementsByClassName("hdn_product_isdeleted")[0].value == "false") {
+			nonDeletedLines.push(domLines[i]);
+		}
+	}
+	return nonDeletedLines;
 }
