@@ -41,9 +41,7 @@ Class ProductCollection {
 			'disc_am'			=>		0,
 			'comment'			=>		'',
 			'desc'				=>		'',
-			'tax1'				=>		0,
-			'tax2'				=>		0,
-			'tax3'				=>		0,
+			'taxes'				=>		array(),
 			'tax_amount'		=>		0,
 			'line_gross_total'	=>		0,
 			'discount_type'		=>		'',
@@ -70,9 +68,7 @@ Class ProductCollection {
 		$this->productProps['disc_am'] 				= $product['discount_amount'];
 		$this->productProps['comment'] 				= $product['comment'];
 		$this->productProps['desc'] 				= $product['description'];
-		$this->productProps['tax1'] 				= $product['tax1'];
-		$this->productProps['tax2'] 				= $product['tax2'];
-		$this->productProps['tax3'] 				= $product['tax3'];
+		$this->productProps['taxes'] 				= $this->getAllProductTaxes($product);
 		$this->productProps['line_gross_total'] 	= $this->calcLineGrossTotal();
 		$this->productProps['discount_type']		= $this->getDiscountType();
 		$this->productProps['line_net_total'] 		= $this->calcLineNetTotal();
@@ -114,4 +110,27 @@ Class ProductCollection {
 		return ($this->productProps['line_net_total'] * ($this->productProps['tax1'] / 100)) > 0 ? ($this->productProps['line_net_total'] * ($this->productProps['tax1'] / 100)) : 0;
 	}
 
+	private function getAllProductTaxes($product) {
+		$av_taxes = $this->getAvailableProductTaxes();
+		foreach ($product as $key => $value) {
+			if('tax' == substr($key,0,3)) {
+				$av_taxes[$key]['current_percentage'] = $value;
+			}
+		}
+		return $av_taxes;
+	}
+
+	private function getAvailableProductTaxes() {
+		$av_taxes = array();
+		$res = $this->db->pquery("SELECT * FROM vtiger_inventorytaxinfo", array());
+		while($tax = $this->db->fetch_array($res)) {
+			$av_taxes[$tax['taxname']] = array(
+					'taxid' 			=> $tax['taxid'],
+					'taxlabel'			=> $tax['taxlabel'],
+					'default_percentage'=> $tax['percentage'],
+					'deleted'			=> $tax['deleted']
+				);
+		}
+		return $av_taxes;
+	}
 }

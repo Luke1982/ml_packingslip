@@ -21,6 +21,7 @@
 
 <!-- MajorLabel new inventory lines -->
 
+{* <pre>{$GROUP_TAXES|print_r}</pre> *}
 <pre>{$ASSOCIATEDPRODUCTS|print_r}</pre>
 
 <table width="100%"  border="0" align="center" cellpadding="5" cellspacing="0" class="crmTable editview_inventory_table" id="proTab">
@@ -144,10 +145,12 @@
 							</td>
 						</tr>
 						<tr>
-							<td align="right" colspan="3" style="padding:5px;" nowrap>
-								<b>{$APP.LBL_TAX} : </b><input type="number" name="product_line_tax" class="small product_line_tax" value="{$product_line.tax1}" style="width: 70px;">
-								<b>{$APP.LBL_TAX} : </b><input type="number" name="product_line_tax" class="small product_line_tax" value="{$product_line.tax1}" style="width: 70px;">
-								<b>{$APP.LBL_TAX} : </b><input type="number" name="product_line_tax" class="small product_line_tax" value="{$product_line.tax1}" style="width: 70px;">
+							<td align="right" colspan="3" class="product_line_taxes" style="padding:5px;" nowrap>
+							{foreach from=$product_line.taxes item=tax key=tax_no}
+								{if $tax.deleted == 0}
+								<b>{$tax.taxlabel} : </b><input type="number" name="product_line_tax" class="small product_line_tax" value="{$tax.current_percentage}" style="width: 70px;">
+								{/if}
+							{/foreach}
 							</td>
 						</tr>
 					</tbody>						

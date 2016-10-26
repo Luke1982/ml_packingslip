@@ -15,6 +15,9 @@ require_once ('modules/Potentials/Potentials.php');
 require_once ('include/CustomFieldUtil.php');
 require_once ('include/utils/utils.php');
 
+// error_reporting(E_ALL);
+// ini_set("display_errors", "on"); 
+
 global $app_strings, $mod_strings, $currentModule, $log, $current_user, $adb;
 
 $focus = CRMEntity::getInstance($currentModule);
