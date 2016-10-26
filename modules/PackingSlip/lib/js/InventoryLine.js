@@ -61,6 +61,15 @@ function InventoryLine(data) {
 		__props.comment = hdnCommentField.innerHTML;
 	}
 
+	// Dom helpers
+	function findUp(className, source) {
+		while(source = source.parentElement) {
+			if (source.className.indexOf("product_line") == 0) {
+				return source;
+			}
+		}
+	}
+
 	// Global helpers
 	__setNonEditableNo = function(amount, target) {
 		target.innerHTML = amount.toFixed(2); // Always use two decimals for the filled amounts
@@ -341,8 +350,8 @@ function InventoryLine(data) {
 			});
 
 			window.addEventListener("awesomplete-selectcomplete", function(e){
-				var callingLine = e.srcElement.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode;
-				__setCommentAndPrice(e.text.label, callingLine, acList);
+				var callingLine = findUp("product_line", e.srcElement);
+				__autocompleteCallback(e.text.label, callingLine, acList);
 				__calcDomLine(callingLine);
 			});
 
@@ -350,11 +359,12 @@ function InventoryLine(data) {
 	}
 	r.send();	
 
-	function __setCommentAndPrice(label, callingLine, source) {
+	function __autocompleteCallback(label, callingLine, source) {
 		for(var i = 0; i < source.length; i++) {
 			if (source[i].label == label) {
-				callingLine.getElementsByClassName("product_line_comment")[0].innerHTML = source[i].desc;
+				callingLine.getElementsByClassName("product_line_comment")[0].value = source[i].desc;
 				callingLine.getElementsByClassName("product_line_listprice")[0].value = source[i].price;
+				callingLine.getElementsByClassName("hdn_product_crm_id")[0].value = source[i].crmid;
 			}
 		}
 	}
