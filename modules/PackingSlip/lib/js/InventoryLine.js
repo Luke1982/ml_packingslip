@@ -170,6 +170,7 @@ function InventoryLine(data) {
 					inputs[i].name = baseName + inventoryLines.length;
 				}
 				if (coll[i].className.indexOf("target") != -1) {
+					// Set the targets to 0
 					coll[i].innerHTML = 0;
 				}
 			}
