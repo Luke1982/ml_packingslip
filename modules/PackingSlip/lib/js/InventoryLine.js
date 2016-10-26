@@ -283,29 +283,25 @@ function InventoryLine(data) {
 
 	// Event listeners
 	qtyField.addEventListener("input", function(e){
-		__calcDomLine(findUp("product_line", e.srcElement););
-		// __calcDomLine(e.srcElement.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode);
+		__calcDomLine(e.srcElement.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode);
 		console.log("qty changed");
 	});
 
 	priceField.addEventListener("input", function(e){
-		var parentLine = findUp("product_line", e.srcElement);;
-		// var parentLine = e.srcElement.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode;
+		var parentLine = e.srcElement.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode;
 		__calcDomLine(parentLine);
 		console.log("listprice changed");
 	});
 
 	discountField.addEventListener("input", function(e){
-		var parentLine = findUp("product_line", e.srcElement);;
-		// var parentLine = e.srcElement.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode;
+		var parentLine = e.srcElement.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode;
 		__calcDomLine(parentLine);
 		console.log("discount changed");		
 	});
 
 	for (var i = 0; i < discountRadios.length; i++) {
 		discountRadios[i].addEventListener("click", function(e){
-			var parentLine = findUp("product_line", e.srcElement);;
-			// var parentLine = e.srcElement.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode;
+			var parentLine = e.srcElement.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode;
 			__calcDomLine(parentLine);
 			console.log("Discount type changed");
 		});
@@ -313,8 +309,7 @@ function InventoryLine(data) {
 
 	for (var i = 0; i < taxInputs.length; i++) {
 		taxInputs[i].addEventListener("input", function(e){
-			var parentLine = findUp("product_line", e.srcElement);;
-			// var parentLine = e.srcElement.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode;
+			var parentLine = e.srcElement.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode;
 			__calcDomLine(parentLine);
 			console.log("Tax Changed");
 		});
@@ -322,23 +317,20 @@ function InventoryLine(data) {
 
 	newLineTool.addEventListener("click", function(e){
 		var productTable = document.getElementById("proBody");
-		var parentLine = findUp("product_line", e.srcElement);;
-		// var parentLine = e.srcElement.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode;
+		var parentLine = e.srcElement.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode;
 		__insertEmptyLine(productTable, parentLine);
 		console.log(inventoryLines);
 	});
 
 	deleteLineTool.addEventListener("click", function(e){
-		var parentLine = findUp("product_line", e.srcElement);;
-		// var parentLine = e.srcElement.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode;
+		var parentLine = e.srcElement.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode;
 		__deleteLine(parentLine);
 		console.log(inventoryLines);
 	});
 
 	copyLineTool.addEventListener("click", function(e){
 		var productTable = document.getElementById("proBody");
-		var parentLine = findUp("product_line", e.srcElement);;
-		// var parentLine = e.srcElement.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode;
+		var parentLine = e.srcElement.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode;
 		__copyLine(productTable, parentLine);
 		console.log(inventoryLines);
 	});
