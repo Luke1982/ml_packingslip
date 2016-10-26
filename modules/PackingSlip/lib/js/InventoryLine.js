@@ -327,6 +327,7 @@ function InventoryLine(data) {
 	});
 
 	// Autocomplete
+
 	var r = new XMLHttpRequest();
 	r.open ("GET", "index.php?module=PackingSlip&action=PackingSlipAjax&file=inventoryAjax&getlist=true");
 	r.onreadystatechange = function() {
@@ -340,18 +341,20 @@ function InventoryLine(data) {
 			});
 
 			window.addEventListener("awesomplete-selectcomplete", function(e){
-				__setCommentAndPrice(e.text.label, acList);
-				__calcDomLine(e.srcElement.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode);
-			});				
+				var callingLine = e.srcElement.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode;
+				__setCommentAndPrice(e.text.label, callingLine, acList);
+				__calcDomLine(callingLine);
+			});
+
 		}
 	}
 	r.send();	
 
-	function __setCommentAndPrice(label, source) {
+	function __setCommentAndPrice(label, callingLine, source) {
 		for(var i = 0; i < source.length; i++) {
 			if (source[i].label == label) {
-				commentField.value = source[i].desc;
-				priceField.value = source[i].price;
+				callingLine.getElementsByClassName("product_line_comment")[0].innerHTML = source[i].desc;
+				callingLine.getElementsByClassName("product_line_listprice")[0].value = source[i].price;
 			}
 		}
 	}
