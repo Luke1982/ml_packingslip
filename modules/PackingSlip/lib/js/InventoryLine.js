@@ -50,7 +50,7 @@ function InventoryLine(data) {
 		return __props;
 	}
 
-	this.updateLine = function(updatedLine, index) {
+	this.updateLine = function(updatedLine) {
 		var newPropInputs = __getInventoryLineProps(updatedLine);
 		var newProps = this.setProps(newPropInputs);
 		// console.log(inventoryLines);
@@ -91,6 +91,7 @@ function InventoryLine(data) {
 		var currentGross = parent.getElementsByClassName("product_line_gross")[0].innerHTML;
 		var discVal = parent.getElementsByClassName("product_line_discount")[0].value;
 		var discType = __getDiscountType(parent);
+		console.log(discType);
 		if (discType == "d") {
 			// Direct discount
 			return {
@@ -158,9 +159,17 @@ function InventoryLine(data) {
 		var targets = line.getElementsByClassName("target");
 		function emptyValues(coll) {
 			for (var i = 0; i < coll.length; i++) {
-				// Don't clear tax fields
-				if (inputs[i].className.indexOf("product_line_tax") == -1) {
+				// Don't clear tax fields and discount type
+				if (coll[i].className.indexOf("product_line_tax") == -1 
+					&& coll[i].className.indexOf("disc") == -1) {
 					coll[i].value = "";
+				}
+				if (coll[i].type == "radio") {
+					// New name attributes for radio groups
+					var baseName = coll[i].name.slice(0, -1);
+					inputs[i].name = baseName + inventoryLines.length;
+				}
+				if (coll[i].className.indexOf("target") != -1) {
 					coll[i].innerHTML = 0;
 				}
 			}
@@ -168,17 +177,20 @@ function InventoryLine(data) {
 		emptyValues(inputs);
 		emptyValues(tas);
 		emptyValues(targets);
+
 		return line;
 	}
 
 	function __insertEmptyLine(parent, line) {
 		var lineClone = line.cloneNode(true);
-		var lineClone = __cleanLine(lineClone);
+		var cleanLine = __cleanLine(lineClone);
+		// Add a new ID to the clean line
+		cleanLine.getElementsByClassName("hdn_product_id")[0].value = inventoryLines.length;
 
-		parent.insertBefore(lineClone, line.nextSibling);
+		parent.insertBefore(cleanLine, line.nextSibling);
 
 		var line = new InventoryLine({
-			"source"		: lineClone
+			"source"		: cleanLine
 		});
 
 		line.props = line.setProps(line.propInputs);
