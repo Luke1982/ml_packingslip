@@ -72,7 +72,7 @@ Class ProductCollection {
 		$this->productProps['line_gross_total'] 	= $this->calcLineGrossTotal();
 		$this->productProps['discount_type']		= $this->getDiscountType();
 		$this->productProps['line_net_total'] 		= $this->calcLineNetTotal();
-		$this->productProps['tax_amount']			= $this->getLineTaxAmount();	
+		$this->productProps['tax_amount']			= $this->getLineTaxAmount($this->productProps['taxes']);	
 		$this->productProps['total_after_tax']		= $this->productProps['line_net_total'] + $this->productProps['tax_amount'];	
 		$this->productProps['product_name']			= $product['productname'];
 		$this->productProps['product_no']			= $product['productcode'];
@@ -106,15 +106,19 @@ Class ProductCollection {
 		}
 	}
 
-	private function getLineTaxAmount() {
-		return ($this->productProps['line_net_total'] * ($this->productProps['tax1'] / 100)) > 0 ? ($this->productProps['line_net_total'] * ($this->productProps['tax1'] / 100)) : 0;
+	private function getLineTaxAmount($taxes) {
+		$total_tax_percentage = 0;
+		foreach ($taxes as $tax) {
+			$total_tax_percentage = $total_tax_percentage + $tax['current_percentage'];
+		}
+		return ($this->productProps['line_net_total'] * ($total_tax_percentage / 100)) > 0 ? ($this->productProps['line_net_total'] * ($total_tax_percentage / 100)) : 0;
 	}
 
 	private function getAllProductTaxes($product) {
 		$av_taxes = $this->getAvailableProductTaxes();
 		foreach ($product as $key => $value) {
 			if('tax' == substr($key,0,3)) {
-				$av_taxes[$key]['current_percentage'] = $value;
+				$av_taxes[$key]['current_percentage'] = ($value == "" ? 0 : $value);
 			}
 		}
 		return $av_taxes;
