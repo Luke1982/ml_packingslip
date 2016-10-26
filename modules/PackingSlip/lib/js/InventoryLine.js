@@ -64,7 +64,7 @@ function InventoryLine(data) {
 	// Dom helpers
 	function findUp(className, source) {
 		while(source = source.parentElement) {
-			if (source.className.indexOf("product_line") == 0) {
+			if (source.className == "product_line") {
 				return source;
 			}
 		}
