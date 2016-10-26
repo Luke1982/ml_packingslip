@@ -13,6 +13,7 @@ function InventoryLine(data) {
 
 	// Tools
 	var newLineTool = data.source.getElementsByClassName("new_line_tool")[0];
+	var deleteLineTool = data.source.getElementsByClassName("delete_line_tool")[0];
 
 	// Inputs
 	var qtyField = data.source.getElementsByClassName("product_line_qty")[0];
@@ -209,6 +210,15 @@ function InventoryLine(data) {
 		inventoryLines.push(line);
 	}
 
+	/*
+	 * Deletes the line it was called on
+	 */
+	function __deleteLine(domLine) {
+		domLine.getElementsByClassName("hdn_product_isdeleted")[0].value = "true";
+		updateInventory(domLine);
+		domLine.style.display = "none";
+	}
+
 	// Event listeners
 	qtyField.addEventListener("input", function(e){
 		__calcDomLine(e.srcElement.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode);
@@ -246,9 +256,13 @@ function InventoryLine(data) {
 	newLineTool.addEventListener("click", function(e){
 		var productTable = document.getElementById("proBody");
 		var parentLine = e.srcElement.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode;
-
 		__insertEmptyLine(productTable, parentLine);
+		console.log(inventoryLines);
+	});
 
+	deleteLineTool.addEventListener("click", function(e){
+		var parentLine = e.srcElement.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode;
+		__deleteLine(parentLine);
 		console.log(inventoryLines);
 	});
 }

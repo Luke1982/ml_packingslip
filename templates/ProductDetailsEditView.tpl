@@ -83,6 +83,11 @@
 								<a href="javascript:;" class="new_line_tool">New Line</a>
 							</td>
 						</tr>
+						<tr>
+							<td>
+								<a href="javascript:;" class="delete_line_tool">Delete line</a>
+							</td>
+						</tr>
 					</tbody>
 				</table>
 			</td>
