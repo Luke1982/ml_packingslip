@@ -217,6 +217,22 @@ function InventoryLine(data) {
 	}
 
 	/*
+	 * Gets new name attributes for a radio group
+	 * helper for copyline function
+	 */
+	function __setNewRadioNames(domLine) {
+		var coll = domLine.getElementsByTagName("input");
+		for (var i = 0; i < coll.length; i++) {
+			if (coll[i].type == "radio") {
+				// New name attributes for radio groups
+				var baseName = coll[i].name.slice(0, -1);
+				coll[i].name = baseName + inventoryLines.length;
+			}
+		}
+		return domLine;
+	}
+
+	/*
 	 * Copies a line it was fed
 	 * Inserts it after the line it was called on
 	 */
@@ -224,6 +240,9 @@ function InventoryLine(data) {
 		var lineClone = domLine.cloneNode(true);
 		// Add a new ID to the copied line
 		lineClone.getElementsByClassName("hdn_product_id")[0].value = inventoryLines.length;
+		// Get new Radio names for this line
+		lineClone = __setNewRadioNames(lineClone);
+
 		parent.insertBefore(lineClone, domLine.nextSibling);
 
 		var line = new InventoryLine({
@@ -278,7 +297,7 @@ function InventoryLine(data) {
 	}
 
 	for (var i = 0; i < taxInputs.length; i++) {
-		taxInputs[i].addEventListener("click", function(e){
+		taxInputs[i].addEventListener("input", function(e){
 			var parentLine = e.srcElement.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode;
 			__calcDomLine(parentLine);
 			console.log("Tax Changed");
