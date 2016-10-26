@@ -85,6 +85,11 @@
 						</tr>
 						<tr>
 							<td>
+								<a href="javascript:;" class="copy_line_tool">Copy line</a>
+							</td>
+						</tr>
+						<tr>
+							<td>
 								<a href="javascript:;" class="delete_line_tool">Delete line</a>
 							</td>
 						</tr>

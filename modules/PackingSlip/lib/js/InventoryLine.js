@@ -13,6 +13,7 @@ function InventoryLine(data) {
 
 	// Tools
 	var newLineTool = data.source.getElementsByClassName("new_line_tool")[0];
+	var copyLineTool = data.source.getElementsByClassName("copy_line_tool")[0];
 	var deleteLineTool = data.source.getElementsByClassName("delete_line_tool")[0];
 
 	// Inputs
@@ -213,6 +214,26 @@ function InventoryLine(data) {
 	}
 
 	/*
+	 * Copies a line it was fed
+	 * Inserts it after the line it was called on
+	 */
+	function __copyLine(parent, domLine) {
+		var lineClone = domLine.cloneNode(true);
+		// Add a new ID to the copied line
+		lineClone.getElementsByClassName("hdn_product_id")[0].value = inventoryLines.length;
+		parent.insertBefore(lineClone, domLine.nextSibling);
+
+		var line = new InventoryLine({
+			"source"		: lineClone
+		});
+
+		line.props = line.setProps(line.propInputs);
+		line.props.id = inventoryLines.length;
+
+		inventoryLines.push(line);		
+	}
+
+	/*
 	 * Deletes the line it was called on
 	 */
 	function __deleteLine(domLine) {
@@ -265,6 +286,13 @@ function InventoryLine(data) {
 	deleteLineTool.addEventListener("click", function(e){
 		var parentLine = e.srcElement.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode;
 		__deleteLine(parentLine);
+		console.log(inventoryLines);
+	});
+
+	copyLineTool.addEventListener("click", function(e){
+		var productTable = document.getElementById("proBody");
+		var parentLine = e.srcElement.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode;
+		__copyLine(productTable, parentLine);
 		console.log(inventoryLines);
 	});
 }
