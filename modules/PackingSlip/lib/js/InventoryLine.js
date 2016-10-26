@@ -19,6 +19,7 @@ function InventoryLine(data) {
 	// Inputs
 	var qtyField = data.source.getElementsByClassName("product_line_qty")[0];
 	var nameField = data.source.getElementsByClassName("product_line_name")[0];
+	var commentField = data.source.getElementsByClassName("product_line_comment")[0];
 	var priceField = data.source.getElementsByClassName("product_line_listprice")[0];
 	var discountField = data.source.getElementsByClassName("product_line_discount")[0];
 	var discountRadios = data.source.getElementsByClassName("product_line_disc_radio");
@@ -41,6 +42,7 @@ function InventoryLine(data) {
 	var hdnDiscAmountField = data.source.getElementsByClassName("hdn_product_discount")[0];
 	var hdnTaxAmountField = data.source.getElementsByClassName("hdn_product_tax_am")[0];
 	var hdnTotalField = data.source.getElementsByClassName("hdn_product_total")[0];
+	var hdnCommentField = data.source.getElementsByClassName("hdn_product_comment")[0];
 
 	// Instance methods
 	this.setProps = function(inputs) {
@@ -49,15 +51,14 @@ function InventoryLine(data) {
 			var propVal = inputs[i].value;
 			__props[propName] = propVal;
 		}
-		// this.props = __props;
+		__props.comment = hdnCommentField.innerHTML;
 		return __props;
 	}
 
 	this.updateLine = function(updatedLine) {
 		var newPropInputs = __getInventoryLineProps(updatedLine);
 		var newProps = this.setProps(newPropInputs);
-		// console.log(inventoryLines);
-		// inventoryLines[index].props = newProps;
+		__props.comment = hdnCommentField.innerHTML;
 	}
 
 	// Global helpers
@@ -75,11 +76,11 @@ function InventoryLine(data) {
 		return input.value;
 	}
 
-	__triggerInput = function(field) {
-		field.dispatchEvent(new Event("input", {
-			"bubbles" : true 
-		}));
-	}
+	// __triggerInput = function(field) {
+	// 	field.dispatchEvent(new Event("input", {
+	// 		"bubbles" : true 
+	// 	}));
+	// }
 
 	__getDiscountType = function(parent) {
 		var discRadios = parent.getElementsByClassName("product_line_disc_radio");
@@ -94,7 +95,6 @@ function InventoryLine(data) {
 		var currentGross = parent.getElementsByClassName("product_line_gross")[0].innerHTML;
 		var discVal = parent.getElementsByClassName("product_line_discount")[0].value;
 		var discType = __getDiscountType(parent);
-		console.log(discType);
 		if (discType == "d") {
 			// Direct discount
 			return {
@@ -104,7 +104,7 @@ function InventoryLine(data) {
 		} else if (discType == "p") {
 			// Discount percentage
 			discVal = currentGross * (discVal / 100);
-			discVal = Math.round(discVal * 100) / 100;
+			discVal = Math.round(discVal * 100) / 100; // Round to two decimals only when needed
 			return {
 				"discountValue" : discVal,
 				"discountType"	: discType
@@ -120,7 +120,6 @@ function InventoryLine(data) {
 		var totalTax = 0;
 		for (var i = 0; i < taxInputs.length; i++) {
 			var toAdd = parseFloat(taxInputs[i].value);
-			console.log(toAdd);
 			totalTax += toAdd;
 		}
 		return totalTax;
@@ -131,6 +130,8 @@ function InventoryLine(data) {
 	 * line. After that, it calls the "updateInventory" function for this line
 	 */
 	function __calcDomLine(domLine) {
+		// Set the hidden comment
+		var newHdnComment		= hdnCommentField.innerHTML = commentField.value
 		// Set some hidden inputs for "updateLine" method to pick up
 		var newHdnQty 			= __setInput(hdnQtyField, qtyField.value);
 		var newHdnListPrice 	= __setInput(hdnListPriceField, priceField.value);
@@ -326,8 +327,32 @@ function InventoryLine(data) {
 	});
 
 	// Autocomplete
-	new Awesomplete(nameField, {
-		list : ["test1", "test2", "iets compleet anders", "een auto", "een vliegtuig"],
-		autoFirst : true
-	});
+	var r = new XMLHttpRequest();
+	r.open ("GET", "index.php?module=PackingSlip&action=PackingSlipAjax&file=inventoryAjax&getlist=true");
+	r.onreadystatechange = function() {
+		if (r.readyState == 4 && r.status == "200") {
+			// List is retrieved
+			var acList = JSON.parse(r.responseText);
+
+			new Awesomplete(nameField, {
+				list : acList,
+				autoFirst : true
+			});
+
+			window.addEventListener("awesomplete-selectcomplete", function(e){
+				__setCommentAndPrice(e.text.label, acList);
+				__calcDomLine(e.srcElement.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode);
+			});				
+		}
+	}
+	r.send();	
+
+	function __setCommentAndPrice(label, source) {
+		for(var i = 0; i < source.length; i++) {
+			if (source[i].label == label) {
+				commentField.value = source[i].desc;
+				priceField.value = source[i].price;
+			}
+		}
+	}
 }

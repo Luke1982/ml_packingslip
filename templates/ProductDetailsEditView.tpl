@@ -197,6 +197,7 @@
 				<input type="hidden" class="hdn_product_net" name="hdn_product_net" value="{$product_line.line_net_total}" />
 				<input type="hidden" class="hdn_product_tax_am" name="hdn_product_tax_am" value="{$product_line.tax_amount}" />
 				<input type="hidden" class="hdn_product_total" name="hdn_product_total" value="{$product_line.total_after_tax}" />
+				<textarea class="hdn_product_comment">{$product_line.comment}</textarea>
 			</div>
 		</tr>
 {/foreach}

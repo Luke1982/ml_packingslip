@@ -46,18 +46,8 @@ function buildInventory() {
  */
 function updateInventory(line) {
 	if (line != undefined) {
-		// If called for a single line
 		var toUpdate = checkLineId(line);
 		toUpdate.line.updateLine(line);
-	} else {
-		// Call it for all lines
-		var lines = document.getElementsByClassName("product_line");
-		for (var i = 0; i < lines.length; i++) {
-			(function(_i){
-				// checkLineId(lines[_i]);
-				// console.log(_i);
-			})(i);
-		}
 	}
 	console.log(inventoryLines);
 }
