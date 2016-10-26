@@ -48,7 +48,7 @@ function updateInventory(line) {
 	if (line != undefined) {
 		// If called for a single line
 		var toUpdate = checkLineId(line);
-		toUpdate.line.updateLine(line, toUpdate.index);
+		toUpdate.line.updateLine(line);
 	} else {
 		// Call it for all lines
 		var lines = document.getElementsByClassName("product_line");
@@ -67,11 +67,11 @@ function updateInventory(line) {
  * and performs the update method on the line that matches
  */
 function checkLineId(domLine) {
-	var domLineId = domLine.getElementsByClassName("hdn_product_line_id")[0].value;
+	var domLineId = domLine.getElementsByClassName("hdn_product_id")[0].value;
 	for (var i = 0; i < inventoryLines.length; i++) {
-		var idToCheck = inventoryLines[i].props.line_id;
+		var idToCheck = inventoryLines[i].props.id;
 		if (domLineId == idToCheck) {
-			return {"line" : inventoryLines[i], "index" : i};
+			return {"line" : inventoryLines[i]};
 		}
 	}
 }
