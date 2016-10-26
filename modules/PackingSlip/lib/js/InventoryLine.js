@@ -18,6 +18,7 @@ function InventoryLine(data) {
 
 	// Inputs
 	var qtyField = data.source.getElementsByClassName("product_line_qty")[0];
+	var nameField = data.source.getElementsByClassName("product_line_name")[0];
 	var priceField = data.source.getElementsByClassName("product_line_listprice")[0];
 	var discountField = data.source.getElementsByClassName("product_line_discount")[0];
 	var discountRadios = data.source.getElementsByClassName("product_line_disc_radio");
@@ -322,5 +323,11 @@ function InventoryLine(data) {
 		var parentLine = e.srcElement.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode;
 		__copyLine(productTable, parentLine);
 		console.log(inventoryLines);
+	});
+
+	// Autocomplete
+	new Awesomplete(nameField, {
+		list : ["test1", "test2", "iets compleet anders", "een auto", "een vliegtuig"],
+		autoFirst : true
 	});
 }

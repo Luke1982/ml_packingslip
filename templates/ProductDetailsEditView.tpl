@@ -9,11 +9,14 @@
  ********************************************************************************/
 -->*}
 
-<!-- Insert yet another jQuery version -->
+<!-- Insert 3rd party libraries -->
 <script type="text/javascript" src="modules/PackingSlip/lib/js/sortable.min.js"></script>
-<!-- Insert Custom PackingSlip CSS file -->
+<script type="text/javascript" src="modules/PackingSlip/lib/js/awesomplete.min.js"></script>
+<link rel="stylesheet" type="text/css" href="modules/PackingSlip/lib/css/awesomplete.css">
 <link rel="stylesheet" type="text/css" href="modules/PackingSlip/lib/css/PackingSlip.css">
-<!-- Insert InvetoryLine JS class -->
+<!-- Insert Custom Module CSS file -->
+<link rel="stylesheet" type="text/css" href="modules/PackingSlip/lib/css/PackingSlip.css">
+<!-- Insert InventoryLine JS class -->
 <script type="text/javascript" src="modules/PackingSlip/lib/js/InventoryLine.js"></script>
 
 <!-- MajorLabel new inventory lines -->
@@ -101,7 +104,7 @@
 				<table width="100%"  border="0" cellspacing="0" cellpadding="1">
 				   <tr>
 						<td class="small" valign="top">
-							<input type="text" name="{$product_line.product_name}" value="{$product_line.product_name}" class="small" style="width: 100%;" />
+							<input type="text" name="product_line_name" value="{$product_line.product_name}" class="small product_line_name" style="width: 100%;" />
 						</td>
 				   </tr>
 				   <tr>
