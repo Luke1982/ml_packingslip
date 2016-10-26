@@ -197,6 +197,8 @@ function InventoryLine(data) {
 		var cleanLine = __cleanLine(lineClone);
 		// Add a new ID to the clean line
 		cleanLine.getElementsByClassName("hdn_product_id")[0].value = inventoryLines.length;
+		// Set deleted to false on the new line
+		cleanLine.getElementsByClassName("hdn_product_isdeleted")[0].value = "false";
 
 		parent.insertBefore(cleanLine, line.nextSibling);
 
