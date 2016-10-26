@@ -21,8 +21,7 @@
 
 <!-- MajorLabel new inventory lines -->
 
-{* <pre>{$GROUP_TAXES|print_r}</pre> *}
-<pre>{$ASSOCIATEDPRODUCTS|print_r}</pre>
+{* <pre>{$ASSOCIATEDPRODUCTS|print_r}</pre> *}
 
 <table width="100%"  border="0" align="center" cellpadding="5" cellspacing="0" class="crmTable editview_inventory_table" id="proTab">
 	<tbody id="proBody">
@@ -204,6 +203,17 @@
 			</div>
 		</tr>
 {/foreach}
+	</tbody>
+</table>
+<!-- Start group taxes table -->
+<table width="100%"  border="0" align="center" cellpadding="5" cellspacing="0" class="crmTable editview_inventory_grouptaxes">
+	<tbody>
+		{foreach from=$GROUP_TAXES item=group_tax key=group_tax_no}
+		<tr>
+			<td width="85%" nowrap align="right"><b>{$group_tax.taxlabel} :</b></td>
+			<td width="15%" align="left"><input type="number" name="group_tax_{$group_tax_no}" class="small group_tax" value="{$group_tax.percentage}" style="width: 70px;"></td>
+		</tr>			
+		{/foreach}
 	</tbody>
 </table>
 <!-- Start product totals table -->
