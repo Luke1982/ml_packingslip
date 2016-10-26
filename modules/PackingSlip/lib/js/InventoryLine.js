@@ -153,6 +153,10 @@ function InventoryLine(data) {
 		updateInventory(domLine);
 	}
 
+	/*
+	 * Takes an existing line as argument and prepares it
+	 * to be inserted by cleaning most inputs.
+	 */
 	function __cleanLine(line) {
 		var inputs = line.getElementsByTagName("input");
 		var tas = line.getElementsByTagName("textarea");
@@ -182,6 +186,11 @@ function InventoryLine(data) {
 		return line;
 	}
 
+	/*
+	 * Takes an existing line and copies it, then 
+	 * empties it and inserts it after the line it
+	 * was copied from 
+	 */
 	function __insertEmptyLine(parent, line) {
 		var lineClone = line.cloneNode(true);
 		var cleanLine = __cleanLine(lineClone);
