@@ -145,18 +145,25 @@
 						</tr>
 						<tr>
 							<td align="right" colspan="3" class="product_line_taxes" style="padding:5px;" nowrap>
-							{foreach from=$product_line.taxes item=tax key=tax_no}
-								{if $tax.deleted == 0}
-								<b>{$tax.taxlabel} : </b><input type="number" name="product_line_tax" class="small product_line_tax" value="{$tax.current_percentage}" style="width: 70px;">
-								{/if}
-							{/foreach}
+								<table width="100%" cellpadding="0" cellspacing="0">
+									<tbody>
+									{foreach from=$product_line.taxes item=tax key=tax_no}
+										{if $tax.deleted == 0}
+										<tr>
+											<td align="right"><b>{$tax.taxlabel} (%) : </b></td>
+											<td width="70" style="padding: 5px 0;" align="left"><input type="number" name="product_line_tax" class="small product_line_tax" value="{$tax.current_percentage}" style="width: 70px;"></td>
+										</tr>
+										{/if}
+									{/foreach}										
+									</tbody>
+								</table>
 							</td>
 						</tr>
 					</tbody>						
 				</table>				
 			</td>
 			<!-- Column 5 -->
-			<td width=15% valign="top" class="lvtCol editview_inv_totalscol" align="right">
+			<td width=15% valign="middle" class="lvtCol editview_inv_totalscol" align="right">
 				<table width="100%" cellpadding="0" cellspacing="0">
 					<tbody>
 						<tr>
@@ -205,48 +212,101 @@
 {/foreach}
 	</tbody>
 </table>
-<!-- Start group taxes table -->
-<table width="100%"  border="0" align="center" cellpadding="5" cellspacing="0" class="crmTable editview_inventory_grouptaxes">
-	<tbody>
-		{foreach from=$GROUP_TAXES item=group_tax key=group_tax_no}
-		<tr>
-			<td width="85%" nowrap align="right"><b>{$group_tax.taxlabel} :</b></td>
-			<td width="15%" align="left"><input type="number" name="group_tax_{$group_tax_no}" class="small group_tax" value="{$group_tax.percentage}" style="width: 70px;"></td>
-		</tr>			
-		{/foreach}
-	</tbody>
-</table>
 <!-- Start product totals table -->
-<table width="100%"  border="0" align="center" cellpadding="5" cellspacing="0" class="crmTable editview_inventory_totals">
+<table width="100%"  border="0" align="center" cellpadding="5" cellspacing="0" class="crmTable editview_inv_totals">
 	<tbody>
 		<tr>
-			<td width="85%" align="right"><span class="inv_totals_text editview_inventory_subtot_label">{$APP.LBL_NET_TOTAL}</span></td>
-			<td width="15%" align="right"><span class="inv_totals_text editview_inventory_subtot_value">{* TOTAL HERE *}</span></td>
+			<td width="70%" valign="top" align="right" colspan="1"><span class="inv_totals_text editview_inv_subtot_label">{$APP.LBL_NET_TOTAL}</span></td>
+			<td width="30%" valign="top" align="right" colspan="2"><span class="inv_totals_text editview_inv_subtot_value">{$FINALS.subtotal}</span></td>
 		</tr>
 		<tr>
-			<td align="right"><span class="inv_totals_text editview_inventory_disc_tot_label">{$APP.LBL_DISCOUNT}</span></td>
-			<td align="right"><span class="inv_totals_text editview_inventory_disc_tot_value">{* TOTAL HERE *}</span></td>
+			<td align="right" valign="top" width="70%" colspan="1"><span class="inv_totals_text editview_inv_disc_tot_label">{$APP.LBL_DISCOUNT}</span></td>
+			<td align="left" valign="top" colspan="1" width="20%">
+				<!-- Discount inputs table -->
+				<table width="100%"  border="0" align="center" cellspacing="0">
+					<tbody>
+						<tr>
+							<td align="right" width="50%">
+								<input type="radio" name="editview_inv_tot_disctype" id="discount_amount_radio" {if $FINALS.discount_type eq 'd'}checked="checked"{/if} />
+								<input type="number" style="width: 70px" name="editview_inv_disc_am" class="small inv_totals_input editview_inv_disc_am" value="{$FINALS.discount_amount}">
+							</td>
+							<td align="right" width="50%">
+								<input type="radio" name="editview_inv_tot_disctype" id="discount_perc_radio" {if $FINALS.discount_type eq 'p'}checked="checked"{/if} />
+								<input type="number" style="width: 70px" name="editview_inv_disc_per" class="small inv_totals_input editview_inv_disc_per" value="{$FINALS.discount_percent}">
+							</td>
+						</tr>
+						<tr>
+							<td align="right" width="50%">{$APP.LBL_DIRECT_PRICE_REDUCTION}</td>
+							<td align="right" width="50%">% {$APP.LBL_OF_PRICE}</td>
+						</tr>
+					</tbody>
+				</table>
+			</td>
+			<td align="right" valign="top" colspan="1" width="10%">
+				<span class="inv_totals_text editview_inv_disc_tot_value">{$FINALS.total_discount}</span>
+			</td>
 		</tr>
 		<tr>
-			<td align="right"><span class="inv_totals_text editview_inventory_tax_tot_label">{$APP.LBL_TAX}</span></td>
-			<td align="right"><span class="inv_totals_text editview_inventory_tax_tot_value">{* TOTAL HERE *}</span></td>
+			<td align="right" valign="top" width="70%" colspan="1"><span class="inv_totals_text editview_inv_tax_tot_label">{$APP.LBL_TAX}</span></td>
+			<td align="left" valign="top" colspan="1" width="20%">
+				<!-- Taxes inputs table -->
+				<table width="100%"  border="0" align="center" cellspacing="0">
+					<tbody>
+						{foreach from=$GROUP_TAXES item=group_tax key=group_tax_no}
+						<tr>
+							<td align="right" width="50%"><b>{$group_tax.taxlabel} (%) :</b></td>
+							<td align="right" width="50%"><input type="number" name="group_tax_{$group_tax_no}" class="small group_tax" value="{$group_tax.percentage}" style="width: 70px;"></td>
+						</tr>
+						{/foreach}
+					</tbody>
+				</table>
+			</td>			
+			<td align="right" valign="bottom" colspan="1" width="10%">
+				<span class="inv_totals_text editview_inv_tax_tot_value">{$FINALS.exciseduty}</span>
+			</td>
 		</tr>
 		<tr>
-			<td align="right"><span class="inv_totals_text editview_inventory_sh_tot_label">{$APP.LBL_SHIPPING_AND_HANDLING_CHARGES}</span></td>
-			<td align="right"><span class="inv_totals_text editview_inventory_sh_tot_value">{* TOTAL HERE *}</span></td>
+			<td align="right" valign="top" width="70%" colspan="1"><span class="inv_totals_text editview_inv_sh_tot_label">{$APP.LBL_SHIPPING_AND_HANDLING_CHARGES}</span></td>
+			<td align="right" valign="top" colspan="1" width="20%">
+				<input type="number" name="editview_inv_sh" class="small inv_totals_input inv_totals_sh_input" style="width: 70px;" value="{$FINALS.s_h_amount}">
+			</td>
+			<td align="right" valign="top" colspan="1" width="10%">
+				<span class="inv_totals_text editview_inv_sh_tot_value">{$FINALS.s_h_amount}</span>
+			</td>
 		</tr>
 		<tr>
-			<td align="right"><span class="inv_totals_text editview_inventory_shtax_tot_label">{$APP.LBL_TAX_FOR_SHIPPING_AND_HANDLING}</span></td>
-			<td align="right"><span class="inv_totals_text editview_inventory_shtax_tot_value">{* TOTAL HERE *}</span></td>
+			<td align="right" valign="top" width="70%" colspan="1"><span class="inv_totals_text editview_inv_shtax_tot_label">{$APP.LBL_TAX_FOR_SHIPPING_AND_HANDLING}</span></td>
+			<td align="left" valign="top" colspan="1" width="20%">
+				<!-- S&H taxes inputs table -->
+				<table width="100%"  border="0" align="center" cellspacing="0">
+					<tbody>
+						{foreach from=$SH_TAXES item=sh_tax key=sh_tax_no}
+						<tr>
+							<td align="right" width="50%"><b>{$sh_tax.taxlabel} (%) :</b></td>
+							<td align="right" width="50%"><input type="number" name="sh_tax_{$sh_tax_no}" class="small sh_tax inv_totals_input" value="{$sh_tax.percentage}" style="width: 70px;"></td>
+						</tr>
+						{/foreach}
+					</tbody>
+				</table>
+			</td>			
+			<td align="right" valign="bottom" colspan="1" width="10%">
+				<span class="inv_totals_text editview_inv_shtax_tot_value">{$FINALS.salescommission}</span>
+			</td>
 		</tr>
 		<tr>
-			<td align="right"><span class="inv_totals_text editview_inventory_adj_tot_label">{$APP.LBL_ADJUSTMENT}</span></td>
-			<td align="right"><span class="inv_totals_text editview_inventory_adj_tot_value">{* TOTAL HERE *}</span></td>
+			<td align="right" valign="top" width="70%" colspan="1"><span class="inv_totals_text editview_inv_sh_tot_label">{$APP.LBL_ADJUSTMENT}</span></td>
+			<td align="right" valign="top" colspan="1" width="20%">
+				<input type="number" name="editview_inv_adj" class="inv_totals_input small" style="width: 70px;" value="{$FINALS.adjustment}">
+			</td>
+			<td align="right" valign="top" colspan="1" width="10%">
+				<span class="inv_totals_text editview_inv_sh_tot_value">{$FINALS.adjustment}</span>
+			</td>		
 		</tr>
 		<tr>
-			<td align="right"><span class="inv_totals_text editview_inventory_gt_tot_label">{$APP.LBL_GRAND_TOTAL}</span></td>
-			<td align="right"><span class="inv_totals_text editview_inventory_gt_tot_value">{* TOTAL HERE *}</span></td>
+			<td align="right"><span class="inv_totals_text editview_inv_gt_tot_label">{$APP.LBL_GRAND_TOTAL}</span></td>
+			<td colspan="2" align="right"><span class="inv_totals_value editview_inv_gt_tot_value">{$FINALS.total}</span></td>
 		</tr>
 	</tbody>
 </table>
+<pre>{$SH_TAXES|print_r}</pre>
 <!-- End MajorLabel new inventory lines -->
