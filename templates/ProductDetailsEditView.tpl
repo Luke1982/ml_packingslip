@@ -21,7 +21,7 @@
 
 <!-- MajorLabel new inventory lines -->
 
-<pre>{$ASSOCIATEDPRODUCTS|print_r}</pre>
+{* <pre>{$ASSOCIATEDPRODUCTS|print_r}</pre> *}
 
 <table width="100%"  border="0" align="center" cellpadding="5" cellspacing="0" class="crmTable editview_inventory_table" id="proTab">
 	<tbody id="proBody">

@@ -354,7 +354,8 @@ function InventoryLine(data) {
 
 			new Awesomplete(nameField, {
 				list : acList,
-				autoFirst : true
+				autoFirst : true,
+				maxItems : 6
 			});
 
 			window.addEventListener("awesomplete-selectcomplete", function(e){

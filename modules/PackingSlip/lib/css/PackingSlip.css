@@ -1,3 +1,11 @@
 .awesomplete {
 	width: 100%;
 }
+
+.awesomplete > ul > li {
+	border-bottom: 1px solid #cccccc;
+}
+
+.awesomplete > ul > li:last-child {
+ 	border-bottom: 0;
+}

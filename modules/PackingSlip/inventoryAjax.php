@@ -17,7 +17,7 @@ if (isset($_REQUEST['getlist']) && $_REQUEST['getlist'] == true) {
 	$prod_res = $adb->pquery("SELECT vtiger_products.productid, vtiger_products.product_no, vtiger_products.productname, vtiger_products.mfr_part_no, vtiger_products.vendor_part_no, vtiger_products.unit_price, vtiger_crmentity.description FROM vtiger_products INNER JOIN vtiger_crmentity ON vtiger_products.productid = vtiger_crmentity.crmid", array());
 	while ($prod = $adb->fetch_array($prod_res)) {
 		$list[] = array(
-			'label' => $prod['product_no'].': '.$prod['productname'].'<br>'.$prod['mfr_part_no'].'<br>'.$prod['vendor_part_no'],
+			'label' => '<b>'.$prod['product_no'].'</b>: '.$prod['productname'].'<br>'.$prod['mfr_part_no'].'<br>'.$prod['vendor_part_no'],
 			'value' => $prod['productname'],
 			'price' => $prod['unit_price'],
 			'desc' => $prod['description'],
