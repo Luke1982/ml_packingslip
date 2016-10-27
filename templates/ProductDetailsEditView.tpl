@@ -18,6 +18,7 @@
 <link rel="stylesheet" type="text/css" href="modules/PackingSlip/lib/css/PackingSlip.css">
 <!-- Insert InventoryLine JS class -->
 <script type="text/javascript" src="modules/PackingSlip/lib/js/InventoryLine.js"></script>
+<script type="text/javascript">var taxType = "{$TAX_TYPE}";</script>
 
 <!-- MajorLabel new inventory lines -->
 
@@ -45,10 +46,9 @@
 		</td>
 		<td width=15% colspan="1" valign="top" class="lvtCol editview_inv_item_header" align="left">
 			{$APP.LBL_TAX_MODE}
-			{* TODO: create a class method for PackingSlip class that gets and sets the taxtype in editview *}
 			<select class="small" id="taxtype" name="taxtype">
-				<option value="individual">{$APP.LBL_INDIVIDUAL}</option> 
-				<option value="group">{$APP.LBL_GROUP}</option>
+				<option value="individual" {if $TAX_TYPE eq "individual"}selected{/if}>{$APP.LBL_INDIVIDUAL}</option> 
+				<option value="group" {if $TAX_TYPE eq "group"}selected{/if}>{$APP.LBL_GROUP}</option>
 			<select>
 		</td>
 	</tr>	
@@ -144,14 +144,14 @@
 							</td>
 						</tr>
 						<tr>
-							<td align="right" colspan="3" class="product_line_taxes" style="padding:5px;" nowrap>
+							<td align="right" colspan="3" class="product_line_taxes" style="padding:5px;{if $TAX_TYPE eq "group"}display:none;{/if}" nowrap>
 								<table width="100%" cellpadding="0" cellspacing="0">
 									<tbody>
 									{foreach from=$product_line.taxes item=tax key=tax_no}
 										{if $tax.deleted == 0}
 										<tr>
 											<td align="right"><b>{$tax.taxlabel} (%) : </b></td>
-											<td width="70" style="padding: 5px 0;" align="left"><input type="number" name="product_line_tax" class="small product_line_tax" value="{$tax.current_percentage}" style="width: 70px;"></td>
+											<td width="70" style="padding: 5px 0;" align="right"><input type="number" name="product_line_tax" class="small product_line_tax" value="{$tax.current_percentage}" style="width: 70px;"></td>
 										</tr>
 										{/if}
 									{/foreach}										
@@ -176,7 +176,7 @@
 							<td align="right" width="5%" style="padding:5px;" nowrap><b>{$selected_cur_symbol}</b></td>
 							<td align="right" width="45%" style="padding:5px;" nowrap><span class="product_line_net target" style="width: 70px;">{$product_line.line_net_total}</span></td>
 						</tr>
-						<tr>
+						<tr {if $TAX_TYPE eq "group"}style="display:none"{/if} class="product_line_totals_tax">
 							<td align="right" width="50%" style="padding:5px;" nowrap><b>{$APP.LBL_TAX} : </b></td>
 							<td align="right" width="5%" style="padding:5px;" nowrap><b>{$selected_cur_symbol}</b></td>
 							<td align="right" width="45%" style="padding:5px;" nowrap><span class="product_line_tax_amount target" style="width: 70px;">{$product_line.tax_amount}</span></td>
@@ -246,7 +246,7 @@
 				<span class="inv_totals_text editview_inv_disc_tot_value">{$FINALS.total_discount}</span>
 			</td>
 		</tr>
-		<tr>
+		<tr {if $TAX_TYPE eq "individual"}style="display:none"{/if} id="inv_totals_group_taxes">
 			<td align="right" valign="top" width="70%" colspan="1"><span class="inv_totals_text editview_inv_tax_tot_label">{$APP.LBL_TAX}</span></td>
 			<td align="left" valign="top" colspan="1" width="20%">
 				<!-- Taxes inputs table -->

@@ -21,6 +21,17 @@ window.addEventListener("load", function(){
 		handle: ".move_line_tool"
 	});
 
+	/*
+	 * Function to handle changing tax type
+	 */
+	function taxType() {
+		var taxSelect = document.getElementById("taxtype");
+		taxSelect.addEventListener("change", function(){
+			updateTaxes(taxSelect.value);
+		});
+	}
+	taxType();	
+
 });
 
 /*
@@ -92,4 +103,25 @@ function getNonDeletedDomLines() {
 		}
 	}
 	return nonDeletedLines;
+}
+
+/*
+ * Handles all tax related stuff when the taxtype changes
+ */
+function updateTaxes(taxType) {
+	// Show or hide appropriate lines
+	var pLinesTaxes = document.getElementsByClassName("product_line_taxes");
+	var pLinesTaxTotals = document.getElementsByClassName("product_line_totals_tax");
+	var totalsGroupTaxes = document.getElementById("inv_totals_group_taxes");
+	for (var i = 0; i < pLinesTaxes.length; i++) {
+		if (taxType == "group") {
+			pLinesTaxTotals[i].style.display = "none";
+			pLinesTaxes[i].style.display = "none";
+			totalsGroupTaxes.style.display = "table-row";
+		} else if (taxType == "individual") {
+			pLinesTaxTotals[i].style.display = "table-row";
+			pLinesTaxes[i].style.display = "table-cell";
+			totalsGroupTaxes.style.display = "none";
+		}
+	}
 }
