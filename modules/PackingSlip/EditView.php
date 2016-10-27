@@ -248,6 +248,7 @@ if ($focus->mode == 'edit' || $_REQUEST['isDuplicate'] == 'true') {
 	$smarty->assign("INV_CURRENCY_ID", $currencyid);
 }
 
+
 $check_button = Button_Check($module);
 $smarty->assign("CHECK", $check_button);
 $smarty->assign("DUPLICATE",vtlib_purify($_REQUEST['isDuplicate']));
@@ -255,6 +256,14 @@ $smarty->assign("DUPLICATE",vtlib_purify($_REQUEST['isDuplicate']));
 $smarty->assign('PRODUCT_OR_SERVICE', GlobalVariable::getVariable('product_service_default', 'Products', $currentModule, $current_user->id));
 //Set taxt type group or individual by default when create
 $smarty->assign('TAX_TYPE', GlobalVariable::getVariable('Tax_Type_Default', 'group', $currentModule, $current_user->id));
+
+echo "<pre>";
+$test = get_inventory_finals($focus);
+print_r($test);
+echo "</pre>";
+
+$smarty->assign('FINALS', get_inventory_finals($focus));
+
 if ($focus->mode == 'edit')
 	$smarty->display("modules/PackingSlip/InventoryEditView.tpl");
 else
@@ -265,6 +274,13 @@ function get_ass_products_ps($focus) {
 	global $adb;
 	$product_coll = new ProductCollection($adb);
 	return $product_coll->get($focus->id);
+}
+
+function get_inventory_finals($focus) {
+	require_once('classes/InventoryFinals.php');
+	global $adb;
+	$inv_finals = new InventoryFinals($adb);
+	return $inv_finals->get($focus);
 }
 
 $get_ass_products_ps($focus);
