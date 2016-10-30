@@ -114,6 +114,9 @@
 							</td>
 						</tr>
 						<tr>
+							<td colspan="3" class="adj_col_disc_header">{$APP.LBL_DISCOUNT}</td>
+						</tr>						
+						<tr>
 							<td align="left" colspan="2" style="padding:5px;" nowrap>
 								<input type="radio" name="product_line_disc_type_0" class="product_line_disc_radio" value="p" checked="checked">% {$APP.LBL_OF_PRICE}
 								<br>
@@ -127,6 +130,9 @@
 							<td align="right" colspan="3" class="product_line_taxes" style="padding:5px;{if $TAX_TYPE eq "group"}display:none;{/if}" nowrap>
 								<table width="100%" cellpadding="0" cellspacing="0">
 									<tbody>
+									<tr>
+										<td colspan="2" class="adj_col_tax_header">{$APP.LBL_TAX}</td>
+									</tr>									
 									{foreach from=$GROUP_TAXES item=tax key=tax_no}
 										{if $tax.deleted == 0}
 										<tr>
