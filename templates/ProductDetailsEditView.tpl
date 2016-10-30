@@ -139,6 +139,7 @@
 							<td align="right" colspan="3" class="product_line_taxes" style="padding:5px;{if $TAX_TYPE eq "group"}display:none;{/if}" nowrap>
 								<table width="100%" cellpadding="0" cellspacing="0">
 									<tbody>
+									<pre>{$product_line.taxes|print_r}</pre>
 									{foreach from=$product_line.taxes item=tax key=tax_no}
 										{if $tax.deleted == 0}
 										<tr>
@@ -183,6 +184,7 @@
 			</td>
 			<!-- Hidden column that represents all hidden inputs with behind the scenes data -->
 			<td width="0" class="productline_props" style="display: none">
+				<!-- MajorLabel implementation of hidden inputs -->
 				<input type="hidden" class="hdn_product_id" name="hdn_product_id" value="{$row_no}" />
 				<input type="hidden" class="hdn_product_isdeleted" name="hdn_product_isdeleted" value="false" />
 				<input type="hidden" class="hdn_product_line_id" name="hdn_product_line_id" value="{$product_line.line_id}" />
@@ -199,6 +201,25 @@
 				<input type="hidden" class="hdn_product_tax_am" name="hdn_product_tax_am" value="{$product_line.tax_amount}" />
 				<input type="hidden" class="hdn_product_total" name="hdn_product_total" value="{$product_line.total_after_tax}" />
 				<textarea class="hdn_product_comment">{$product_line.comment}</textarea>
+				<!-- Vtiger implementation of hidden inputs -->
+				{assign var="row_no_plus" value=$row_no+1}
+				<input id="deleted{$row_no_plus}" name="deleted{$row_no_plus}" value="0" type="hidden">
+				{if $product_line.line_id == "0"}{assign var="line_id" value=""}{else}{assign var=$product_line.line_id value=""}{/if}
+				<input id="lineitem_id{$row_no_plus}" name="lineitem_id{$row_no_plus}" value="{$line_id}" type="hidden">
+				<input id="hdnProductId{$row_no_plus}" name="hdnProductId{$row_no_plus}" value="{$product_line.product_id}" type="hidden">
+				<input id="lineItemType{$row_no_plus}" name="lineItemType{$row_no_plus}" value="{$product_line.entity_type}" type="hidden">
+				<textarea id="comment{$row_no_plus}" name="comment{$row_no_plus}">{$product_line.comment}</textarea>
+				<input id="qty{$row_no_plus}" name="qty{$row_no_plus}" value="{$product_line.qty}" type="hidden">
+				<input id="listPrice{$row_no_plus}" name="listPrice{$row_no_plus}" value="{$product_line.list_price}" type="hidden">
+				<input id="discount_type{$row_no_plus}" name="discount_type{$row_no_plus}" value="{$product_line.discount_type}" type="hidden">
+				<input id="discount_percentage{$row_no_plus}" name="discount_percentage{$row_no_plus}" value="{$product_line.discount_perc}" type="hidden">
+				<input id="discount_amount{$row_no_plus}" name="discount_amount{$row_no_plus}" value="{$product_line.discount_am}" type="hidden">
+				{foreach from=$product_line.taxes item=tax key=tax_no}
+					{if $tax.deleted == 0}
+				<input id="tax{$tax.taxid}_percentage{$row_no_plus}" name="tax{$tax.taxid}_percentage{$row_no_plus}" value="{$tax.current_percentage}" type="hidden">
+					{/if}
+				{/foreach}
+				<input id="hdnTaxTotal{$row_no_plus}" name="hdnTaxTotal{$row_no_plus}" value="{$product_line.tax_amount}" type="hidden">
 			</div>
 		</tr>
 {/foreach}
