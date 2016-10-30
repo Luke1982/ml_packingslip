@@ -104,6 +104,7 @@ function InventoryLine(data) {
 		var currentGross = parent.getElementsByClassName("product_line_gross")[0].innerHTML;
 		var discVal = parent.getElementsByClassName("product_line_discount")[0].value;
 		var discType = __getDiscountType(parent);
+		console.log(discType);
 		if (discType == "d") {
 			// Direct discount
 			return {
@@ -126,7 +127,7 @@ function InventoryLine(data) {
 		var hiddenTaxFields = domLine.getElementsByClassName("product_line_hdntaxes")[0];
 		var inputToUpdate = hiddenTaxFields.getElementsByClassName("hdn_product_"+taxName)[0];
 		inputToUpdate.value = taxInput.value;
-		console.log(inputToUpdate);
+		// console.log(inputToUpdate);
 	}
 
 	__calculateTaxAmount = function(taxPerc, amount) {
@@ -148,7 +149,7 @@ function InventoryLine(data) {
 	 */
 	function __calcDomLine(domLine) {
 		// Set the hidden comment
-		var newHdnComment		= hdnCommentField.innerHTML = commentField.value
+		var newHdnComment		= hdnCommentField.value = commentField.value
 		// Set some hidden inputs for "updateLine" method to pick up
 		var newHdnQty 			= __setInput(hdnQtyField, qtyField.value);
 		var newHdnListPrice 	= __setInput(hdnListPriceField, priceField.value);
@@ -185,8 +186,7 @@ function InventoryLine(data) {
 		function emptyValues(coll) {
 			for (var i = 0; i < coll.length; i++) {
 				// Don't clear tax fields and discount type
-				if (coll[i].className.indexOf("product_line_tax") == -1 
-					&& coll[i].className.indexOf("disc") == -1) {
+				if (coll[i].getAttribute("cleanline") != "leavealone") {
 					coll[i].value = "";
 				}
 				if (coll[i].type == "radio") {
@@ -250,9 +250,10 @@ function InventoryLine(data) {
 
 		function incrementNames(coll) {
 			for (var i = 0; i < coll.length; i++) {
-				var baseName = coll[i].name.substring(0, (coll[i].name.length - 1));
-				coll[i].name = baseName + inventoryLines.length;
-				console.log(coll[i].name);
+				var baseName = coll[i].name.substring(0, 12);
+				var endName = coll[i].name.substring(13, coll[i].name.length);
+				coll[i].name = baseName + inventoryLines.length + endName;
+				// console.log(coll[i].name);
 			}
 			return coll;
 		}

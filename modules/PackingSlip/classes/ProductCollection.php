@@ -29,6 +29,12 @@ Class ProductCollection {
 		return $this->collectedProductLines;
 	}
 
+	public function save($request) {
+		echo "<pre>";
+		print_r($request['hdn_product']);
+		echo "</pre>";
+	}
+
 	private function startEmptyProductLine() {
 		$this->productProps = array(
 			'crment_id'			=>		0,

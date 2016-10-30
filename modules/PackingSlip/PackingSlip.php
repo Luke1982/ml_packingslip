@@ -121,17 +121,27 @@ class PackingSlip extends CRMEntity {
 	}
 
 	function save_module($module) {
+
+		require_once('classes/ProductCollection.php');
+		global $adb;
+		$product_coll = new ProductCollection($adb);
+		$product_coll->save($_REQUEST);
+
 		if ($this->HasDirectImageField) {
 			$this->insertIntoAttachment($this->id,$module);
 		}
 		//in ajax save we should not call this function, because this will delete all the existing product values
-		if(isset($_REQUEST)) {
-			if($_REQUEST['action'] != 'PackingSlipAjax' && $_REQUEST['ajxaction'] != 'DETAILVIEW' && $_REQUEST['action'] != 'MassEditSave')
-			{
-				//Based on the total Number of rows we will save the product relationship with this entity
-				save_packingslip_inventory_product_details($this, 'PackingSlip');
-			}
-		}
+		// if(isset($_REQUEST)) {
+		// 	if($_REQUEST['action'] != 'PackingSlipAjax' && $_REQUEST['ajxaction'] != 'DETAILVIEW' && $_REQUEST['action'] != 'MassEditSave')
+		// 	{
+		// 		//Based on the total Number of rows we will save the product relationship with this entity
+				// save_packingslip_inventory_product_details($this, 'PackingSlip');
+				// require_once('classes/ProductCollection.php');
+				// global $adb;
+				// $product_coll = new ProductCollection($adb);
+				// $product_coll->save($_REQUEST);				
+		// 	}
+		// }
 		// Update the currency id and the conversion rate for the invoice
 		$update_query = "update vtiger_packingslip set currency_id=?, conversion_rate=? where packingslipid=?";
 		$update_params = array($this->column_fields['currency_id'], $this->column_fields['conversion_rate'], $this->id); 

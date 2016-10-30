@@ -188,30 +188,30 @@
 			<!-- Hidden column that represents all hidden inputs with behind the scenes data -->
 			<td width="0" class="productline_props" style="display: none">
 				<!-- MajorLabel implementation of hidden inputs -->
-				<input type="hidden" class="hdn_product_id" name="hdn_product_id_{$row_no}" value="{$row_no}" />
-				<input type="hidden" class="hdn_product_isdeleted" name="hdn_product_isdeleted_{$row_no}" value="false" />
-				<input type="hidden" class="hdn_product_line_id" name="hdn_product_line_id_{$row_no}" value="{$product_line.line_id}" />
-				<input type="hidden" class="hdn_product_seq" name="hdn_product_seq_{$row_no}" value="{$product_line.seq}" />
-				<input type="hidden" class="hdn_product_crm_id" name="hdn_product_crm_id_{$row_no}" value="{$product_line.product_id}" />
-				<input type="hidden" class="hdn_product_entity_type" name="hdn_product_entity_type_{$row_no}" value="{$product_line.entity_type}" />
-				<input type="hidden" class="hdn_product_qty" name="hdn_product_qty_{$row_no}" value="{$product_line.qty}" />
-				<input type="hidden" class="hdn_product_listprice" name="hdn_product_listprice_{$row_no}" value="{$product_line.list_price}" />
-				<input type="hidden" class="hdn_product_discount" name="hdn_product_discount_{$row_no}" value="{$show_discount}" />
-				<input type="hidden" class="hdn_product_discount_type" name="hdn_product_discount_type_{$row_no}" value="{$product_line.discount_type}" />
-				<input type="hidden" class="hdn_product_gross" name="hdn_product_gross_{$row_no}" value="{$product_line.line_gross_total}" />
-				<input type="hidden" class="hdn_product_net" name="hdn_product_net_{$row_no}" value="{$product_line.line_net_total}" />
-				<input type="hidden" class="hdn_product_tax_am" name="hdn_product_tax_am_{$row_no}" value="{$product_line.tax_amount}" />
-				<input type="hidden" class="hdn_product_total" name="hdn_product_total_{$row_no}" value="{$product_line.total_after_tax}" />
-				<textarea class="hdn_product_comment" name="hdn_product_comment_{$row_no}">{$product_line.comment}</textarea>
+				<input type="hidden" class="hdn_product_id" name="hdn_product[{$row_no}][id]" value="{$row_no}" />
+				<input type="hidden" class="hdn_product_isdeleted" name="hdn_product[{$row_no}][deleted]" value="false" />
+				<input type="hidden" class="hdn_product_line_id" name="hdn_product[{$row_no}][line_id]" value="{$product_line.line_id}" />
+				<input type="hidden" class="hdn_product_seq" name="hdn_product[{$row_no}][seq]" value="{$product_line.seq}" />
+				<input type="hidden" class="hdn_product_crm_id" name="hdn_product[{$row_no}][crm_id]" value="{$product_line.product_id}" />
+				<input type="hidden" class="hdn_product_entity_type" name="hdn_product[{$row_no}][entity_type]" value="{$product_line.entity_type}" />
+				<input type="hidden" class="hdn_product_qty" name="hdn_product[{$row_no}][qty]" value="{$product_line.qty}" />
+				<input type="hidden" class="hdn_product_listprice" name="hdn_product[{$row_no}][listprice]" value="{$product_line.list_price}" />
+				<input type="hidden" class="hdn_product_discount" name="hdn_product[{$row_no}][discount]" value="{$show_discount}" />
+				<input type="hidden" class="hdn_product_discount_type" name="hdn_product[{$row_no}][discount_type]" value="{$product_line.discount_type}" cleanline="leavealone"/>
+				<input type="hidden" class="hdn_product_gross" name="hdn_product[{$row_no}][gross]" value="{$product_line.line_gross_total}" />
+				<input type="hidden" class="hdn_product_net" name="hdn_product[{$row_no}][net]" value="{$product_line.line_net_total}" />
+				<input type="hidden" class="hdn_product_tax_am" name="hdn_product[{$row_no}][tax_am]" value="{$product_line.tax_amount}" />
+				<input type="hidden" class="hdn_product_total" name="hdn_product[{$row_no}][total]" value="{$product_line.total_after_tax}" />
+				<textarea class="hdn_product_comment" name="hdn_product[{$row_no}][comment]">{$product_line.comment}</textarea>
 				{* Individual taxes *}
 				<div class="product_line_hdntaxes">
-				{foreach from=$product_line.taxes item=tax key=tax_no}
+				{foreach from=$GROUP_TAXES item=tax key=tax_no}
 					{if $tax.deleted == 0}
-					<input type="hidden" class="hdn_product_{$tax.taxname}" name="hdn_product_{$tax.taxname}_{$row_no}" value="{$tax.current_percentage}">
+					<input type="hidden" class="hdn_product_{$tax.taxname}" cleanline="leavealone" name="hdn_product[{$row_no}][{$tax.taxname}]" value="{$tax.current_percentage}">
 					{/if}
 				{/foreach}
-				</div>				
-			</div>
+				</div>
+			</td>			
 		</tr>
 {/foreach}
 	</tbody>
@@ -312,5 +312,5 @@
 		</tr>
 	</tbody>
 </table>
-<pre>{$SH_TAXES|print_r}</pre>
+{* <pre>{$SH_TAXES|print_r}</pre> *}
 <!-- End MajorLabel new inventory lines -->

@@ -18,7 +18,8 @@ window.addEventListener("load", function(){
 			console.log("dragged");
 		},
 		animation : 150,
-		handle: ".move_line_tool"
+		handle: ".move_line_tool",
+		draggable : ".product_line"
 	});
 
 	/*
@@ -112,16 +113,41 @@ function updateTaxes(taxType) {
 	// Show or hide appropriate lines
 	var pLinesTaxes = document.getElementsByClassName("product_line_taxes");
 	var pLinesTaxTotals = document.getElementsByClassName("product_line_totals_tax");
+	var pLinesNetTotals = document.getElementsByClassName("product_line_totals_net");
 	var totalsGroupTaxes = document.getElementById("inv_totals_group_taxes");
 	for (var i = 0; i < pLinesTaxes.length; i++) {
 		if (taxType == "group") {
 			pLinesTaxTotals[i].style.display = "none";
+			pLinesNetTotals[i].style.display = "none";
 			pLinesTaxes[i].style.display = "none";
 			totalsGroupTaxes.style.display = "table-row";
 		} else if (taxType == "individual") {
 			pLinesTaxTotals[i].style.display = "table-row";
+			pLinesNetTotals[i].style.display = "table-row";
 			pLinesTaxes[i].style.display = "table-cell";
 			totalsGroupTaxes.style.display = "none";
 		}
+	}
+
+}
+
+// Key listener
+document.addEventListener('keyup', docKeyUp, false);
+
+function docKeyUp(e) {
+	console.log(e.keyCode);
+	if (e.keyCode == 81) {
+		// CTRL + Q
+		console.log("CTRL Q pressed");
+		var taxType = document.getElementById("taxtype");
+		if (taxType.value == "group") {
+			taxType.value = "individual";
+		} else {
+			taxType.value = "group";
+		}
+		taxType.dispatchEvent(new Event("change", {
+				"bubbles" : true 
+			}));
+
 	}
 }

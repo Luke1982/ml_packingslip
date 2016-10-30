@@ -9,3 +9,11 @@
 .awesomplete > ul > li:last-child {
  	border-bottom: 0;
 }
+
+.ac_productno,
+.ac_venno_tit,
+.ac_mfrno_tit {
+	display: inline-block;
+	width: 110px;
+	font-weight: 600;
+}

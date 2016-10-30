@@ -118,9 +118,9 @@
 						</tr>						
 						<tr>
 							<td align="left" colspan="2" style="padding:5px;" nowrap>
-								<input type="radio" name="product_line_disc_type_0" class="product_line_disc_radio" value="p" checked="checked">% {$APP.LBL_OF_PRICE}
+								<input type="radio" name="product_line_disc_type_0" class="product_line_disc_radio" value="p" checked="checked" cleanline="leavealone">% {$APP.LBL_OF_PRICE}
 								<br>
-								<input type="radio" name="product_line_disc_type_0" class="product_line_disc_radio" value="d">{$APP.LBL_DIRECT_PRICE_REDUCTION}
+								<input type="radio" name="product_line_disc_type_0" class="product_line_disc_radio" value="d" cleanline="leavealone">{$APP.LBL_DIRECT_PRICE_REDUCTION}
 							</td>
 							<td align="right" colspan="1" style="padding:5px;" nowrap>
 								<b>{$APP.LBL_DISCOUNT} : </b><input type="text" name="product_line_discount" value="0" class="small product_line_discount" style="width: 70px;">
@@ -137,7 +137,7 @@
 										{if $tax.deleted == 0}
 										<tr>
 											<td align="right"><b>{$tax.taxlabel} (%) : </b></td>
-											<td width="70" style="padding: 5px 0;" align="right"><input type="number" data-taxname="{$tax.taxname}" name="product_line_tax" class="small product_line_tax" value="{$tax.percentage}" style="width: 70px;"></td>
+											<td width="70" style="padding: 5px 0;" align="right"><input type="number" data-taxname="{$tax.taxname}" name="product_line_tax" class="small product_line_tax" cleanline="leavealone" value="{$tax.percentage}" style="width: 70px;"></td>
 										</tr>
 										{/if}
 									{/foreach}										
@@ -178,30 +178,30 @@
 			<!-- Hidden column that represents all hidden inputs with behind the scenes data -->
 			<td width="0" class="productline_props" style="display: none">
 				<!-- MajorLabel implementation of hidden inputs -->
-				<input type="hidden" class="hdn_product_id" name="hdn_product_id_0" value="0" />
-				<input type="hidden" class="hdn_product_isdeleted" name="hdn_product_isdeleted_0" value="false" />
-				<input type="hidden" class="hdn_product_line_id" name="hdn_product_line_id_0" value="" />
-				<input type="hidden" class="hdn_product_seq" name="hdn_product_seq_0" value="1" />
-				<input type="hidden" class="hdn_product_crm_id" name="hdn_product_crm_id_0" value="" />
-				<input type="hidden" class="hdn_product_entity_type" name="hdn_product_entity_type_0" value="" />
-				<input type="hidden" class="hdn_product_qty" name="hdn_product_qty_0" value="" />
-				<input type="hidden" class="hdn_product_listprice" name="hdn_product_listprice_0" value="" />
-				<input type="hidden" class="hdn_product_discount" name="hdn_product_discount_0" value="" />
-				<input type="hidden" class="hdn_product_discount_type" name="hdn_product_discount_type_0" value="" />
-				<input type="hidden" class="hdn_product_gross" name="hdn_product_gross_0" value="" />
-				<input type="hidden" class="hdn_product_net" name="hdn_product_net_0" value="" />
-				<input type="hidden" class="hdn_product_tax_am" name="hdn_product_tax_am_0" value="" />
-				<input type="hidden" class="hdn_product_total" name="hdn_product_total_0" value="" />
-				<textarea class="hdn_product_comment" name="hdn_product_comment_0"></textarea>
+				<input type="hidden" class="hdn_product_id" name="hdn_product[0][id]" value="0" />
+				<input type="hidden" class="hdn_product_isdeleted" name="hdn_product[0][deleted]" value="false" />
+				<input type="hidden" class="hdn_product_line_id" name="hdn_product[0][line_id]" value="" />
+				<input type="hidden" class="hdn_product_seq" name="hdn_product[0][seq]" value="1" />
+				<input type="hidden" class="hdn_product_crm_id" name="hdn_product[0][crm_id]" value="" />
+				<input type="hidden" class="hdn_product_entity_type" name="hdn_product[0][entity_type]" value="" />
+				<input type="hidden" class="hdn_product_qty" name="hdn_product[0][qty]" value="" />
+				<input type="hidden" class="hdn_product_listprice" name="hdn_product[0][listprice]" value="" />
+				<input type="hidden" class="hdn_product_discount" name="hdn_product[0][discount]" value="" />
+				<input type="hidden" class="hdn_product_discount_type" name="hdn_product[0][discount_type]" value="" cleanline="leavealone"/>
+				<input type="hidden" class="hdn_product_gross" name="hdn_product[0][gross]" value="" />
+				<input type="hidden" class="hdn_product_net" name="hdn_product[0][net]" value="" />
+				<input type="hidden" class="hdn_product_tax_am" name="hdn_product[0][tax_am]" value="" />
+				<input type="hidden" class="hdn_product_total" name="hdn_product[0][total]" value="" />
+				<textarea class="hdn_product_comment" name="hdn_product[0][comment]"></textarea>
 				{* Individual taxes *}
 				<div class="product_line_hdntaxes">
 				{foreach from=$GROUP_TAXES item=tax key=tax_no}
 					{if $tax.deleted == 0}
-					<input type="hidden" class="hdn_product_{$tax.taxname}" name="hdn_product_{$tax.taxname}_0" value="{$tax.percentage}">
+					<input type="hidden" class="hdn_product_{$tax.taxname}" cleanline="leavealone" name="hdn_product[0][{$tax.taxname}]" value="{$tax.percentage}">
 					{/if}
 				{/foreach}
 				</div>
-			</div>
+			</td>
 		</tr>
 	</tbody>
 </table>
