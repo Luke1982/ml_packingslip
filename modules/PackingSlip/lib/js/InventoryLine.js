@@ -211,6 +211,8 @@ function InventoryLine(data) {
 		cleanLine.getElementsByClassName("hdn_product_id")[0].value = inventoryLines.length;
 		// Set deleted to false on the new line
 		cleanLine.getElementsByClassName("hdn_product_isdeleted")[0].value = "false";
+		// Update the row no's for the new line's name attributes on the hidden inputs
+		cleanLine = __updateRowNos(cleanLine);
 
 		parent.insertBefore(cleanLine, line.nextSibling);
 
@@ -225,6 +227,29 @@ function InventoryLine(data) {
 
 		// Update the sequence
 		updateSeq();		
+	}
+
+	/*
+	 * Takes a new or copied domline and updates the row
+	 * numbers of the hidden inputs for saving later in PHP
+	 */
+	function __updateRowNos(domLine) {
+		var hiddenInputs = domLine.getElementsByClassName("productline_props")[0].getElementsByTagName("input");
+		var hiddenTas = domLine.getElementsByClassName("productline_props")[0].getElementsByTagName("textarea");
+
+		hiddenInputs = incrementNames(hiddenInputs);
+		hiddenTas = incrementNames(hiddenTas);
+
+		function incrementNames(coll) {
+			for (var i = 0; i < coll.length; i++) {
+				var baseName = coll[i].name.substring(0, (coll[i].name.length - 1));
+				coll[i].name = baseName + inventoryLines.length;
+				console.log(coll[i].name);
+			}
+			return coll;
+		}
+
+		return domLine;
 	}
 
 	/*
@@ -253,6 +278,8 @@ function InventoryLine(data) {
 		lineClone.getElementsByClassName("hdn_product_id")[0].value = inventoryLines.length;
 		// Get new Radio names for this line
 		lineClone = __setNewRadioNames(lineClone);
+		// Update the row no's for the new line's name attributes on the hidden inputs
+		lineClone = __updateRowNos(lineClone);		
 
 		parent.insertBefore(lineClone, domLine.nextSibling);
 
