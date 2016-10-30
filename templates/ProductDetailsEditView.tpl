@@ -183,22 +183,23 @@
 			</td>
 			<!-- Hidden column that represents all hidden inputs with behind the scenes data -->
 			<td width="0" class="productline_props" style="display: none">
-				<input type="hidden" class="hdn_product_id" name="hdn_product_id" value="{$row_no}" />
-				<input type="hidden" class="hdn_product_isdeleted" name="hdn_product_isdeleted" value="false" />
-				<input type="hidden" class="hdn_product_line_id" name="hdn_product_line_id" value="{$product_line.line_id}" />
-				<input type="hidden" class="hdn_product_seq" name="hdn_product_seq" value="{$product_line.seq}" />
-				<input type="hidden" class="hdn_product_crm_id" name="hdn_product_crm_id" value="{$product_line.product_id}" />
-				<input type="hidden" class="hdn_product_entity_type" name="hdn_product_entity_type" value="{$product_line.entity_type}" />
-				<input type="hidden" class="hdn_product_qty" name="hdn_product_qty" value="{$product_line.qty}" />
-				<input type="hidden" class="hdn_product_listprice" name="hdn_product_listprice" value="{$product_line.list_price}" />
-				<input type="hidden" class="hdn_product_discount" name="hdn_product_discount" value="{$show_discount}" />
-				<input type="hidden" class="hdn_product_discount_type" name="hdn_product_discount_type" value="{$product_line.discount_type}" />
+				<!-- MajorLabel implementation of hidden inputs -->
+				<input type="hidden" class="hdn_product_id" name="hdn_product_id_{$row_no}" value="{$row_no}" />
+				<input type="hidden" class="hdn_product_isdeleted" name="hdn_product_isdeleted_{$row_no}" value="false" />
+				<input type="hidden" class="hdn_product_line_id" name="hdn_product_line_id_{$row_no}" value="{$product_line.line_id}" />
+				<input type="hidden" class="hdn_product_seq" name="hdn_product_seq_{$row_no}" value="{$product_line.seq}" />
+				<input type="hidden" class="hdn_product_crm_id" name="hdn_product_crm_id_{$row_no}" value="{$product_line.product_id}" />
+				<input type="hidden" class="hdn_product_entity_type" name="hdn_product_entity_type_{$row_no}" value="{$product_line.entity_type}" />
+				<input type="hidden" class="hdn_product_qty" name="hdn_product_qty_{$row_no}" value="{$product_line.qty}" />
+				<input type="hidden" class="hdn_product_listprice" name="hdn_product_listprice_{$row_no}" value="{$product_line.list_price}" />
+				<input type="hidden" class="hdn_product_discount" name="hdn_product_discount_{$row_no}" value="{$show_discount}" />
+				<input type="hidden" class="hdn_product_discount_type" name="hdn_product_discount_type_{$row_no}" value="{$product_line.discount_type}" />
 				{* <input type="hidden" class="hdn_product_tax_p" name="hdn_product_tax_p" value="{$product_line.tax1}" /> *}
-				<input type="hidden" class="hdn_product_gross" name="hdn_product_gross" value="{$product_line.line_gross_total}" />
-				<input type="hidden" class="hdn_product_net" name="hdn_product_net" value="{$product_line.line_net_total}" />
-				<input type="hidden" class="hdn_product_tax_am" name="hdn_product_tax_am" value="{$product_line.tax_amount}" />
-				<input type="hidden" class="hdn_product_total" name="hdn_product_total" value="{$product_line.total_after_tax}" />
-				<textarea class="hdn_product_comment">{$product_line.comment}</textarea>
+				<input type="hidden" class="hdn_product_gross" name="hdn_product_gross_{$row_no}" value="{$product_line.line_gross_total}" />
+				<input type="hidden" class="hdn_product_net" name="hdn_product_net_{$row_no}" value="{$product_line.line_net_total}" />
+				<input type="hidden" class="hdn_product_tax_am" name="hdn_product_tax_am_{$row_no}" value="{$product_line.tax_amount}" />
+				<input type="hidden" class="hdn_product_total" name="hdn_product_total_{$row_no}" value="{$product_line.total_after_tax}" />
+				<textarea class="hdn_product_comment" name="hdn_product_comment_{$row_no}">{$product_line.comment}</textarea>
 			</div>
 		</tr>
 {/foreach}
