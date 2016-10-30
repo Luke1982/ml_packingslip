@@ -8,447 +8,292 @@
  * All Rights Reserved.
  ********************************************************************************/
 -->*}
+<!-- Insert 3rd party libraries -->
+<script type="text/javascript" src="modules/PackingSlip/lib/js/sortable.min.js"></script>
+<script type="text/javascript" src="modules/PackingSlip/lib/js/awesomplete.min.js"></script>
+<link rel="stylesheet" type="text/css" href="modules/PackingSlip/lib/css/awesomplete.css">
+<link rel="stylesheet" type="text/css" href="modules/PackingSlip/lib/css/PackingSlip.css">
+<!-- Insert Custom Module CSS file -->
+<link rel="stylesheet" type="text/css" href="modules/PackingSlip/lib/css/PackingSlip.css">
+<!-- Insert InventoryLine JS class -->
+<script type="text/javascript" src="modules/PackingSlip/lib/js/InventoryLine.js"></script>
+<script type="text/javascript">var taxType = "{$TAX_TYPE}";</script>
 
-<script type="text/javascript" src="include/js/Inventory.js"></script>
-<script type="text/javascript" src="modules/Services/Services.js"></script>
-<script>
-if(typeof(e) != 'undefined')
-	window.captureEvents(Event.MOUSEMOVE);
+<!-- MajorLabel new inventory lines: createview-->
 
-//  window.onmousemove= displayCoords;
-//  window.onclick = fnRevert;
-function displayCoords(currObj,obj,mode,curr_row) 
-{ldelim}
-	if(mode != 'discount_final' && mode != 'sh_tax_div_title' && mode != 'group_tax_div_title')
-	{ldelim}
-		var curr_productid = document.getElementById("hdnProductId"+curr_row).value;
-		if(curr_productid == '')
-		{ldelim}
-			alert("{$APP.PLEASE_SELECT_LINE_ITEM}");
-			return false;
-		{rdelim}
+<table width="100%"  border="0" align="center" cellpadding="5" cellspacing="0" class="crmTable editview_inventory_table" id="proTab">
+	<tbody id="proBody">
 
-		var curr_quantity = document.getElementById("qty"+curr_row).value;
-		if(curr_quantity == '')
-		{ldelim}
-			alert("{$APP.PLEASE_FILL_QUANTITY}");
-			return false;
-		{rdelim}
-	{rdelim}
+		<!-- Inventory table subheader -->
+		<tr class="editview_inventory_subheader">
+			<td width=65% colspan="3" valign="top" class="lvtCol editview_inv_item_header" align="left">{$APP.LBL_ITEM_DETAILS}</td>
+			<td width=20% colspan="1" valign="top" class="lvtCol editview_inv_item_header" align="left">
+				{$APP.LBL_CURRENCY}
+				<select class="small" id="inventory_currency" name="inventory_currency">
+				{* Currency logic *}
+				{foreach item=currency_details key=count from=$CURRENCIES_LIST}
+					{if $currency_details.curid == $INV_CURRENCY_ID}
+						{assign var=selected_cur_symbol value=$currency_details.currencysymbol}
+						<option value="{$currency_details.curid}" selected="selected">{$currency_details.currencylabel|@getTranslatedCurrencyString} ({$currency_details.currencysymbol})</option>
+					{else}
+						<option value="{$currency_details.curid}">{$currency_details.currencylabel|@getTranslatedCurrencyString} ({$currency_details.currencysymbol})</option>
+					{/if}
+				{/foreach}				
+				</select>
+			</td>
+			<td width=15% colspan="1" valign="top" class="lvtCol editview_inv_item_header" align="left">
+				{$APP.LBL_TAX_MODE}
+				<select class="small" id="taxtype" name="taxtype">
+					<option value="individual" {if $TAX_TYPE eq "individual"}selected{/if}>{$APP.LBL_INDIVIDUAL}</option> 
+					<option value="group" {if $TAX_TYPE eq "group"}selected{/if}>{$APP.LBL_GROUP}</option>
+				<select>
+			</td>
+		</tr>	
 
-	//Set the Header value for Discount
-	if(mode == 'discount')
-	{ldelim}
-		document.getElementById("discount_div_title"+curr_row).innerHTML = '<b>{$APP.LABEL_SET_DISCOUNT_FOR_COLON} '+document.getElementById("productTotal"+curr_row).innerHTML+'</b>';
-	{rdelim}
-	else if(mode == 'tax')
-	{ldelim}
-		document.getElementById("tax_div_title"+curr_row).innerHTML = "<b>{$APP.LABEL_SET_TAX_FOR} "+document.getElementById("totalAfterDiscount"+curr_row).innerHTML+'</b>';
-	{rdelim}
-	else if(mode == 'discount_final')
-	{ldelim}
-		document.getElementById("discount_div_title_final").innerHTML = '<b>{$APP.LABEL_SET_DISCOUNT_FOR} '+document.getElementById("netTotal").innerHTML+'</b>';
-	{rdelim}
-	else if(mode == 'sh_tax_div_title')
-	{ldelim}
-		document.getElementById("sh_tax_div_title").innerHTML = '<b>{$APP.LABEL_SET_SH_TAX_FOR_COLON} '+document.getElementById("shipping_handling_charge").value+'</b>';
-	{rdelim}
-	else if(mode == 'group_tax_div_title')
-	{ldelim}
-		var net_total_after_discount = eval(document.getElementById("netTotal").innerHTML)-eval(document.getElementById("discountTotal_final").innerHTML);
-		document.getElementById("group_tax_div_title").innerHTML = '<b>{$APP.LABEL_SET_GROUP_TAX_FOR_COLON} '+net_total_after_discount+'</b>';
-	{rdelim}
+		<!-- Inventory table subheader -->
+		<tr class="editview_inventory_subheader">
+			<td width=5% valign="top" class="lvtCol editview_inv_toolcol_header" align="left">{$APP.LBL_TOOLS}</td>
+			<td width=50% valign="top" class="lvtCol editview_inv_detailcol_header" align="left">{$APP.LBL_ITEM_NAME}</td>
+			<td width=10% valign="top" class="lvtCol editview_inv_qtycol_header" align="left">{$APP.LBL_QTY}</td>
+			<td width=20% valign="top" class="lvtCol editview_inv_adjustcol_header" align="left">{$APP.LBL_ADJUSTMENT}</td>
+			<td width=15% valign="top" class="lvtCol editview_inv_totalscol_header" align="left">{$APP.LBL_TOTAL}</td>
+		</tr>
 
-	fnvshobj(currObj,'tax_container');
-	if(document.all)
-	{ldelim}
-		var divleft = document.getElementById("tax_container").style.left;
-		var divabsleft = divleft.substring(0,divleft.length-2);
-		document.getElementById(obj).style.left = eval(divabsleft) - 120;
-
-		var divtop = document.getElementById("tax_container").style.top;
-		var divabstop =  divtop.substring(0,divtop.length-2);
-		document.getElementById(obj).style.top = eval(divabstop) - 200;
-	{rdelim}else
-	{ldelim}
-		document.getElementById(obj).style.left =  document.getElementById("tax_container").left;
-		document.getElementById(obj).style.top = document.getElementById("tax_container").top;
-	{rdelim}
-	document.getElementById(obj).style.display = "block";
-
-{rdelim}
-  
-	function doNothing(){ldelim}
-	{rdelim}
-	
-	function fnHidePopDiv(obj){ldelim}
-		document.getElementById(obj).style.display = 'none';
-	{rdelim}
-</script>
-
-<!-- Added this file to display and hanld the Product Details in Inventory module  -->
-
-   <tr>
-	<td colspan="4" align="left">
-
-
-
-<table width="100%"  border="0" align="center" cellpadding="5" cellspacing="0" class="crmTable" id="proTab">
-   <tr>
-		<td colspan="2" class="dvInnerHeader">
-		<b>{$APP.LBL_ITEM_DETAILS}</b>
-	</td>
-	
-	<td class="dvInnerHeader" align="center" colspan="2">
-		<input type="hidden" value="{$INV_CURRENCY_ID}" id="prev_selected_currency_id" />
-		<b>{$APP.LBL_CURRENCY}</b>&nbsp;&nbsp;
-		<select class="small" id="inventory_currency" name="inventory_currency" onchange="updatePrices();">
-		{foreach item=currency_details key=count from=$CURRENCIES_LIST}
-			{if $currency_details.curid eq $INV_CURRENCY_ID}
-				{assign var=currency_selected value="selected"}
-			{else}
-				{assign var=currency_selected value=""}
-			{/if}
-			<OPTION value="{$currency_details.curid}" {$currency_selected}>{$currency_details.currencylabel|@getTranslatedCurrencyString} ({$currency_details.currencysymbol})</OPTION>
-		{/foreach}
-		</select>
-	</td>
-	
-	<td class="dvInnerHeader" align="center" colspan="2">
-		<b>{$APP.LBL_TAX_MODE}</b>&nbsp;&nbsp;
-		<select id="taxtype" name="taxtype" onchange="decideTaxDiv(); calcTotal();">
-			{if $TAX_TYPE eq 'group'}
-				<OPTION value="individual">{$APP.LBL_INDIVIDUAL}</OPTION>
-				<OPTION value="group" selected>{$APP.LBL_GROUP}</OPTION>
-			{else}
-				<OPTION value="individual" selected>{$APP.LBL_INDIVIDUAL}</OPTION>
-				<OPTION value="group">{$APP.LBL_GROUP}</OPTION>
-			{/if}
-		</select>
-	</td>
-   </tr>
-
-
-   <!-- Header for the Product Details -->
-   <tr valign="top">
-	<td width=5% valign="top" class="lvtCol" align="right"><b>{$APP.LBL_TOOLS}</b></td>
-	<td width=50% class="lvtCol"><font color='red'>*</font><b>{$APP.LBL_ITEM_NAME}</b></td>
-	<td width=10% class="lvtCol"><b>{$APP.LBL_QTY}</b></td>
-	<td width=10% class="lvtCol" align="right"><b>{$APP.LBL_LIST_PRICE}</b></td>
-	<td width=12% nowrap class="lvtCol" align="right"><b>{$APP.LBL_TOTAL}</b></td>
-	<td width=13% valign="top" class="lvtCol" align="right"><b>{$APP.LBL_NET_PRICE}</b></td>
-   </tr>
-
-
-
-
-
-
-<!-- Following code is added for form the first row. Based on these we should form additional rows using script -->
-
-   <!-- Product Details First row - Starts -->
-   <tr valign="top" id="row1">
-
-	<!-- column 1 - delete link - starts -->
-	<td  class="crmTableRow small lineOnTop">&nbsp;
-		<input type="hidden" id="deleted1" name="deleted1" value="0">
-	</td>
-	<!-- column 1 - delete link - ends -->
-
-	<!-- column 2 - Product Name - starts -->
-	<td class="crmTableRow small lineOnTop">
-		<table width="100%"  border="0" cellspacing="0" cellpadding="1">
-		   <tr>
-			<td class="small"><span id="qtyInStock1" style="display:none"></span>
-				<input type="text" id="productName1" name="productName1" class="small" style="width:70%" value="{$PRODUCT_NAME}" readonly />
-				<input type="hidden" id="hdnProductId1" name="hdnProductId1" value="{$PRODUCT_ID}" />
-				{if $PRODUCT_OR_SERVICE eq 'Services'}
-					<input type="hidden" id="lineItemType1" name="lineItemType1" value="Services" />
-					&nbsp;<img id="searchIcon1" title="Services" src="{'services.gif'|@vtiger_imageurl:$THEME}" style="cursor: pointer;" align="absmiddle" onclick="servicePickList(this,'{$MODULE}',1)" />
-				{else}
-					<input type="hidden" id="lineItemType1" name="lineItemType1" value="Products" />
-					&nbsp;<img id="searchIcon1" title="Products" src="{'products.gif'|@vtiger_imageurl:$THEME}" style="cursor: pointer;" align="absmiddle" onclick="productPickList(this,'{$MODULE}',1)" />
-				{/if}
+		<tr class="product_line">
+			<!-- Column 1: tools -->
+			<td width=5% valign="top" class="lvtCol editview_inv_toolcol" align="right">
+				<table width="100%" class="inv_line_tooltable">
+					<tbody>
+						<tr>
+							<td><a href="javascript:;" class="move_line_tool">Move Line</a></td>
+						</tr>
+						<tr>
+							<td><a href="javascript:;" class="new_line_tool">New Line</a></td>
+						</tr>
+						<tr>
+							<td><a href="javascript:;" class="copy_line_tool">Copy line</a></td>
+						</tr>
+						<tr>
+							<td><a href="javascript:;" class="delete_line_tool">Delete line</a></td>
+						</tr>
+					</tbody>
+				</table>
+			</td>
+			<!-- Column 2: product of service details -->
+			<td width=50% valign="top" class="lvtCol editview_inv_detailcol" align="right">
+				<table width="100%"  border="0" cellspacing="0" cellpadding="1">
+				   <tr>
+						<td class="small" valign="top">
+							<input type="text" name="product_line_name" value="" class="small product_line_name" style="width: 100%;" />
+						</td>
+				   </tr>
+				   <tr>
+						<td class="small setComment">
+							<textarea name="product_line_comment" class="small product_line_comment" style="width:100%;height:40px"></textarea>
+						</td>
+				   </tr>
+				</table>				
+			</td>
+			<!-- column 3 - Information - starts -->
+			<td width=10% class="lvtCol editview_inv_qtycol" valign="top">
+				
+			</td>
+			<!-- column 3 - Quantity - ends -->
+			<!-- Column 4: adjustments -->
+			<td width=20% valign="top" class="lvtCol editview_inv_adjustcol" align="right">
+				<table width="100%" cellpadding="0" cellspacing="0">
+					<tbody>
+						<tr>
+							<td align="left" colspan="1" style="padding:5px;" nowrap>
+								<span class="product_line_qty_lbl">{$APP.LBL_QTY} :</span>&nbsp;
+								<input name="product_line_qty" type="number" class="small product_line_qty" style="width:50px" value=""/>
+							</td>
+							<td align="center" colspan="1" style="padding:5px;" nowrap>X</td>
+							<td align="right" colspan="1" style="padding:5px;" nowrap>
+								<b>{$APP.LBL_LIST_PRICE} : </b><input value="" type="number" name="product_line_listprice" class="small product_line_listprice" style="width:70px">
+							</td>
+						</tr>
+						<tr>
+							<td align="left" colspan="2" style="padding:5px;" nowrap>
+								<input type="radio" name="product_line_disc_type_0" class="product_line_disc_radio" value="p" checked="checked">% {$APP.LBL_OF_PRICE}
+								<br>
+								<input type="radio" name="product_line_disc_type_0" class="product_line_disc_radio" value="d">{$APP.LBL_DIRECT_PRICE_REDUCTION}
+							</td>
+							<td align="right" colspan="1" style="padding:5px;" nowrap>
+								<b>{$APP.LBL_DISCOUNT} : </b><input type="text" name="product_line_discount" value="0" class="small product_line_discount" style="width: 70px;">
+							</td>
+						</tr>
+						<tr>
+							<td align="right" colspan="3" class="product_line_taxes" style="padding:5px;{if $TAX_TYPE eq "group"}display:none;{/if}" nowrap>
+								<table width="100%" cellpadding="0" cellspacing="0">
+									<tbody>
+									{foreach from=$GROUP_TAXES item=tax key=tax_no}
+										{if $tax.deleted == 0}
+										<tr>
+											<td align="right"><b>{$tax.taxlabel} (%) : </b></td>
+											<td width="70" style="padding: 5px 0;" align="right"><input type="number" name="product_line_tax" class="small product_line_tax" value="{$tax.percentage}" style="width: 70px;"></td>
+										</tr>
+										{/if}
+									{/foreach}										
+									</tbody>
+								</table>
+							</td>
+						</tr>
+					</tbody>						
+				</table>				
+			</td>
+			<!-- Column 5 -->
+			<td width=15% valign="middle" class="lvtCol editview_inv_totalscol" align="right">
+				<table width="100%" cellpadding="0" cellspacing="0">
+					<tbody>
+						<tr>
+							<td align="right" width="50%" style="padding:5px;" nowrap><b>{$APP.LBL_TOTAL} : </b></td>
+							<td align="right" width="5%" style="padding:5px;" nowrap><b>{$selected_cur_symbol}</b></td>
+							<td align="right" width="45%" style="padding:5px;" nowrap><span class="product_line_gross target" style="width: 70px;">0</span></td>
+						</tr>
+						<tr>
+							<td align="right" width="50%" style="padding:5px;" nowrap><b>{$APP.LBL_TOTAL_AFTER_DISCOUNT} : </b></td>
+							<td align="right" width="5%" style="padding:5px;" nowrap><b>{$selected_cur_symbol}</b></td>
+							<td align="right" width="45%" style="padding:5px;" nowrap><span class="product_line_net target" style="width: 70px;">0</span></td>
+						</tr>
+						<tr {if $TAX_TYPE eq "group"}style="display:none"{/if} class="product_line_totals_tax">
+							<td align="right" width="50%" style="padding:5px;" nowrap><b>{$APP.LBL_TAX} : </b></td>
+							<td align="right" width="5%" style="padding:5px;" nowrap><b>{$selected_cur_symbol}</b></td>
+							<td align="right" width="45%" style="padding:5px;" nowrap><span class="product_line_tax_amount target" style="width: 70px;">0</span></td>
+						</tr>
+						<tr {if $TAX_TYPE eq "group"}style="display:none"{/if} class="product_line_totals_net">
+							<td align="right" width="50%" style="padding:5px;" nowrap><b>{$APP.LBL_NET_TOTAL} : </b></td>
+							<td align="right" width="5%" style="padding:5px;" nowrap><b>{$selected_cur_symbol}</b></td>
+							<td align="right" width="45%" style="padding:5px;" nowrap><span class="product_line_after_tax target" style="width: 70px;">0</span></td>
+						</tr>
+					</tbody>								
+				</table>				
+			</td>
+			<!-- Hidden column that represents all hidden inputs with behind the scenes data -->
+			<td width="0" class="productline_props" style="display: none">
+				<!-- MajorLabel implementation of hidden inputs -->
+				<input type="hidden" class="hdn_product_id" name="hdn_product_id_0" value="0" />
+				<input type="hidden" class="hdn_product_isdeleted" name="hdn_product_isdeleted_0" value="false" />
+				<input type="hidden" class="hdn_product_line_id" name="hdn_product_line_id_0" value="" />
+				<input type="hidden" class="hdn_product_seq" name="hdn_product_seq_0" value="1" />
+				<input type="hidden" class="hdn_product_crm_id" name="hdn_product_crm_id_0" value="" />
+				<input type="hidden" class="hdn_product_entity_type" name="hdn_product_entity_type_0" value="" />
+				<input type="hidden" class="hdn_product_qty" name="hdn_product_qty_0" value="" />
+				<input type="hidden" class="hdn_product_listprice" name="hdn_product_listprice_0" value="" />
+				<input type="hidden" class="hdn_product_discount" name="hdn_product_discount_0" value="" />
+				<input type="hidden" class="hdn_product_discount_type" name="hdn_product_discount_type_0" value="" />
+				<input type="hidden" class="hdn_product_gross" name="hdn_product_gross_0" value="" />
+				<input type="hidden" class="hdn_product_net" name="hdn_product_net_0" value="" />
+				<input type="hidden" class="hdn_product_tax_am" name="hdn_product_tax_am_0" value="" />
+				<input type="hidden" class="hdn_product_total" name="hdn_product_total_0" value="" />
+				<textarea class="hdn_product_comment" name="hdn_product_comment_0"></textarea>
+				{* Individual taxes *}
+				<div class="product_line_hdntaxes">
+				{foreach from=$GROUP_TAXES item=tax key=tax_no}
+					{if $tax.deleted == 0}
+					<input type="hidden" class="hdn_product_tax{$tax_no}" name="hdn_product_{$tax.taxname}_0" value="{$tax.percentage}">
+					{/if}
+				{/foreach}
+				</div>
+			</div>
+		</tr>
+	</tbody>
+</table>
+<!-- Start product totals table -->
+<table width="100%"  border="0" align="center" cellpadding="5" cellspacing="0" class="crmTable editview_inv_totals">
+	<tbody>
+		<tr>
+			<td width="70%" valign="top" align="right" colspan="1"><span class="inv_totals_text editview_inv_subtot_label">{$APP.LBL_NET_TOTAL}</span></td>
+			<td width="30%" valign="top" align="right" colspan="2"><span class="inv_totals_text editview_inv_subtot_value">0</span></td>
+		</tr>
+		<tr>
+			<td align="right" valign="top" width="70%" colspan="1"><span class="inv_totals_text editview_inv_disc_tot_label">{$APP.LBL_DISCOUNT}</span></td>
+			<td align="left" valign="top" colspan="1" width="20%">
+				<!-- Discount inputs table -->
+				<table width="100%"  border="0" align="center" cellspacing="0">
+					<tbody>
+						<tr>
+							<td align="right" width="50%">
+								<input type="radio" name="editview_inv_tot_disctype" id="discount_amount_radio" />
+								<input type="number" style="width: 70px" name="editview_inv_disc_am" class="small inv_totals_input editview_inv_disc_am" value="">
+							</td>
+							<td align="right" width="50%">
+								<input type="radio" name="editview_inv_tot_disctype" id="discount_perc_radio" />
+								<input type="number" style="width: 70px" name="editview_inv_disc_per" class="small inv_totals_input editview_inv_disc_per" value="">
+							</td>
+						</tr>
+						<tr>
+							<td align="right" width="50%">{$APP.LBL_DIRECT_PRICE_REDUCTION}</td>
+							<td align="right" width="50%">% {$APP.LBL_OF_PRICE}</td>
+						</tr>
+					</tbody>
+				</table>
+			</td>
+			<td align="right" valign="top" colspan="1" width="10%">
+				<span class="inv_totals_text editview_inv_disc_tot_value">0</span>
+			</td>
+		</tr>
+		<tr {if $TAX_TYPE eq "individual"}style="display:none"{/if} id="inv_totals_group_taxes">
+			<td align="right" valign="top" width="70%" colspan="1"><span class="inv_totals_text editview_inv_tax_tot_label">{$APP.LBL_TAX}</span></td>
+			<td align="left" valign="top" colspan="1" width="20%">
+				<!-- Taxes inputs table -->
+				<table width="100%"  border="0" align="center" cellspacing="0">
+					<tbody>
+						{foreach from=$GROUP_TAXES item=group_tax key=group_tax_no}
+						<tr>
+							<td align="right" width="50%"><b>{$group_tax.taxlabel} (%) :</b></td>
+							<td align="right" width="50%"><input type="number" name="group_tax_{$group_tax_no}" class="small group_tax" value="{$group_tax.percentage}" style="width: 70px;"></td>
+						</tr>
+						{/foreach}
+					</tbody>
+				</table>
+			</td>			
+			<td align="right" valign="bottom" colspan="1" width="10%">
+				<span class="inv_totals_text editview_inv_tax_tot_value">0</span>
 			</td>
 		</tr>
 		<tr>
-			<td class="small">
-				<input type="hidden" value="" id="subproduct_ids1" name="subproduct_ids1" />
-				<span id="subprod_names1" name="subprod_names1" style="color:#C0C0C0;font-style:italic;"> </span>
+			<td align="right" valign="top" width="70%" colspan="1"><span class="inv_totals_text editview_inv_sh_tot_label">{$APP.LBL_SHIPPING_AND_HANDLING_CHARGES}</span></td>
+			<td align="right" valign="top" colspan="1" width="20%">
+				<input type="number" name="editview_inv_sh" class="small inv_totals_input inv_totals_sh_input" style="width: 70px;" value="{$FINALS.s_h_amount}">
 			</td>
-		   </tr>
-		   <tr valign="bottom">
-			<td class="small" id="setComment">
-				<textarea id="comment1" name="comment1" class=small style="width:70%;height:40px"></textarea>
-				<img src="{'clear_field.gif'|@vtiger_imageurl:$THEME}" onClick="{literal}${/literal}('comment1').value=''"; style="cursor:pointer;" />
+			<td align="right" valign="top" colspan="1" width="10%">
+				<span class="inv_totals_text editview_inv_sh_tot_value">0</span>
 			</td>
-		   </tr>
-		</table>
-	</td>
-	<!-- column 2 - Product Name - ends -->
-
-	<!-- column 3 - Quantity - starts -->
-	<td class="crmTableRow small lineOnTop">
-		<input id="qty1" name="qty1" type="text" class="small " style="width:50px" onfocus="this.className='detailedViewTextBoxOn'" onBlur="settotalnoofrows();calcTotal(); loadTaxes_Ajax(1); setDiscount(this,'1'); calcTotal();{if $MODULE eq 'Invoice'}stock_alert(1);{/if}" value=""/><br><span id="stock_alert1"></span>
-	</td>
-	<!-- column 3 - Quantity - ends -->
-
-
-	<!-- column 4 - List Price with Discount, Total After Discount and Tax as table - starts -->
-	<td class="crmTableRow small lineOnTop" align="right">
-		<table width="100%" cellpadding="0" cellspacing="0">
-		   <tr>
-			<td align="right">
-				<input id="listPrice1" name="listPrice1" value="{$UNIT_PRICE}" type="text" class="small " style="width:70px" onBlur="calcTotal();setDiscount(this,'1'); callTaxCalc(1);calcTotal();"/>&nbsp;<img src="{'pricebook.gif'|@vtiger_imageurl:$THEME}" onclick="priceBookPickList(this,1)">
+		</tr>
+		<tr>
+			<td align="right" valign="top" width="70%" colspan="1"><span class="inv_totals_text editview_inv_shtax_tot_label">{$APP.LBL_TAX_FOR_SHIPPING_AND_HANDLING}</span></td>
+			<td align="left" valign="top" colspan="1" width="20%">
+				<!-- S&H taxes inputs table -->
+				<table width="100%"  border="0" align="center" cellspacing="0">
+					<tbody>
+						{foreach from=$SH_TAXES item=sh_tax key=sh_tax_no}
+						<tr>
+							<td align="right" width="50%"><b>{$sh_tax.taxlabel} (%) :</b></td>
+							<td align="right" width="50%"><input type="number" name="sh_tax_{$sh_tax_no}" class="small sh_tax inv_totals_input" value="{$sh_tax.percentage}" style="width: 70px;"></td>
+						</tr>
+						{/foreach}
+					</tbody>
+				</table>
+			</td>			
+			<td align="right" valign="bottom" colspan="1" width="10%">
+				<span class="inv_totals_text editview_inv_shtax_tot_value">0</span>
 			</td>
-		   </tr>
-		   <tr>
-			<td align="right" style="padding:5px;" nowrap>
-				(-)&nbsp;<b><a href="javascript:doNothing();" onClick="displayCoords(this,'discount_div1','discount','1')" >{$APP.LBL_DISCOUNT}</a> : </b>
-				<div class="discountUI" id="discount_div1">
-					<input type="hidden" id="discount_type1" name="discount_type1" value="">
-					<table width="100%" border="0" cellpadding="5" cellspacing="0" class="small">
-					   <tr>
-						<td id="discount_div_title1" nowrap align="left" ></td>
-						<td align="right"><img src="{'close.gif'|@vtiger_imageurl:$THEME}" border="0" onClick="fnHidePopDiv('discount_div1')" style="cursor:pointer;"></td>
-					   </tr>
-					   <tr>
-						<td align="left" class="lineOnTop"><input type="radio" name="discount1" checked onclick="setDiscount(this,1); callTaxCalc(1);calcTotal();">&nbsp; {$APP.LBL_ZERO_DISCOUNT}</td>
-						<td class="lineOnTop">&nbsp;</td>
-					   </tr>
-					   <tr>
-						<td align="left"><input type="radio" name="discount1" onclick="setDiscount(this,1); callTaxCalc(1);calcTotal();">&nbsp; % {$APP.LBL_OF_PRICE}</td>
-						<td align="right"><input type="text" class="small" size="5" id="discount_percentage1" name="discount_percentage1" value="0" style="visibility:hidden" onBlur="setDiscount(this,1); callTaxCalc(1);calcTotal();">&nbsp;%</td>
-					   </tr>
-					   <tr>
-						<td align="left" nowrap><input type="radio" name="discount1" onclick="setDiscount(this,1); callTaxCalc(1);calcTotal();">&nbsp;{$APP.LBL_DIRECT_PRICE_REDUCTION}</td>
-						<td align="right"><input type="text" id="discount_amount1" name="discount_amount1" size="5" value="0" style="visibility:hidden" onBlur="setDiscount(this,1); callTaxCalc(1);calcTotal();"></td>
-					   </tr>
-					</table>
-				</div>
+		</tr>
+		<tr>
+			<td align="right" valign="top" width="70%" colspan="1"><span class="inv_totals_text editview_inv_sh_tot_label">{$APP.LBL_ADJUSTMENT}</span></td>
+			<td align="right" valign="top" colspan="1" width="20%">
+				<input type="number" name="editview_inv_adj" class="inv_totals_input small" style="width: 70px;" value="{$FINALS.adjustment}">
 			</td>
-		   </tr>
-		   <tr>
-			<td align="right" style="padding:5px;" nowrap>
-				<b>{$APP.LBL_TOTAL_AFTER_DISCOUNT} :</b>
-			</td>
-		   </tr>
-		   <tr id="individual_tax_row1" class="TaxShow">
-			<td align="right" style="padding:5px;" nowrap>
-				(+)&nbsp;<b><a href="javascript:doNothing();" onClick="displayCoords(this,'tax_div1','tax','1')" >{$APP.LBL_TAX} </a> : </b>
-				<div class="discountUI" id="tax_div1">
-				</div>
-			</td>
-		   </tr>
-		</table> 
-	</td>
-	<!-- column 4 - List Price with Discount, Total After Discount and Tax as table - ends -->
-
-
-	<!-- column 5 - Product Total - starts -->
-	<td class="crmTableRow small lineOnTop" align="right">
-		<table width="100%" cellpadding="5" cellspacing="0">
-		   <tr>
-			<td id="productTotal1" align="right">&nbsp;</td>
-		   </tr>
-		   <tr>
-			<td id="discountTotal1" align="right">0.00</td>
-		   </tr>
-		   <tr>
-			<td id="totalAfterDiscount1" align="right">&nbsp;</td>
-		   </tr>
-		   <tr>
-			<td id="taxTotal1" align="right">0.00</td>
-		   </tr>
-		</table>
-	</td>
-	<!-- column 5 - Product Total - ends -->
-
-
-	<!-- column 6 - Net Price - starts -->
-	<td valign="bottom" class="crmTableRow small lineOnTop" align="right"><span id="netPrice1"><b>&nbsp;</b></span></td>
-	<!-- column 6 - Net Price - ends -->
-
-   </tr>
-   <!-- Product Details First row - Ends -->
+			<td align="right" valign="top" colspan="1" width="10%">
+				<span class="inv_totals_text editview_inv_sh_tot_value">0</span>
+			</td>		
+		</tr>
+		<tr>
+			<td align="right"><span class="inv_totals_text editview_inv_gt_tot_label">{$APP.LBL_GRAND_TOTAL}</span></td>
+			<td colspan="2" align="right"><span class="inv_totals_value editview_inv_gt_tot_value">0</span></td>
+		</tr>
+	</tbody>
 </table>
-<!-- Upto this has been added for form the first row. Based on these above we should form additional rows using script -->
-
-<table width="100%"  border="0" align="center" cellpadding="5" cellspacing="0" class="crmTable">
-   <!-- Add Product Button -->
-   <tr>
-	<td colspan="3">
-		{if 'Products'|vtlib_isModuleActive}
-		<input type="button" name="Button" class="crmbutton small create" value="{$APP.LBL_ADD_PRODUCT}" onclick="fnAddProductRowRI('{$MODULE}','{$IMAGE_PATH}');" />
-		{/if}
-		{if 'Services'|vtlib_isModuleActive}
-		&nbsp;&nbsp;
-		<input type="button" name="Button" class="crmbutton small create" value="{$APP.LBL_ADD_SERVICE}" onclick="fnAddServiceRowRI('{$MODULE}','{$IMAGE_PATH}');" />
-		{/if}
-	</td>
-   </tr>
-
-   <!-- Product Details Final Total Discount, Tax and Shipping&Hanling  - Starts -->
-   <tr valign="top">
-	<td width="88%" colspan="2" class="crmTableRow small lineOnTop" align="right"><b>{$APP.LBL_NET_TOTAL}</b></td>
-	<td width="12%" id="netTotal" class="crmTableRow small lineOnTop" align="right">0.00</td>
-   </tr>
-
-   <tr valign="top">
-	<td class="crmTableRow small lineOnTop" width="60%" style="border-right:1px #dadada;">&nbsp;</td>
-	<td class="crmTableRow small lineOnTop" align="right">
-		(-)&nbsp;<b><a href="javascript:doNothing();" onClick="displayCoords(this,'discount_div_final','discount_final','1')">{$APP.LBL_DISCOUNT}</a>
-		<!-- Popup Discount DIV -->
-		<div class="discountUI" id="discount_div_final">
-			<input type="hidden" id="discount_type_final" name="discount_type_final" value="">
-			<table width="100%" border="0" cellpadding="5" cellspacing="0" class="small">
-			   <tr>
-				<td id="discount_div_title_final" nowrap align="left" ></td>
-				<td align="right"><img src="{'close.gif'|@vtiger_imageurl:$THEME}" border="0" onClick="fnHidePopDiv('discount_div_final')" style="cursor:pointer;"></td>
-			   </tr>
-			   <tr>
-				<td align="left" class="lineOnTop"><input type="radio" name="discount_final" checked onclick="setDiscount(this,'_final'); calcGroupTax();calcTotal();">&nbsp; {$APP.LBL_ZERO_DISCOUNT}</td>
-				<td class="lineOnTop">&nbsp;</td>
-			   </tr>
-			   <tr>
-				<td align="left"><input type="radio" name="discount_final" onclick="setDiscount(this,'_final'); calcGroupTax();calcTotal();">&nbsp; % {$APP.LBL_OF_PRICE}</td>
-				<td align="right"><input type="text" class="small" size="5" id="discount_percentage_final" name="discount_percentage_final" value="0" style="visibility:hidden" onBlur="setDiscount(this,'_final'); calcGroupTax();calcTotal();">&nbsp;%</td>
-			   </tr>
-			   <tr>
-				<td align="left" nowrap><input type="radio" name="discount_final" onclick="setDiscount(this,'_final'); calcGroupTax();calcTotal();">&nbsp;{$APP.LBL_DIRECT_PRICE_REDUCTION}</td>
-				<td align="right"><input type="text" id="discount_amount_final" name="discount_amount_final" size="5" value="0" style="visibility:hidden" onBlur="setDiscount(this,'_final'); calcGroupTax();calcTotal();"></td>
-			   </tr>
-			</table>
-		</div>
-		<!-- End Div -->
-	</td>
-	<td id="discountTotal_final" class="crmTableRow small lineOnTop" align="right">0.00</td>
-   </tr>
-
-
-   <!-- Group Tax - starts -->
-   <tr id="group_tax_row" valign="top" class="TaxHide">
-	<td class="crmTableRow small lineOnTop" style="border-right:1px #dadada;">&nbsp;</td>
-	<td class="crmTableRow small lineOnTop" align="right">
-		(+)&nbsp;<b><a href="javascript:doNothing();" onClick="displayCoords(this,'group_tax_div','group_tax_div_title',''); calcGroupTax();" >{$APP.LBL_TAX}</a></b>
-				<!-- Pop Div For Group TAX -->
-				<div class="discountUI" id="group_tax_div">
-					<table width="100%" border="0" cellpadding="5" cellspacing="0" class="small">
-					   <tr>
-						<td id="group_tax_div_title" colspan="2" nowrap align="left" ></td>
-						<td align="right"><img src="{'close.gif'|@vtiger_imageurl:$THEME}" border="0" onClick="fnHidePopDiv('group_tax_div')" style="cursor:pointer;"></td>
-					   </tr>
-
-					{foreach item=tax_detail name=group_tax_loop key=loop_count from=$GROUP_TAXES}
-
-					   <tr>
-						<td align="left" class="lineOnTop">
-							<input type="text" class="small" size="5" name="{$tax_detail.taxname}_group_percentage" id="group_tax_percentage{$smarty.foreach.group_tax_loop.iteration}" value="{$tax_detail.percentage}" onBlur="calcTotal()">&nbsp;%
-						</td>
-						<td align="center" class="lineOnTop">{$tax_detail.taxlabel}</td>
-						<td align="right" class="lineOnTop">
-							<input type="text" class="small" size="6" name="{$tax_detail.taxname}_group_amount" id="group_tax_amount{$smarty.foreach.group_tax_loop.iteration}" style="cursor:pointer;" value="0.00" readonly>
-						</td>
-					   </tr>
-
-					{/foreach}
-					<input type="hidden" id="group_tax_count" value="{$smarty.foreach.group_tax_loop.iteration}">
-
-					</table>
-
-				</div>
-				<!-- End Popup Div Group Tax -->
-
-	</td>
-	<td id="tax_final" class="crmTableRow small lineOnTop" align="right">0.00</td>
-   </tr>
-   <!-- Group Tax - ends -->
-
-
-   <tr valign="top">
-	<td class="crmTableRow small" style="border-right:1px #dadada;">&nbsp;</td>
-	<td class="crmTableRow small" align="right">
-		(+)&nbsp;<b>{$APP.LBL_SHIPPING_AND_HANDLING_CHARGES} </b>
-	</td>
-	<td class="crmTableRow small" align="right">
-		<input id="shipping_handling_charge" name="shipping_handling_charge" type="text" class="small" style="width:40px" align="right" value="0.00" onBlur="calcSHTax();">
-	</td>
-   </tr>
-
-   <tr valign="top">
-	<td class="crmTableRow small" style="border-right:1px #dadada;">&nbsp;</td>
-	<td class="crmTableRow small" align="right">
-		(+)&nbsp;<b><a href="javascript:doNothing();" onClick="displayCoords(this,'shipping_handling_div','sh_tax_div_title',''); calcSHTax();" >{$APP.LBL_TAX_FOR_SHIPPING_AND_HANDLING} </a></b>
-
-				<!-- Pop Div For Shipping and Handlin TAX -->
-				<div class="discountUI" id="shipping_handling_div">
-					<table width="100%" border="0" cellpadding="5" cellspacing="0" class="small">
-					   <tr>
-						<td id="sh_tax_div_title" colspan="2" nowrap align="left" ></td>
-						<td align="right"><img src="{'close.gif'|@vtiger_imageurl:$THEME}" border="0" onClick="fnHidePopDiv('shipping_handling_div')" style="cursor:pointer;"></td>
-					   </tr>
-
-					{foreach item=tax_detail name=sh_loop key=loop_count from=$SH_TAXES}
-
-					   <tr>
-						<td align="left" class="lineOnTop">
-							<input type="text" class="small" size="3" name="{$tax_detail.taxname}_sh_percent" id="sh_tax_percentage{$smarty.foreach.sh_loop.iteration}" value="{$tax_detail.percentage}" onBlur="calcSHTax()">&nbsp;%
-						</td>
-						<td align="center" class="lineOnTop">{$tax_detail.taxlabel}</td>
-						<td align="right" class="lineOnTop">
-							<input type="text" class="small" size="4" name="{$tax_detail.taxname}_sh_amount" id="sh_tax_amount{$smarty.foreach.sh_loop.iteration}" style="cursor:pointer;" value="0.00" readonly>
-						</td>
-					   </tr>
-
-					{/foreach}
-					<input type="hidden" id="sh_tax_count" value="{$smarty.foreach.sh_loop.iteration}">
-
-					</table>
-				</div>
-				<!-- End Popup Div for Shipping and Handling TAX -->
-
-	</td>
-	<td id="shipping_handling_tax" class="crmTableRow small" align="right">0.00</td>
-   </tr>
-   <tr valign="top">
-	<td class="crmTableRow small" style="border-right:1px #dadada;">&nbsp;</td>
-	<td class="crmTableRow small" align="right">
-		{$APP.LBL_ADJUSTMENT}
-		<select id="adjustmentType" name="adjustmentType" class=small onchange="calcTotal();">
-			<option value="+">{$APP.LBL_ADD_ITEM}</option>
-			<option value="-">{$APP.LBL_DEDUCT}</option>
-		</select>
-	</td>
-	<td class="crmTableRow small" align="right">
-		<input id="adjustment" name="adjustment" type="text" class="small" style="width:40px" align="right" value="0.00" onBlur="calcTotal();">
-	</td>
-   </tr>
-   <tr valign="top">
-	<td class="crmTableRow big lineOnTop" style="border-right:1px #dadada;">&nbsp;</td>
-	<td class="crmTableRow big lineOnTop" align="right"><b>{$APP.LBL_GRAND_TOTAL}</b></td>
-	<td id="grandTotal" name="grandTotal" class="crmTableRow big lineOnTop" align="right">&nbsp;</td>
-   </tr>
-</table>
-		<input type="hidden" name="totalProductCount" id="totalProductCount" value="">
-		<input type="hidden" name="subtotal" id="subtotal" value="">
-		<input type="hidden" name="total" id="total" value="">
-
-
-
-
-	</td>
-   </tr>
-
-
-<!-- Added to calculate the tax and total values when page loads -->
-<script>
- decideTaxDiv();
- {if $TAX_TYPE eq 'group'}
- 	calcGroupTax();
- {/if}
- calcTotal();
- calcSHTax();
-</script>
-<!-- This above div is added to display the tax informations --> 
-
-
+<pre>{$GROUP_TAXES|print_r}</pre>
+<!-- End MajorLabel new inventory lines -->
