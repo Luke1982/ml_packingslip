@@ -410,6 +410,7 @@ function InventoryLine(data) {
 				callingLine.getElementsByClassName("product_line_comment")[0].value = source[i].desc;
 				callingLine.getElementsByClassName("product_line_listprice")[0].value = source[i].price;
 				callingLine.getElementsByClassName("hdn_product_crm_id")[0].value = source[i].crmid;
+				callingLine.getElementsByClassName("hdn_product_entity_type")[0].value = source[i].entityType;
 			}
 		}
 	}
