@@ -22,8 +22,6 @@
 
 <!-- MajorLabel new inventory lines -->
 
-{* <pre>{$ASSOCIATEDPRODUCTS|print_r}</pre> *}
-
 <table width="100%"  border="0" align="center" cellpadding="5" cellspacing="0" class="crmTable editview_inventory_table" id="proTab">
 	<tbody id="proBody">
 
@@ -143,7 +141,7 @@
 										{if $tax.deleted == 0}
 										<tr>
 											<td align="right"><b>{$tax.taxlabel} (%) : </b></td>
-											<td width="70" style="padding: 5px 0;" align="right"><input type="number" name="product_line_tax" class="small product_line_tax" value="{$tax.current_percentage}" style="width: 70px;"></td>
+											<td width="70" style="padding: 5px 0;" align="right"><input type="number" data-taxname="{$tax.taxname}" name="product_line_tax" class="small product_line_tax" value="{$tax.current_percentage}" style="width: 70px;"></td>
 										</tr>
 										{/if}
 									{/foreach}										
@@ -194,12 +192,19 @@
 				<input type="hidden" class="hdn_product_listprice" name="hdn_product_listprice_{$row_no}" value="{$product_line.list_price}" />
 				<input type="hidden" class="hdn_product_discount" name="hdn_product_discount_{$row_no}" value="{$show_discount}" />
 				<input type="hidden" class="hdn_product_discount_type" name="hdn_product_discount_type_{$row_no}" value="{$product_line.discount_type}" />
-				{* <input type="hidden" class="hdn_product_tax_p" name="hdn_product_tax_p" value="{$product_line.tax1}" /> *}
 				<input type="hidden" class="hdn_product_gross" name="hdn_product_gross_{$row_no}" value="{$product_line.line_gross_total}" />
 				<input type="hidden" class="hdn_product_net" name="hdn_product_net_{$row_no}" value="{$product_line.line_net_total}" />
 				<input type="hidden" class="hdn_product_tax_am" name="hdn_product_tax_am_{$row_no}" value="{$product_line.tax_amount}" />
 				<input type="hidden" class="hdn_product_total" name="hdn_product_total_{$row_no}" value="{$product_line.total_after_tax}" />
 				<textarea class="hdn_product_comment" name="hdn_product_comment_{$row_no}">{$product_line.comment}</textarea>
+				{* Individual taxes *}
+				<div class="product_line_hdntaxes">
+				{foreach from=$product_line.taxes item=tax key=tax_no}
+					{if $tax.deleted == 0}
+					<input type="hidden" class="hdn_product_{$tax.taxname}" name="hdn_product_{$tax.taxname}_{$row_no}" value="{$tax.current_percentage}">
+					{/if}
+				{/foreach}
+				</div>				
 			</div>
 		</tr>
 {/foreach}

@@ -130,6 +130,7 @@ Class ProductCollection {
 		while($tax = $this->db->fetch_array($res)) {
 			$av_taxes[$tax['taxname']] = array(
 					'taxid' 			=> $tax['taxid'],
+					'taxname' 			=> $tax['taxname'],
 					'taxlabel'			=> $tax['taxlabel'],
 					'default_percentage'=> $tax['percentage'],
 					'deleted'			=> $tax['deleted']

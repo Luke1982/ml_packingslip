@@ -131,7 +131,7 @@
 										{if $tax.deleted == 0}
 										<tr>
 											<td align="right"><b>{$tax.taxlabel} (%) : </b></td>
-											<td width="70" style="padding: 5px 0;" align="right"><input type="number" name="product_line_tax" class="small product_line_tax" value="{$tax.percentage}" style="width: 70px;"></td>
+											<td width="70" style="padding: 5px 0;" align="right"><input type="number" data-taxname="{$tax.taxname}" name="product_line_tax" class="small product_line_tax" value="{$tax.percentage}" style="width: 70px;"></td>
 										</tr>
 										{/if}
 									{/foreach}										
@@ -191,7 +191,7 @@
 				<div class="product_line_hdntaxes">
 				{foreach from=$GROUP_TAXES item=tax key=tax_no}
 					{if $tax.deleted == 0}
-					<input type="hidden" class="hdn_product_tax{$tax_no}" name="hdn_product_{$tax.taxname}_0" value="{$tax.percentage}">
+					<input type="hidden" class="hdn_product_{$tax.taxname}" name="hdn_product_{$tax.taxname}_0" value="{$tax.percentage}">
 					{/if}
 				{/foreach}
 				</div>

@@ -121,6 +121,14 @@ function InventoryLine(data) {
 		}
 	}
 
+	function __updateHiddenTaxField(domLine, taxInput) {
+		var taxName = taxInput.getAttribute("data-taxname");
+		var hiddenTaxFields = domLine.getElementsByClassName("product_line_hdntaxes")[0];
+		var inputToUpdate = hiddenTaxFields.getElementsByClassName("hdn_product_"+taxName)[0];
+		inputToUpdate.value = taxInput.value;
+		console.log(inputToUpdate);
+	}
+
 	__calculateTaxAmount = function(taxPerc, amount) {
 		return amount * (taxPerc / 100);
 	}
@@ -341,6 +349,7 @@ function InventoryLine(data) {
 	for (var i = 0; i < taxInputs.length; i++) {
 		taxInputs[i].addEventListener("input", function(e){
 			var parentLine = findUp("product_line", e.srcElement);
+			__updateHiddenTaxField(parentLine, e.srcElement);
 			// var parentLine = e.srcElement.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode;
 			__calcDomLine(parentLine);
 			console.log("Tax Changed");
