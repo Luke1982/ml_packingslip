@@ -77,24 +77,16 @@
 				<table width="100%" class="inv_line_tooltable">
 					<tbody>
 						<tr>
-							<td>
-								<a href="javascript:;" class="move_line_tool">Move Line</a>
-							</td>
+							<td><a href="javascript:;" class="move_line_tool">Move Line</a></td>
 						</tr>
 						<tr>
-							<td>
-								<a href="javascript:;" class="new_line_tool">New Line</a>
-							</td>
+							<td><a href="javascript:;" class="new_line_tool">New Line</a></td>
 						</tr>
 						<tr>
-							<td>
-								<a href="javascript:;" class="copy_line_tool">Copy line</a>
-							</td>
+							<td><a href="javascript:;" class="copy_line_tool">Copy line</a></td>
 						</tr>
 						<tr>
-							<td>
-								<a href="javascript:;" class="delete_line_tool">Delete line</a>
-							</td>
+							<td><a href="javascript:;" class="delete_line_tool">Delete line</a></td>
 						</tr>
 					</tbody>
 				</table>
@@ -181,7 +173,7 @@
 							<td align="right" width="5%" style="padding:5px;" nowrap><b>{$selected_cur_symbol}</b></td>
 							<td align="right" width="45%" style="padding:5px;" nowrap><span class="product_line_tax_amount target" style="width: 70px;">{$product_line.tax_amount}</span></td>
 						</tr>
-						<tr>
+						<tr {if $TAX_TYPE eq "group"}style="display:none"{/if} class="product_line_totals_net">
 							<td align="right" width="50%" style="padding:5px;" nowrap><b>{$APP.LBL_NET_TOTAL} : </b></td>
 							<td align="right" width="5%" style="padding:5px;" nowrap><b>{$selected_cur_symbol}</b></td>
 							<td align="right" width="45%" style="padding:5px;" nowrap><span class="product_line_after_tax target" style="width: 70px;">{$product_line.total_after_tax}</span></td>
