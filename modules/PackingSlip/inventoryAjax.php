@@ -7,8 +7,8 @@
  * Portions created by vtiger are Copyright (C) vtiger.
  * All Rights Reserved.
  ************************************************************************************/
-error_reporting(E_ALL);
-ini_set("display_errors", "on");
+// error_reporting(E_ALL);
+// ini_set("display_errors", "on");
 
 global $adb;
 
