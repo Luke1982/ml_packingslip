@@ -55,9 +55,10 @@
 		<!-- Inventory table subheader -->
 		<tr class="editview_inventory_subheader">
 			<td width=5% valign="top" class="lvtCol editview_inv_toolcol_header" align="left">{$APP.LBL_TOOLS}</td>
-			<td width=50% valign="top" class="lvtCol editview_inv_detailcol_header" align="left">{$APP.LBL_ITEM_NAME}</td>
-			<td width=10% valign="top" class="lvtCol editview_inv_qtycol_header" align="left">{$APP.LBL_QTY}</td>
-			<td width=20% valign="top" class="lvtCol editview_inv_adjustcol_header" align="left">{$APP.LBL_ADJUSTMENT}</td>
+			<td width=40% valign="top" class="lvtCol editview_inv_detailcol_header" align="left">{$MOD.LBL_ITEM_INFO}</td>
+			<td width=10% valign="top" class="lvtCol editview_inv_invcol_header" align="left">{$MOD.LBL_INVENTORY_INFO}</td>
+			<td width=10% valign="top" class="lvtCol editview_inv_purcol_header" align="left">{$MOD.LBL_BUY_INFO}</td>
+			<td width=20% valign="top" class="lvtCol editview_inv_salescol_header" align="left">{$MOD.LBL_SALES_INFO}</td>
 			<td width=15% valign="top" class="lvtCol editview_inv_totalscol_header" align="left">{$APP.LBL_TOTAL}</td>
 		</tr>
 
@@ -96,13 +97,16 @@
 				   </tr>
 				</table>				
 			</td>
-			<!-- column 3 - Information - starts -->
-			<td width=10% class="lvtCol editview_inv_qtycol" valign="top">
+			<!-- column 3 - Inventory -->
+			<td width=10% class="lvtCol editview_inv_invcol" valign="top">
 				
 			</td>
-			<!-- column 3 - Quantity - ends -->
-			<!-- Column 4: adjustments -->
-			<td width=20% valign="top" class="lvtCol editview_inv_adjustcol" align="right">
+			<!-- column 3 - Purchase info -->
+			<td width=10% class="lvtCol editview_inv_purcol" valign="top">
+				
+			</td>
+			<!-- Column 4: Sales info -->
+			<td width=20% valign="top" class="lvtCol editview_inv_salescol" align="right">
 				<table width="100%" cellpadding="0" cellspacing="0">
 					<tbody>
 						<tr>

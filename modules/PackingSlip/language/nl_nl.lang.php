@@ -28,7 +28,14 @@ $mod_strings = Array(
 	'Province' => 'Provincie',
 	// Helptexts
 	'LBL_DELIVERDATE_HELPTEXT' => 'Voer een afleverdatum in voor de goederen van deze pakbon.',
-	'LBL_ISSUEDATE_HELPTEXT' => 'Voer een afgiftedatum in van deze pakbon. Dit zal meestal de huidige datum zijn.'
+	'LBL_ISSUEDATE_HELPTEXT' => 'Voer een afgiftedatum in van deze pakbon. Dit zal meestal de huidige datum zijn.',
+	// Column header labels
+	'LBL_ITEM_INFO' => 'Artikel informatie',
+	'LBL_INVENTORY_INFO' => 'Voorraad informatie',
+	'LBL_BUY_INFO' => 'Inkoop informatie',
+	'LBL_SALES_INFO' => 'Verkoop informatie',
+	// Input placeholders
+	'LBL_TYPE_TO_SEARCH' => 'Type om te zoeken'
 );
 
 ?>
