@@ -28,8 +28,8 @@
 
 		<!-- Inventory table subheader -->
 		<tr class="editview_inventory_subheader">
-			<td width=65% colspan="3" valign="top" class="lvtCol editview_inv_item_header" align="left">{$APP.LBL_ITEM_DETAILS}</td>
-			<td width=20% colspan="1" valign="top" class="lvtCol editview_inv_item_header" align="left">
+			<td width=50% colspan="4" valign="top" class="lvtCol editview_inv_item_header" align="left">{$APP.LBL_ITEM_DETAILS}</td>
+			<td width=25% colspan="1" valign="top" class="lvtCol editview_inv_item_header" align="left">
 				{$APP.LBL_CURRENCY}
 				<select class="small" id="inventory_currency" name="inventory_currency">
 				{* Currency logic *}
@@ -43,7 +43,7 @@
 				{/foreach}				
 				</select>
 			</td>
-			<td width=15% colspan="1" valign="top" class="lvtCol editview_inv_item_header" align="left">
+			<td width=25% colspan="1" valign="top" class="lvtCol editview_inv_item_header" align="left">
 				{$APP.LBL_TAX_MODE}
 				<select class="small" id="taxtype" name="taxtype">
 					<option value="individual" {if $TAX_TYPE eq "individual"}selected{/if}>{$APP.LBL_INDIVIDUAL}</option> 
@@ -55,9 +55,9 @@
 		<!-- Inventory table subheader -->
 		<tr class="editview_inventory_subheader">
 			<td width=5% valign="top" class="lvtCol editview_inv_toolcol_header" align="left">{$APP.LBL_TOOLS}</td>
-			<td width=40% valign="top" class="lvtCol editview_inv_detailcol_header" align="left">{$MOD.LBL_ITEM_INFO}</td>
-			<td width=10% valign="top" class="lvtCol editview_inv_invcol_header" align="left">{$MOD.LBL_INVENTORY_INFO}</td>
-			<td width=10% valign="top" class="lvtCol editview_inv_purcol_header" align="left">{$MOD.LBL_BUY_INFO}</td>
+			<td width=30% valign="top" class="lvtCol editview_inv_detailcol_header" align="left">{$MOD.LBL_ITEM_INFO}</td>
+			<td width=15% valign="top" class="lvtCol editview_inv_invcol_header" align="left">{$MOD.LBL_INVENTORY_INFO}</td>
+			<td width=15% valign="top" class="lvtCol editview_inv_purcol_header" align="left">{$MOD.LBL_BUY_INFO}</td>
 			<td width=20% valign="top" class="lvtCol editview_inv_salescol_header" align="left">{$MOD.LBL_SALES_INFO}</td>
 			<td width=15% valign="top" class="lvtCol editview_inv_totalscol_header" align="left">{$APP.LBL_TOTAL}</td>
 		</tr>
@@ -83,7 +83,7 @@
 				</table>
 			</td>
 			<!-- Column 2: product of service details -->
-			<td width=50% valign="top" class="lvtCol editview_inv_detailcol" align="right">
+			<td width=40% valign="top" class="lvtCol editview_inv_detailcol" align="right">
 				<table width="100%"  border="0" cellspacing="0" cellpadding="1">
 				   <tr>
 						<td class="small" valign="top">
@@ -103,7 +103,12 @@
 			</td>
 			<!-- column 3 - Purchase info -->
 			<td width=10% class="lvtCol editview_inv_purcol" valign="top">
-				
+				<table width="100%" cellpadding="0" cellspacing="0">
+					<tr>
+						<td>{$MOD.LBL_COSTPRICE}</td>
+						<td><input type="number" name="product_line_costprice" style="width: 70px" value=""></td>
+					</tr>
+				</table>
 			</td>
 			<!-- Column 4: Sales info -->
 			<td width=20% valign="top" class="lvtCol editview_inv_salescol" align="right">
