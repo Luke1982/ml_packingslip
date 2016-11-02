@@ -106,7 +106,7 @@
 				<table width="100%" cellpadding="0" cellspacing="0">
 					<tr>
 						<td>{$MOD.LBL_COSTPRICE}</td>
-						<td><input type="number" name="product_line_costprice" style="width: 70px" value=""></td>
+						<td><input type="number" name="product_line_costprice" class="product_line_costprice" style="width: 70px" value=""></td>
 					</tr>
 				</table>
 			</td>

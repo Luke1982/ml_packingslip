@@ -421,6 +421,7 @@ function InventoryLine(data) {
 			if (source[i].label == label) {
 				callingLine.getElementsByClassName("product_line_comment")[0].value = source[i].desc;
 				callingLine.getElementsByClassName("product_line_listprice")[0].value = source[i].price;
+				callingLine.getElementsByClassName("product_line_costprice")[0].value = source[i].costPrice;
 				callingLine.getElementsByClassName("hdn_product_crm_id")[0].value = source[i].crmid;
 				callingLine.getElementsByClassName("hdn_product_entity_type")[0].value = source[i].entityType;
 			}
