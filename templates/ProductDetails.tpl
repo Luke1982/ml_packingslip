@@ -195,6 +195,7 @@
 				<input type="hidden" class="hdn_product_seq" name="hdn_product[0][sequence_no]" value="1" />
 				<input type="hidden" class="hdn_product_crm_id" name="hdn_product[0][productid]" value="" />
 				<input type="hidden" class="hdn_product_qty" name="hdn_product[0][quantity]" value="" />
+				<input type="hidden" class="hdn_product_cost_price" name="hdn_product[0][cost_price]" value="" />
 				<input type="hidden" class="hdn_product_listprice" name="hdn_product[0][listprice]" value="" />
 				<input type="hidden" class="hdn_product_discount_per" name="hdn_product[0][discount_percent]" value="" />
 				<input type="hidden" class="hdn_product_discount_am" name="hdn_product[0][discount_amount]" value="" cleanline="leavealone"/>
