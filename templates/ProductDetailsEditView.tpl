@@ -128,9 +128,9 @@
 						</tr>
 						<tr>
 							<td align="left" colspan="2" style="padding:5px;" nowrap>
-								<input type="radio" {if $product_line.discount_type eq 'p'}checked="checked"{/if} name="product_line_disc_type_{$row_no}" class="product_line_disc_radio" value="p">% {$APP.LBL_OF_PRICE}
+								<input type="radio" {if $product_line.discount_type eq 'p'}checked="checked"{/if} name="product_line_disc_type_{$row_no}" class="product_line_disc_radio" value="p" cleanline="leavealone">% {$APP.LBL_OF_PRICE}
 								<br>
-								<input type="radio" {if $product_line.discount_type eq 'd'}checked="checked"{/if} name="product_line_disc_type_{$row_no}" class="product_line_disc_radio" value="d">{$APP.LBL_DIRECT_PRICE_REDUCTION}
+								<input type="radio" {if $product_line.discount_type eq 'd'}checked="checked"{/if} name="product_line_disc_type_{$row_no}" class="product_line_disc_radio" value="d" cleanline="leavealone">{$APP.LBL_DIRECT_PRICE_REDUCTION}
 							</td>
 							<td align="right" colspan="1" style="padding:5px;" nowrap>
 								<b>{$APP.LBL_DISCOUNT} : </b><input type="text" name="product_line_discount" value="{$show_discount}" class="small product_line_discount" style="width: 70px;">
@@ -197,7 +197,7 @@
 				<input type="hidden" class="hdn_product_qty" name="hdn_product[{$row_no}][qty]" value="{$product_line.qty}" />
 				<input type="hidden" class="hdn_product_listprice" name="hdn_product[{$row_no}][listprice]" value="{$product_line.list_price}" />
 				<input type="hidden" class="hdn_product_discount" name="hdn_product[{$row_no}][discount]" value="{$show_discount}" />
-				<input type="hidden" class="hdn_product_discount_type" name="hdn_product[{$row_no}][discount_type]" value="{$product_line.discount_type}" cleanline="leavealone"/>
+				<input type="hidden" class="hdn_product_discount_type" name="hdn_product[{$row_no}][discount_type]" value="{$product_line.discount_type}" cleanline="leavealone" />
 				<input type="hidden" class="hdn_product_gross" name="hdn_product[{$row_no}][gross]" value="{$product_line.line_gross_total}" />
 				<input type="hidden" class="hdn_product_net" name="hdn_product[{$row_no}][net]" value="{$product_line.line_net_total}" />
 				<input type="hidden" class="hdn_product_tax_am" name="hdn_product[{$row_no}][tax_am]" value="{$product_line.tax_amount}" />

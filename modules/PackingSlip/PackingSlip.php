@@ -122,26 +122,20 @@ class PackingSlip extends CRMEntity {
 
 	function save_module($module) {
 
-		require_once('classes/ProductCollection.php');
-		global $adb;
-		$product_coll = new ProductCollection($adb);
-		$product_coll->save($_REQUEST);
-
 		if ($this->HasDirectImageField) {
 			$this->insertIntoAttachment($this->id,$module);
 		}
 		//in ajax save we should not call this function, because this will delete all the existing product values
-		// if(isset($_REQUEST)) {
-		// 	if($_REQUEST['action'] != 'PackingSlipAjax' && $_REQUEST['ajxaction'] != 'DETAILVIEW' && $_REQUEST['action'] != 'MassEditSave')
-		// 	{
-		// 		//Based on the total Number of rows we will save the product relationship with this entity
-				// save_packingslip_inventory_product_details($this, 'PackingSlip');
-				// require_once('classes/ProductCollection.php');
-				// global $adb;
-				// $product_coll = new ProductCollection($adb);
-				// $product_coll->save($_REQUEST);				
-		// 	}
-		// }
+		if(isset($_REQUEST)) {
+			if($_REQUEST['action'] != 'PackingSlipAjax' && $_REQUEST['ajxaction'] != 'DETAILVIEW' && $_REQUEST['action'] != 'MassEditSave')
+			{
+				//Based on the total Number of rows we will save the product relationship with this entity
+				require_once('classes/DetailModule.php');
+				global $adb;
+				$detail_module = new DetailModule($adb);
+				$detail_module->saveRecords($_REQUEST['hdn_product']);				
+			}
+		}
 		// Update the currency id and the conversion rate for the invoice
 		$update_query = "update vtiger_packingslip set currency_id=?, conversion_rate=? where packingslipid=?";
 		$update_params = array($this->column_fields['currency_id'], $this->column_fields['conversion_rate'], $this->id); 
@@ -461,12 +455,20 @@ class PackingSlip extends CRMEntity {
 	 */
 	function vtlib_handler($modulename, $event_type) {
 		if($event_type == 'module.postinstall') {
+
 			// TODO Handle post installation actions
 			$this->setModuleSeqNumber('configure', $modulename, $modulename.'-', '0000001');
+			
 			// Install an action link in salesorders
 			include_once('vtlib/Vtiger/Module.php');
 			$mod_so = Vtiger_Module::getInstance('SalesOrder');
 			$mod_so->addLink('DETAILVIEWBASIC', 'LBL_CREATE_PACKINGSLIP_FROM_SO', 'index.php?module=PackingSlip&action=EditView&return_action=ListView&parent_so=$RECORD$');
+
+			// Allow this module on the related_to field of InventoryDetails
+			$module_instance = Vtiger_Module::getInstance('InventoryDetails');
+			$field = Vtiger_Field::getInstance('related_to', $module_instance);
+			$field->setRelatedModules(array('PackingSlip'));
+
 		} else if($event_type == 'module.disabled') {
 			// TODO Handle actions when this module is disabled.
 		} else if($event_type == 'module.enabled') {

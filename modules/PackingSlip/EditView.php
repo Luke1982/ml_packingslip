@@ -257,17 +257,10 @@ $smarty->assign('PRODUCT_OR_SERVICE', GlobalVariable::getVariable('product_servi
 //Set taxt type group or individual by default when create
 $smarty->assign('TAX_TYPE', GlobalVariable::getVariable('Tax_Type_Default', 'group', $currentModule, $current_user->id));
 
-// echo "<pre>";
-// $test = get_ass_products_ps($focus);
-// print_r($test);
-// echo "</pre>";
+$smarty->assign('AVAILABLE_FIELDS', get_detailmodule_fields());
 
-$_REQUEST['return_action'] = 'test';
-$smarty->assign("RETURN_ACTION", vtlib_purify($_REQUEST['return_action']));
-
-// echo "<pre>";
-// print_r($_REQUEST);
-// echo "</pre>";
+// $_REQUEST['return_action'] = 'test';
+// $smarty->assign("RETURN_ACTION", vtlib_purify($_REQUEST['return_action']));
 
 $smarty->assign('FINALS', get_inventory_finals($focus));
 
@@ -275,6 +268,13 @@ if ($focus->mode == 'edit')
 	$smarty->display("modules/PackingSlip/InventoryEditView.tpl");
 else
 	$smarty->display('modules/PackingSlip/InventoryCreateView.tpl');
+
+function get_detailmodule_fields() {
+	require_once('classes/DetailModule.php');
+	global $adb;
+	$detail_module = new DetailModule($adb);
+	return $detail_module->getAvailableFields();
+}
 
 function get_ass_products_ps($focus) {
 	require_once('classes/ProductCollection.php');

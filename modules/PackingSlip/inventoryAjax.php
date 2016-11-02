@@ -22,7 +22,7 @@ if (isset($_REQUEST['getlist']) && $_REQUEST['getlist'] == true) {
 			'price' 		=> $prod['unit_price'],
 			'desc' 			=> $prod['description'],
 			'crmid' 		=> $prod['productid'],
-			'entityType'	=> 'Product'
+			'entityType'	=> 'Products'
 			);
 	}
 	$ser_res = $adb->pquery("SELECT vtiger_service.serviceid, vtiger_service.service_no, vtiger_service.servicename, vtiger_service.unit_price, vtiger_crmentity.description FROM vtiger_service INNER JOIN vtiger_crmentity ON vtiger_service.serviceid = vtiger_crmentity.crmid", array());
@@ -33,7 +33,7 @@ if (isset($_REQUEST['getlist']) && $_REQUEST['getlist'] == true) {
 			'price' 		=> $ser['unit_price'],
 			'desc' 			=> $ser['description'],
 			'crmid' 		=> $ser['serviceid'],
-			'entityType'	=> 'Service'
+			'entityType'	=> 'Services'
 			);		
 	}
 	echo json_encode($list);

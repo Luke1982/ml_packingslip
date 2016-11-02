@@ -38,9 +38,10 @@ function InventoryLine(data) {
 	var hdnLineGrossField = data.source.getElementsByClassName("hdn_product_gross")[0];
 	var hdnLineNetField = data.source.getElementsByClassName("hdn_product_net")[0];
 	var hdnListPriceField = data.source.getElementsByClassName("hdn_product_listprice")[0];
-	var hdnDiscTypeField = data.source.getElementsByClassName("hdn_product_discount_type")[0];
-	var hdnDiscAmountField = data.source.getElementsByClassName("hdn_product_discount")[0];
+	var hdnDiscPercField = data.source.getElementsByClassName("hdn_product_discount_per")[0];
+	var hdnDiscAmountField = data.source.getElementsByClassName("hdn_product_discount_am")[0];
 	var hdnTaxAmountField = data.source.getElementsByClassName("hdn_product_tax_am")[0];
+	var hdnTaxPercField = data.source.getElementsByClassName("hdn_product_tax_per")[0];
 	var hdnTotalField = data.source.getElementsByClassName("hdn_product_total")[0];
 	var hdnCommentField = data.source.getElementsByClassName("hdn_product_comment")[0];
 
@@ -77,6 +78,7 @@ function InventoryLine(data) {
 	}
 
 	__setInput = function(input, newValue) {
+		console.log(input);
 		input.value = newValue;
 		return newValue;
 	}
@@ -104,7 +106,6 @@ function InventoryLine(data) {
 		var currentGross = parent.getElementsByClassName("product_line_gross")[0].innerHTML;
 		var discVal = parent.getElementsByClassName("product_line_discount")[0].value;
 		var discType = __getDiscountType(parent);
-		console.log(discType);
 		if (discType == "d") {
 			// Direct discount
 			return {
@@ -113,7 +114,7 @@ function InventoryLine(data) {
 			};
 		} else if (discType == "p") {
 			// Discount percentage
-			discVal = currentGross * (discVal / 100);
+			// discVal = currentGross * (discVal / 100);
 			discVal = Math.round(discVal * 100) / 100; // Round to two decimals only when needed
 			return {
 				"discountValue" : discVal,
@@ -158,15 +159,25 @@ function InventoryLine(data) {
 		var newLineHdnGross 	= __setInput(hdnLineGrossField, newLineGross);
 		// Calculate the discount and net lineprice
 		var discount 			= __determineDiscount(domLine);
-		var newLineHdnDiscType 	= __setInput(hdnDiscTypeField, discount.discountType);
-		var newLineHdnDiscAm 	= __setInput(hdnDiscAmountField, discount.discountValue);
-		var newLineNet 			= __setNonEditableNo((newLineGross - discount.discountValue), netPrice);
-		var newLineHdnNet 		= __setInput(hdnLineNetField, newLineNet);
+		if (discount.discountType == "d") {
+			// Direct price discount calculations
+			var newLineHdnDiscAm 	= __setInput(hdnDiscAmountField, discount.discountValue);
+			var newLineHdnDiscPer 	= __setInput(hdnDiscPercField, 0);
+			var newLineNet 			= __setNonEditableNo((newLineGross - discount.discountValue), netPrice);
+			var newLineHdnNet 		= __setInput(hdnLineNetField, newLineNet);
+		} else {
+			// Percentage discount calculations
+			var newLineHdnDiscPer 	= __setInput(hdnDiscPercField, discount.discountValue);
+			var newLineHdnDiscAm 	= __setInput(hdnDiscAmountField, 0);
+			var newLineNet 			= __setNonEditableNo((newLineGross * (1 - (discount.discountValue / 100))), netPrice);
+			var newLineHdnNet 		= __setInput(hdnLineNetField, newLineNet);
+		}
 		// Calculate the tax
 		var taxTotal 			= __addTaxes();
 		var taxAmount 			= __calculateTaxAmount(taxTotal, newLineNet);
 		var newLineTax 			= __setNonEditableNo(taxAmount, lineTax);
 		var newLineHdnTax 		= __setInput(hdnTaxAmountField, newLineTax);
+		var newLineHdnTaxPer	= __setInput(hdnTaxPercField, taxTotal);
 		// Final amount for the line after tax and discount
 		var newLineTotal		= __setNonEditableNo((newLineNet + newLineTax), lineFinal);
 		var newLineHdnTotal		= __setInput(hdnTotalField, (newLineNet + newLineTax));

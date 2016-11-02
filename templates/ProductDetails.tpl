@@ -21,6 +21,8 @@
 
 <!-- MajorLabel new inventory lines: createview-->
 
+{* <pre>{$AVAILABLE_FIELDS|print_r}</pre> *}
+
 <table width="100%"  border="0" align="center" cellpadding="5" cellspacing="0" class="crmTable editview_inventory_table" id="proTab">
 	<tbody id="proBody">
 
@@ -177,21 +179,22 @@
 			</td>
 			<!-- Hidden column that represents all hidden inputs with behind the scenes data -->
 			<td width="0" class="productline_props" style="display: none">
-				<!-- MajorLabel implementation of hidden inputs -->
+				<!-- Hidden inputs line properties -->
 				<input type="hidden" class="hdn_product_id" name="hdn_product[0][id]" value="0" />
 				<input type="hidden" class="hdn_product_isdeleted" name="hdn_product[0][deleted]" value="false" />
-				<input type="hidden" class="hdn_product_line_id" name="hdn_product[0][line_id]" value="" />
-				<input type="hidden" class="hdn_product_seq" name="hdn_product[0][seq]" value="1" />
-				<input type="hidden" class="hdn_product_crm_id" name="hdn_product[0][crm_id]" value="" />
-				<input type="hidden" class="hdn_product_entity_type" name="hdn_product[0][entity_type]" value="" />
-				<input type="hidden" class="hdn_product_qty" name="hdn_product[0][qty]" value="" />
+				<input type="hidden" class="hdn_product_line_id" name="hdn_product[0][lineitem_id]" value="" />
+				<input type="hidden" class="hdn_product_seq" name="hdn_product[0][sequence_no]" value="1" />
+				<input type="hidden" class="hdn_product_crm_id" name="hdn_product[0][productid]" value="" />
+				<input type="hidden" class="hdn_product_qty" name="hdn_product[0][quantity]" value="" />
 				<input type="hidden" class="hdn_product_listprice" name="hdn_product[0][listprice]" value="" />
-				<input type="hidden" class="hdn_product_discount" name="hdn_product[0][discount]" value="" />
-				<input type="hidden" class="hdn_product_discount_type" name="hdn_product[0][discount_type]" value="" cleanline="leavealone"/>
-				<input type="hidden" class="hdn_product_gross" name="hdn_product[0][gross]" value="" />
-				<input type="hidden" class="hdn_product_net" name="hdn_product[0][net]" value="" />
-				<input type="hidden" class="hdn_product_tax_am" name="hdn_product[0][tax_am]" value="" />
-				<input type="hidden" class="hdn_product_total" name="hdn_product[0][total]" value="" />
+				<input type="hidden" class="hdn_product_discount_per" name="hdn_product[0][discount_percent]" value="" />
+				<input type="hidden" class="hdn_product_discount_am" name="hdn_product[0][discount_amount]" value="" cleanline="leavealone"/>
+				<input type="hidden" class="hdn_product_gross" name="hdn_product[0][extgross]" value="" />
+				<input type="hidden" class="hdn_product_net" name="hdn_product[0][extnet]" value="" />
+				<input type="hidden" class="hdn_product_tax_am" name="hdn_product[0][linetax]" value="" />
+				<input type="hidden" class="hdn_product_tax_per" name="hdn_product[0][tax_percent]" value="" />
+				<input type="hidden" class="hdn_product_total" name="hdn_product[0][linetotal]" value="" />
+				<input type="hidden" class="hdn_product_entity_type" name="hdn_product[0][entity_type]" value="" />
 				<textarea class="hdn_product_comment" name="hdn_product[0][comment]"></textarea>
 				{* Individual taxes *}
 				<div class="product_line_hdntaxes">
