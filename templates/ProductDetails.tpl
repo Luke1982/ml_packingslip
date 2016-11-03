@@ -99,7 +99,28 @@
 			</td>
 			<!-- column 3 - Inventory -->
 			<td width=10% class="lvtCol editview_inv_invcol" valign="top">
-				
+				<table width="100%" cellpadding="0" cellspacing="0">
+					<tr>
+						<td>{$MOD.LBL_DEL_REC}</td>
+						<td><input type="number" name="product_line_del_rec" class="product_line_del_rec" style="width: 70px" value=""></td>
+					</tr>				
+					<tr>
+						<td>{$MOD.LBL_STOCK}</td>
+						<td><span class="product_line_in_stock">0</span></td>
+					</tr>
+					<tr>
+						<td>{$MOD.LBL_QTY_PER_UNIT}</td>
+						<td><span class="product_line_qty_per_unit">0</span></td>
+					</tr>
+					<tr>
+						<td>{$MOD.LBL_BACKORDER_LVL}</td>
+						<td><span class="product_line_backorder_lvl">0</span></td>
+					</tr>
+					<tr>
+						<td>{$MOD.LBL_QTY_ORDERED}</td>
+						<td><span class="product_line_ordered">0</span></td>
+					</tr>
+				</table>
 			</td>
 			<!-- column 3 - Purchase info -->
 			<td width=10% class="lvtCol editview_inv_purcol" valign="top">

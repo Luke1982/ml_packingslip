@@ -26,6 +26,13 @@ $mod_strings = Array(
 	'Related Contact' => 'Gerelateerd contact',
 	'Postal Code' => 'Postcode',
 	'Province' => 'Provincie',
+	'LBL_COSTPRICE' => 'Kostprijs',
+	'LBL_UNIT' => 'Eenheid',
+	'LBL_STOCK' => 'Op voorraad',
+	'LBL_QTY_PER_UNIT' => 'Aantal per eenheid',
+	'LBL_BACKORDER_LVL' => 'Aantal in backorder',
+	'LBL_QTY_ORDERED' => 'Aantal in bestelling',
+	'LBL_DEL_REC' => 'Eenheden ontvangen / geleverd',	
 	// Helptexts
 	'LBL_DELIVERDATE_HELPTEXT' => 'Voer een afleverdatum in voor de goederen van deze pakbon.',
 	'LBL_ISSUEDATE_HELPTEXT' => 'Voer een afgiftedatum in van deze pakbon. Dit zal meestal de huidige datum zijn.',
@@ -35,8 +42,7 @@ $mod_strings = Array(
 	'LBL_BUY_INFO' => 'Inkoop informatie',
 	'LBL_SALES_INFO' => 'Verkoop informatie',
 	// Input placeholders
-	'LBL_TYPE_TO_SEARCH' => 'Type om te zoeken',
-	'LBL_COSTPRICE' => 'Kostprijs'
+	'LBL_TYPE_TO_SEARCH' => 'Type om te zoeken'
 );
 
 ?>
