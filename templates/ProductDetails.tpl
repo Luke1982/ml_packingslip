@@ -23,13 +23,13 @@
 
 {* <pre>{$AVAILABLE_FIELDS|print_r}</pre> *}
 
-<table width="100%"  border="0" align="center" cellpadding="5" cellspacing="0" class="crmTable editview_inventory_table" id="proTab">
+<table width="100%"  border="0" align="center" cellpadding="0" cellspacing="0" class="crmTable editview_inventory_table" id="proTab">
 	<tbody id="proBody">
 
 		<!-- Inventory table subheader -->
 		<tr class="editview_inventory_subheader">
-			<td width=50% colspan="4" valign="top" class="lvtCol editview_inv_item_header" align="left">{$APP.LBL_ITEM_DETAILS}</td>
-			<td width=25% colspan="1" valign="top" class="lvtCol editview_inv_item_header" align="left">
+			<td width=40% colspan="2" valign="top" class="lvtCol editview_inv_item_header" align="left">{$APP.LBL_ITEM_DETAILS}</td>
+			<td width=30% colspan="2" valign="top" class="lvtCol editview_inv_item_header" align="left">
 				{$APP.LBL_CURRENCY}
 				<select class="small" id="inventory_currency" name="inventory_currency">
 				{* Currency logic *}
@@ -43,7 +43,7 @@
 				{/foreach}				
 				</select>
 			</td>
-			<td width=25% colspan="1" valign="top" class="lvtCol editview_inv_item_header" align="left">
+			<td width=30% colspan="2" valign="top" class="lvtCol editview_inv_item_header" align="left">
 				{$APP.LBL_TAX_MODE}
 				<select class="small" id="taxtype" name="taxtype">
 					<option value="individual" {if $TAX_TYPE eq "individual"}selected{/if}>{$APP.LBL_INDIVIDUAL}</option> 
@@ -54,45 +54,45 @@
 
 		<!-- Inventory table subheader -->
 		<tr class="editview_inventory_subheader">
-			<td width=5% valign="top" class="lvtCol editview_inv_toolcol_header" align="left">{$APP.LBL_TOOLS}</td>
-			<td width=30% valign="top" class="lvtCol editview_inv_detailcol_header" align="left">{$MOD.LBL_ITEM_INFO}</td>
-			<td width=15% valign="top" class="lvtCol editview_inv_invcol_header" align="left">{$MOD.LBL_INVENTORY_INFO}</td>
-			<td width=15% valign="top" class="lvtCol editview_inv_purcol_header" align="left">{$MOD.LBL_BUY_INFO}</td>
-			<td width=20% valign="top" class="lvtCol editview_inv_salescol_header" align="left">{$MOD.LBL_SALES_INFO}</td>
-			<td width=15% valign="top" class="lvtCol editview_inv_totalscol_header" align="left">{$APP.LBL_TOTAL}</td>
+			<td width=5% valign="top" class="lvtCol editview_inv_toolcol_header inv_col_header" align="left">{$APP.LBL_TOOLS}</td>
+			<td width=30% valign="top" class="lvtCol editview_inv_detailcol_header inv_col_header" align="left">{$MOD.LBL_ITEM_INFO}</td>
+			<td width=15% valign="top" class="lvtCol editview_inv_invcol_header inv_col_header" align="left">{$MOD.LBL_INVENTORY_INFO}</td>
+			<td width=15% valign="top" class="lvtCol editview_inv_purcol_header inv_col_header" align="left">{$MOD.LBL_BUY_INFO}</td>
+			<td width=15% valign="top" class="lvtCol editview_inv_salescol_header inv_col_header" align="left">{$MOD.LBL_SALES_INFO}</td>
+			<td width=20% valign="top" class="lvtCol editview_inv_totalscol_header inv_col_header" align="left">{$APP.LBL_TOTAL}</td>
 		</tr>
 
 		<tr class="product_line">
 			<!-- Column 1: tools -->
 			<td width=5% valign="top" class="lvtCol editview_inv_toolcol" align="right">
-				<table width="100%" class="inv_line_tooltable">
+				<table width="100%" class="inv_line_tooltable" cellpadding="0" cellspacing="0" border="0">
 					<tbody>
 						<tr>
-							<td><a href="javascript:;" class="move_line_tool">Move Line</a></td>
+							<td><a href="javascript:;" class="icon-move move_line_tool line_tool" title="{$MOD.LBL_MOVE_LINE}"></a></td>
 						</tr>
 						<tr>
-							<td><a href="javascript:;" class="new_line_tool">New Line</a></td>
+							<td><a href="javascript:;" class="icon-newline new_line_tool line_tool" title="{$MOD.LBL_NEW_LINE}"></a></td>
 						</tr>
 						<tr>
-							<td><a href="javascript:;" class="copy_line_tool">Copy line</a></td>
+							<td><a href="javascript:;" class="icon-copyline copy_line_tool line_tool" title="{$MOD.LBL_COPY_LINE}"></a></td>
 						</tr>
 						<tr>
-							<td><a href="javascript:;" class="delete_line_tool">Delete line</a></td>
+							<td><a href="javascript:;" class="icon-trash delete_line_tool line_tool" title="{$MOD.LBL_DEL_LINE}"></a></td>
 						</tr>
 					</tbody>
 				</table>
 			</td>
 			<!-- Column 2: product of service details -->
 			<td width=40% valign="top" class="lvtCol editview_inv_detailcol" align="right">
-				<table width="100%"  border="0" cellspacing="0" cellpadding="1">
+				<table width="100%"  border="0" cellspacing="0" cellpadding="0">
 				   <tr>
-						<td class="small" valign="top">
-							<input type="text" name="product_line_name" value="" class="small product_line_name" style="width: 100%;" />
+						<td class="" valign="top">
+							<input type="text" name="product_line_name" value="" class="product_line_name" placeholder="{$MOD.LBL_TYPE_TO_SEARCH}" style="width: 100%;" />
 						</td>
 				   </tr>
 				   <tr>
-						<td class="small setComment">
-							<textarea name="product_line_comment" class="small product_line_comment" style="width:100%;height:40px"></textarea>
+						<td class="setComment">
+							<textarea name="product_line_comment" class="product_line_comment" style="width:100%;height:60px"></textarea>
 						</td>
 				   </tr>
 				</table>				
@@ -122,7 +122,7 @@
 					</tr>
 				</table>
 			</td>
-			<!-- column 3 - Purchase info -->
+			<!-- column 4 - Purchase info -->
 			<td width=10% class="lvtCol editview_inv_purcol" valign="top">
 				<table width="100%" cellpadding="0" cellspacing="0">
 					<tr>
@@ -131,45 +131,49 @@
 					</tr>
 				</table>
 			</td>
-			<!-- Column 4: Sales info -->
-			<td width=20% valign="top" class="lvtCol editview_inv_salescol" align="right">
+			<!-- Column 5: Sales info -->
+			<td width=15% valign="top" class="lvtCol editview_inv_salescol" align="right">
 				<table width="100%" cellpadding="0" cellspacing="0">
 					<tbody>
 						<tr>
-							<td align="left" colspan="1" style="padding:5px;" nowrap>
+							<td align="left" colspan="1" nowrap>
 								<span class="product_line_qty_lbl">{$APP.LBL_QTY} :</span>&nbsp;
-								<input name="product_line_qty" type="number" class="small product_line_qty" style="width:50px" value=""/>
+								<input name="product_line_qty" type="number" class="product_line_qty" style="width:50px" value=""/>
 							</td>
-							<td align="center" colspan="1" style="padding:5px;" nowrap>X</td>
-							<td align="right" colspan="1" style="padding:5px;" nowrap>
-								<b>{$APP.LBL_LIST_PRICE} : </b><input value="" type="number" name="product_line_listprice" class="small product_line_listprice" style="width:70px">
+							<td align="center" colspan="1" nowrap>X</td>
+							<td align="right" colspan="1" nowrap>
+								<b>{$APP.LBL_LIST_PRICE} : </b><input value="" type="number" name="product_line_listprice" class="product_line_listprice" style="width:70px">
 							</td>
 						</tr>
 						<tr>
-							<td colspan="3" class="adj_col_disc_header">{$APP.LBL_DISCOUNT}</td>
+							<td colspan="3" class="sales_col_header">{$APP.LBL_DISCOUNT}</td>
 						</tr>						
 						<tr>
-							<td align="left" colspan="2" style="padding:5px;" nowrap>
+							<td align="left" colspan="2" nowrap>
+								<label>
 								<input type="radio" name="product_line_disc_type_0" class="product_line_disc_radio" value="p" checked="checked" cleanline="leavealone">% {$APP.LBL_OF_PRICE}
+								</label>
 								<br>
+								<label>
 								<input type="radio" name="product_line_disc_type_0" class="product_line_disc_radio" value="d" cleanline="leavealone">{$APP.LBL_DIRECT_PRICE_REDUCTION}
+								</label>
 							</td>
-							<td align="right" colspan="1" style="padding:5px;" nowrap>
-								<b>{$APP.LBL_DISCOUNT} : </b><input type="text" name="product_line_discount" value="0" class="small product_line_discount" style="width: 70px;">
+							<td align="right" colspan="1" nowrap>
+								<b>{$APP.LBL_DISCOUNT} : </b><input type="text" name="product_line_discount" value="0" class="product_line_discount" style="width: 70px;">
 							</td>
 						</tr>
 						<tr>
-							<td align="right" colspan="3" class="product_line_taxes" style="padding:5px;{if $TAX_TYPE eq "group"}display:none;{/if}" nowrap>
+							<td align="right" colspan="3" class="product_line_taxes" style="{if $TAX_TYPE eq "group"}display:none;{/if}" nowrap>
 								<table width="100%" cellpadding="0" cellspacing="0">
 									<tbody>
 									<tr>
-										<td colspan="2" class="adj_col_tax_header">{$APP.LBL_TAX}</td>
+										<td colspan="2" class="sales_col_header">{$APP.LBL_TAX}</td>
 									</tr>									
 									{foreach from=$GROUP_TAXES item=tax key=tax_no}
 										{if $tax.deleted == 0}
 										<tr>
 											<td align="right"><b>{$tax.taxlabel} (%) : </b></td>
-											<td width="70" style="padding: 5px 0;" align="right"><input type="number" data-taxname="{$tax.taxname}" name="product_line_tax" class="small product_line_tax" cleanline="leavealone" value="{$tax.percentage}" style="width: 70px;"></td>
+											<td width="70" align="right"><input type="number" data-taxname="{$tax.taxname}" name="product_line_tax" class="product_line_tax" cleanline="leavealone" value="{$tax.percentage}" style="width: 70px;"></td>
 										</tr>
 										{/if}
 									{/foreach}										
@@ -180,29 +184,29 @@
 					</tbody>						
 				</table>				
 			</td>
-			<!-- Column 5 -->
-			<td width=15% valign="middle" class="lvtCol editview_inv_totalscol" align="right">
+			<!-- Column 6: totals for product line -->
+			<td width=20% class="lvtCol editview_inv_totalscol" align="right">
 				<table width="100%" cellpadding="0" cellspacing="0">
 					<tbody>
 						<tr>
-							<td align="right" width="50%" style="padding:5px;" nowrap><b>{$APP.LBL_TOTAL} : </b></td>
-							<td align="right" width="5%" style="padding:5px;" nowrap><b>{$selected_cur_symbol}</b></td>
-							<td align="right" width="45%" style="padding:5px;" nowrap><span class="product_line_gross target" style="width: 70px;">0</span></td>
+							<td align="right" width="50%" nowrap><b>{$APP.LBL_TOTAL} : </b></td>
+							<td align="right" width="5%" nowrap><b>{$selected_cur_symbol}</b></td>
+							<td align="right" width="45%" nowrap><span class="product_line_gross target" style="width: 70px;">0</span></td>
 						</tr>
 						<tr>
-							<td align="right" width="50%" style="padding:5px;" nowrap><b>{$APP.LBL_TOTAL_AFTER_DISCOUNT} : </b></td>
-							<td align="right" width="5%" style="padding:5px;" nowrap><b>{$selected_cur_symbol}</b></td>
-							<td align="right" width="45%" style="padding:5px;" nowrap><span class="product_line_net target" style="width: 70px;">0</span></td>
+							<td align="right" width="50%" nowrap><b>{$APP.LBL_TOTAL_AFTER_DISCOUNT} : </b></td>
+							<td align="right" width="5%" nowrap><b>{$selected_cur_symbol}</b></td>
+							<td align="right" width="45%" nowrap><span class="product_line_net target" style="width: 70px;">0</span></td>
 						</tr>
 						<tr {if $TAX_TYPE eq "group"}style="display:none"{/if} class="product_line_totals_tax">
-							<td align="right" width="50%" style="padding:5px;" nowrap><b>{$APP.LBL_TAX} : </b></td>
-							<td align="right" width="5%" style="padding:5px;" nowrap><b>{$selected_cur_symbol}</b></td>
-							<td align="right" width="45%" style="padding:5px;" nowrap><span class="product_line_tax_amount target" style="width: 70px;">0</span></td>
+							<td align="right" width="50%" nowrap><b>{$APP.LBL_TAX} : </b></td>
+							<td align="right" width="5%" nowrap><b>{$selected_cur_symbol}</b></td>
+							<td align="right" width="45%" nowrap><span class="product_line_tax_amount target" style="width: 70px;">0</span></td>
 						</tr>
 						<tr {if $TAX_TYPE eq "group"}style="display:none"{/if} class="product_line_totals_net">
-							<td align="right" width="50%" style="padding:5px;" nowrap><b>{$APP.LBL_NET_TOTAL} : </b></td>
-							<td align="right" width="5%" style="padding:5px;" nowrap><b>{$selected_cur_symbol}</b></td>
-							<td align="right" width="45%" style="padding:5px;" nowrap><span class="product_line_after_tax target" style="width: 70px;">0</span></td>
+							<td align="right" width="50%" nowrap><b>{$APP.LBL_NET_TOTAL} : </b></td>
+							<td align="right" width="5%" nowrap><b>{$selected_cur_symbol}</b></td>
+							<td align="right" width="45%" nowrap><span class="product_line_after_tax target" style="width: 70px;">0</span></td>
 						</tr>
 					</tbody>								
 				</table>				
@@ -216,6 +220,7 @@
 				<input type="hidden" class="hdn_product_seq" name="hdn_product[0][sequence_no]" value="1" />
 				<input type="hidden" class="hdn_product_crm_id" name="hdn_product[0][productid]" value="" />
 				<input type="hidden" class="hdn_product_qty" name="hdn_product[0][quantity]" value="" />
+				<input type="hidden" class="hdn_product_units_del_rec" name="hdn_product[0][units_delivered_received]" value="" />
 				<input type="hidden" class="hdn_product_cost_price" name="hdn_product[0][cost_price]" value="" />
 				<input type="hidden" class="hdn_product_listprice" name="hdn_product[0][listprice]" value="" />
 				<input type="hidden" class="hdn_product_discount_per" name="hdn_product[0][discount_percent]" value="" />
@@ -255,11 +260,11 @@
 						<tr>
 							<td align="right" width="50%">
 								<input type="radio" name="editview_inv_tot_disctype" id="discount_amount_radio" />
-								<input type="number" style="width: 70px" name="editview_inv_disc_am" class="small inv_totals_input editview_inv_disc_am" value="">
+								<input type="number" style="width: 70px" name="editview_inv_disc_am" class="inv_totals_input editview_inv_disc_am" value="">
 							</td>
 							<td align="right" width="50%">
 								<input type="radio" name="editview_inv_tot_disctype" id="discount_perc_radio" />
-								<input type="number" style="width: 70px" name="editview_inv_disc_per" class="small inv_totals_input editview_inv_disc_per" value="">
+								<input type="number" style="width: 70px" name="editview_inv_disc_per" class="inv_totals_input editview_inv_disc_per" value="">
 							</td>
 						</tr>
 						<tr>
@@ -282,7 +287,7 @@
 						{foreach from=$GROUP_TAXES item=group_tax key=group_tax_no}
 						<tr>
 							<td align="right" width="50%"><b>{$group_tax.taxlabel} (%) :</b></td>
-							<td align="right" width="50%"><input type="number" name="group_tax_{$group_tax_no}" class="small group_tax" value="{$group_tax.percentage}" style="width: 70px;"></td>
+							<td align="right" width="50%"><input type="number" name="group_tax_{$group_tax_no}" class="group_tax" value="{$group_tax.percentage}" style="width: 70px;"></td>
 						</tr>
 						{/foreach}
 					</tbody>
@@ -295,7 +300,7 @@
 		<tr>
 			<td align="right" valign="top" width="70%" colspan="1"><span class="inv_totals_text editview_inv_sh_tot_label">{$APP.LBL_SHIPPING_AND_HANDLING_CHARGES}</span></td>
 			<td align="right" valign="top" colspan="1" width="20%">
-				<input type="number" name="editview_inv_sh" class="small inv_totals_input inv_totals_sh_input" style="width: 70px;" value="{$FINALS.s_h_amount}">
+				<input type="number" name="editview_inv_sh" class="inv_totals_input inv_totals_sh_input" style="width: 70px;" value="{$FINALS.s_h_amount}">
 			</td>
 			<td align="right" valign="top" colspan="1" width="10%">
 				<span class="inv_totals_text editview_inv_sh_tot_value">0</span>
@@ -310,7 +315,7 @@
 						{foreach from=$SH_TAXES item=sh_tax key=sh_tax_no}
 						<tr>
 							<td align="right" width="50%"><b>{$sh_tax.taxlabel} (%) :</b></td>
-							<td align="right" width="50%"><input type="number" name="sh_tax_{$sh_tax_no}" class="small sh_tax inv_totals_input" value="{$sh_tax.percentage}" style="width: 70px;"></td>
+							<td align="right" width="50%"><input type="number" name="sh_tax_{$sh_tax_no}" class="sh_tax inv_totals_input" value="{$sh_tax.percentage}" style="width: 70px;"></td>
 						</tr>
 						{/foreach}
 					</tbody>
@@ -323,7 +328,7 @@
 		<tr>
 			<td align="right" valign="top" width="70%" colspan="1"><span class="inv_totals_text editview_inv_sh_tot_label">{$APP.LBL_ADJUSTMENT}</span></td>
 			<td align="right" valign="top" colspan="1" width="20%">
-				<input type="number" name="editview_inv_adj" class="inv_totals_input small" style="width: 70px;" value="{$FINALS.adjustment}">
+				<input type="number" name="editview_inv_adj" class="inv_totals_input" style="width: 70px;" value="{$FINALS.adjustment}">
 			</td>
 			<td align="right" valign="top" colspan="1" width="10%">
 				<span class="inv_totals_text editview_inv_sh_tot_value">0</span>

@@ -1,3 +1,132 @@
+@font-face {
+  font-family: 'icomoon';
+  src:  url('../iconfont/icomoon.eot?e29xei');
+  src:  url('../iconfont/icomoon.eot?e29xei#iefix') format('embedded-opentype'),
+    url('../iconfont/icomoon.ttf?e29xei') format('truetype'),
+    url('../iconfont/icomoon.woff?e29xei') format('woff'),
+    url('../iconfont/icomoon.svg?e29xei#icomoon') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+[class^="icon-"], [class*=" icon-"] {
+  /* use !important to prevent issues with browser extensions that change fonts */
+  font-family: 'icomoon' !important;
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+
+  /* Better Font Rendering =========== */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-trash:before {
+  content: "\e9ac";
+}
+.icon-move:before {
+  content: "\e9be";
+}
+.icon-newline:before {
+  content: "\ea47";
+}
+.icon-copyline:before {
+  content: "\ea72";
+}
+
+/* General CSS */
+.product_line > td {
+	background-image: none;
+	border-bottom: 1px solid #666666;
+}
+
+.inv_col_header {
+	background-image: none;
+	background-color: #666666;
+	color: #fff;
+}
+
+.editview_inventory_subheader td {
+	padding: 8px 5px;
+}
+
+.editview_inventory_table input,
+.editview_inventory_table textarea {
+	resize: vertical;
+	box-sizing: border-box;
+	border: 1px solid #2c2c2c;
+	border-radius: 1px;
+	padding: 4px;
+}
+
+.editview_inventory_table input:focus {
+	background-color: #ffe2d8;	
+}
+
+.product_line_name,
+.product_line_comment {
+	border: none !important;
+}
+
+.product_line_name:focus {
+	background-color: #fff !important;
+}
+
+.sales_col_header {
+	text-align: center;
+	padding: 8px;
+	border-top: 5px solid #fff;
+	border-bottom: 5px solid #fff;
+	box-sizing: border-box;
+	background-color: #e8e8e8;
+	color: #5a5b5b;
+}
+
+/* Line tools */
+.line_tool {
+	width: 100%;
+	display: inline-block;
+	text-align: center;
+	padding: 5px 0;
+	background-color: #0079b7;
+	color: #fff;
+	border-bottom: 1px solid #00476c;
+}
+
+.line_tool:hover {
+	text-decoration: none;
+}
+
+.line_tool:before {
+	font-size: 20px;
+}
+
+.delete_line_tool {
+	background-color: #c50008;
+	border-bottom: none;
+}
+
+.editview_inv_purcol,
+.editview_inv_invcol,
+.editview_inv_salescol,
+.editview_inv_totalscol {
+	padding: 8px 0;
+	vertical-align: top;
+}
+
+.editview_inv_invcol table tr td:first-child,
+.editview_inv_purcol table tr td:first-child{
+	padding: 5px 8px;
+	text-align: right;
+	box-sizing: border-box;
+	width: 60%;
+	font-weight: 400;
+}
+
+/* Autocomplete styling */
 .awesomplete {
 	width: 100%;
 }

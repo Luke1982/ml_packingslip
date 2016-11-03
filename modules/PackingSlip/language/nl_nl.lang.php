@@ -42,7 +42,12 @@ $mod_strings = Array(
 	'LBL_BUY_INFO' => 'Inkoop informatie',
 	'LBL_SALES_INFO' => 'Verkoop informatie',
 	// Input placeholders
-	'LBL_TYPE_TO_SEARCH' => 'Type om te zoeken'
+	'LBL_TYPE_TO_SEARCH' => 'Type om te zoeken',
+	// Linetool titles
+	'LBL_MOVE_LINE' => 'Versleep regel',
+	'LBL_NEW_LINE' => 'Nieuwe regel',
+	'LBL_COPY_LINE' => 'Kopieer regel',
+	'LBL_DEL_LINE' => 'Verwijder regel'
 );
 
 ?>
