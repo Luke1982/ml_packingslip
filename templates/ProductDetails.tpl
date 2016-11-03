@@ -49,6 +49,7 @@
 					<option value="individual" {if $TAX_TYPE eq "individual"}selected{/if}>{$APP.LBL_INDIVIDUAL}</option> 
 					<option value="group" {if $TAX_TYPE eq "group"}selected{/if}>{$APP.LBL_GROUP}</option>
 				<select>
+				<span class="keyboard_hint">{$MOD.LBL_TAXTYPE_HOTKEY_HINT}</span>
 			</td>
 		</tr>	
 
@@ -102,7 +103,7 @@
 				<table width="100%" cellpadding="0" cellspacing="0">
 					<tr>
 						<td>{$MOD.LBL_DEL_REC}</td>
-						<td><input type="number" name="product_line_del_rec" class="product_line_del_rec" style="width: 70px" value=""></td>
+						<td><input type="number" step="any" name="product_line_del_rec" class="product_line_del_rec" style="width: 70px" value=""></td>
 					</tr>				
 					<tr>
 						<td>{$MOD.LBL_STOCK}</td>
@@ -127,7 +128,7 @@
 				<table width="100%" cellpadding="0" cellspacing="0">
 					<tr>
 						<td>{$MOD.LBL_COSTPRICE}</td>
-						<td><input type="number" name="product_line_costprice" class="product_line_costprice" style="width: 70px" value=""></td>
+						<td><input type="number" step="any" name="product_line_costprice" class="product_line_costprice" style="width: 70px" value=""></td>
 					</tr>
 				</table>
 			</td>
@@ -138,11 +139,11 @@
 						<tr>
 							<td align="left" colspan="1" nowrap>
 								<span class="product_line_qty_lbl">{$APP.LBL_QTY} :</span>&nbsp;
-								<input name="product_line_qty" type="number" class="product_line_qty" style="width:50px" value=""/>
+								<input name="product_line_qty" type="number" step="any" class="product_line_qty" style="width:50px" value=""/>
 							</td>
 							<td align="center" colspan="1" nowrap>X</td>
 							<td align="right" colspan="1" nowrap>
-								<b>{$APP.LBL_LIST_PRICE} : </b><input value="" type="number" name="product_line_listprice" class="product_line_listprice" style="width:70px">
+								<b>{$APP.LBL_LIST_PRICE} : </b><input value="" type="number" step="any" name="product_line_listprice" class="product_line_listprice" style="width:70px">
 							</td>
 						</tr>
 						<tr>
@@ -159,7 +160,7 @@
 								</label>
 							</td>
 							<td align="right" colspan="1" nowrap>
-								<b>{$APP.LBL_DISCOUNT} : </b><input type="text" name="product_line_discount" value="0" class="product_line_discount" style="width: 70px;">
+								<b>{$APP.LBL_DISCOUNT} : </b><input type="number" step="any" name="product_line_discount" value="0" class="product_line_discount" style="width: 70px;">
 							</td>
 						</tr>
 						<tr>
@@ -173,7 +174,7 @@
 										{if $tax.deleted == 0}
 										<tr>
 											<td align="right"><b>{$tax.taxlabel} (%) : </b></td>
-											<td width="70" align="right"><input type="number" data-taxname="{$tax.taxname}" name="product_line_tax" class="product_line_tax" cleanline="leavealone" value="{$tax.percentage}" style="width: 70px;"></td>
+											<td width="70" align="right"><input type="number" step="any" data-taxname="{$tax.taxname}" name="product_line_tax" class="product_line_tax" cleanline="leavealone" value="{$tax.percentage}" style="width: 70px;"></td>
 										</tr>
 										{/if}
 									{/foreach}										
