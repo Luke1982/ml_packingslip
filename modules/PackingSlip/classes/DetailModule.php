@@ -61,8 +61,6 @@ class DetailModule {
 
 		$created_detailrecord = vtws_create('InventoryDetails', $record, $current_user);
 
-		// $this->attachMasterToDetail($created_detailrecord);
-
 		echo "<pre>";
 		print_r($created_detailrecord);
 		echo "</pre>";		
@@ -71,10 +69,5 @@ class DetailModule {
 	private function getWebserviceId($modulename) {
 		$r = $this->db->pquery("SELECT id FROM vtiger_ws_entity WHERE name = ?", array($modulename));
 		return $this->db->query_result($r, 0, 'id');
-	}
-
-	private function attachMasterToDetail($ws_detailrecord, $master_id) {
-		list($wsid, $idid) = explode('x', $ws_detailrecord['id']);
-		$this->db->pquery("UPDATE vtiger_inventorydetails SET related_to = ? WHERE inventorydetailsid = ?", array($this->master_id, $idid));
 	}
 }
