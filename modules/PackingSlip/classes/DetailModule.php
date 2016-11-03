@@ -40,30 +40,17 @@ class DetailModule {
 	}
 
 	private function saveNewRecord($record) {
-		require_once('include/Webservices/Create.php');
 		global $current_user;
+		require_once('modules/InventoryDetails/InventoryDetails.php');
 
-		$enttype_wsid = $this->getWebserviceId($record['entity_type']);
-		$acc_wsid = $this->getWebserviceId('Accounts');
-		$con_wsid = $this->getWebserviceId('Contacts');
-		$ps_wsid = $this->getWebserviceId('PackingSlip');
+		$invdet_focus = new InventoryDetails();
+		$invdet_focus->column_fields = $record;
+		$invdet_focus->column_fields['related_to'] = $this->master_id;
 
-		$record['description'] = $record['comment'];
-		$record['assigned_user_id'] = '19x'.$current_user->id;
-		$record['productid'] = $enttype_wsid.'x'.$record['productid'];
-		$record['account_id'] = $acc_wsid.'x'.$_REQUEST['ps_accountid'];
-		$record['contact_id'] = $con_wsid.'x'.$_REQUEST['ps_contactid'];
-		$record['related_to'] = $ps_wsid.'x'.$this->master_id;
-
-		echo "<pre>";
-		print_r($record);
-		echo "</pre>";
-
-		$created_detailrecord = vtws_create('InventoryDetails', $record, $current_user);
-
-		echo "<pre>";
-		print_r($created_detailrecord);
-		echo "</pre>";		
+ 		$handler = vtws_getModuleHandlerFromName('InventoryDetails', $current_user); 
+ 		$meta = $handler->getMeta();
+ 		$invdet_focus->column_fields = DataTransform::sanitizeRetrieveEntityInfo($invdet_focus->column_fields,$meta);
+ 		$invdet_focus->save('InventoryDetails');		
 	}
 
 	private function getWebserviceId($modulename) {
