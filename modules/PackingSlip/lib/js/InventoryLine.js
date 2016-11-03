@@ -18,6 +18,7 @@ function InventoryLine(data) {
 
 	// Inputs
 	var qtyField = data.source.getElementsByClassName("product_line_qty")[0];
+	var unitsDelRecField = data.source.getElementsByClassName("product_line_del_rec")[0];
 	var costPriceField = data.source.getElementsByClassName("product_line_costprice")[0];
 	var nameField = data.source.getElementsByClassName("product_line_name")[0];
 	var commentField = data.source.getElementsByClassName("product_line_comment")[0];
@@ -34,6 +35,7 @@ function InventoryLine(data) {
 
 	// Hidden inputs
 	var hdnQtyField = data.source.getElementsByClassName("hdn_product_qty")[0];
+	var hdnUnitsDelRecField = data.source.getElementsByClassName("hdn_product_units_del_rec")[0];
 	var hdnCostPriceField = data.source.getElementsByClassName("hdn_product_cost_price")[0];
 	var hdnDiscField = data.source.getElementsByClassName("hdn_product_discount")[0];
 	var hdnDiscTypeField = data.source.getElementsByClassName("hdn_product_discount_type")[0];
@@ -156,6 +158,8 @@ function InventoryLine(data) {
 		// Set some hidden inputs for "updateLine" method to pick up
 		var newHdnQty 			= __setInput(hdnQtyField, qtyField.value);
 		var newHdnListPrice 	= __setInput(hdnListPriceField, priceField.value);
+		// Set units selivered / received
+		var newHdnUnitsDelRec	= __setInput(hdnUnitsDelRecField, unitsDelRecField.value);
 		// Set the costprice
 		var newHdnCostPrice		= __setInput(hdnCostPriceField, costPriceField.value);
 		// Set the gross line total
@@ -337,6 +341,12 @@ function InventoryLine(data) {
 		__calcDomLine(findUp("product_line", e.srcElement));
 		// __calcDomLine(e.srcElement.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode);
 		console.log("qty changed");
+	});
+
+	unitsDelRecField.addEventListener("input", function(e){
+		__calcDomLine(findUp("product_line", e.srcElement));
+		// __calcDomLine(e.srcElement.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode);
+		console.log("units delivered / received changed");
 	});
 
 	costPriceField.addEventListener("input", function(e){
