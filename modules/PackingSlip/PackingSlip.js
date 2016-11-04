@@ -23,7 +23,7 @@ window.addEventListener("load", function(){
 	});
 
 	/*
-	 * Function to handle changing tax type
+	 * Function to handle changing tax type event
 	 */
 	function taxType() {
 		var taxSelect = document.getElementById("taxtype");
@@ -135,7 +135,6 @@ function updateTaxes(taxType) {
 document.addEventListener('keyup', docKeyUp, false);
 
 function docKeyUp(e) {
-	console.log(e.keyCode);
 	if (e.keyCode == 81) {
 		// CTRL + Q
 		console.log("CTRL Q pressed");
