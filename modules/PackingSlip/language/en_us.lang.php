@@ -9,15 +9,46 @@
  ************************************************************************************/
 
 $mod_strings = Array(
-	'ModuleName' => 'Module Name',
-	'SINGLE_ModuleName' => 'Module Name',
-	'ModuleName ID' => 'Module Name ID',
-
-	'LBL_CUSTOM_INFORMATION' => 'Custom Information',
-	'LBL_MODULEBLOCK_INFORMATION' => 'ModuleBlock Information',
-	'LBL_DESCRIPTION_INFORMATION' => 'Description',
+	'PackingSlip' => 'PackingSlips',
+	'SINGLE_PackingSlip' => 'PackingSlip',
+	'ModuleName ID' => 'PackingSlip',
 
 	'ModuleFieldLabel' => 'ModuleFieldLabel Text',
+	// Block titles
+	'LBL_PACKINGSLIP_INFO' => 'PackingSlip information',
+	'LBL_ADDRESS_INFORMATION' => 'Address Information',
+	'LBL_DESCRIPTION_INFO' => 'Description',
+	// Field labels
+	'PackingSlip No' => 'PackingSlip No',
+	'PackingSlip Issuedate' => 'Issue date',
+	'Deliver Date' => 'Deliver date',
+	'Related Account' => 'Related account',
+	'Related Contact' => 'Related contact',
+	'Postal Code' => 'Postal code',
+	'Province' => 'Provice',
+	'LBL_COSTPRICE' => 'Cost price',
+	'LBL_UNIT' => 'Unit',
+	'LBL_STOCK' => 'In stock',
+	'LBL_QTY_PER_UNIT' => 'Qty per unit',
+	'LBL_BACKORDER_LVL' => 'Qty in backorder',
+	'LBL_QTY_ORDERED' => 'Qty in order',
+	'LBL_DEL_REC' => 'Units delivered / received',	
+	// Helptexts
+	'LBL_DELIVERDATE_HELPTEXT' => 'Enter a deliverydate for this packing slip',
+	'LBL_ISSUEDATE_HELPTEXT' => 'Enter an issuedate for this packingslip.',
+	'LBL_TAXTYPE_HOTKEY_HINT' => 'CTRL + Q to switch',
+	// Column header labels
+	'LBL_ITEM_INFO' => 'Item information',
+	'LBL_INVENTORY_INFO' => 'Stock information',
+	'LBL_BUY_INFO' => 'Purchase information',
+	'LBL_SALES_INFO' => 'Sales information',
+	// Input placeholders
+	'LBL_TYPE_TO_SEARCH' => 'Type to search',
+	// Linetool titles
+	'LBL_MOVE_LINE' => 'Drag line to re-order',
+	'LBL_NEW_LINE' => 'New line',
+	'LBL_COPY_LINE' => 'Copy line',
+	'LBL_DEL_LINE' => 'Delete line'
 );
 
 ?>

@@ -36,6 +36,7 @@ $mod_strings = Array(
 	// Helptexts
 	'LBL_DELIVERDATE_HELPTEXT' => 'Voer een afleverdatum in voor de goederen van deze pakbon.',
 	'LBL_ISSUEDATE_HELPTEXT' => 'Voer een afgiftedatum in van deze pakbon. Dit zal meestal de huidige datum zijn.',
+	'LBL_TAXTYPE_HOTKEY_HINT' => 'CTRL + Q om te wisselen',
 	// Column header labels
 	'LBL_ITEM_INFO' => 'Artikel informatie',
 	'LBL_INVENTORY_INFO' => 'Voorraad informatie',
