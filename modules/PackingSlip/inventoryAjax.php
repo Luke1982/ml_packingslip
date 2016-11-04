@@ -11,6 +11,7 @@
 // ini_set("display_errors", "on");
 
 global $adb;
+require_once('include/fields/CurrencyField.php');
 
 $ven_part_no_lbl = getTranslatedString('Vendor PartNo','Products');
 $mfr_part_no_lbl = getTranslatedString('Mfr PartNo','Products');
@@ -22,7 +23,7 @@ if (isset($_REQUEST['getlist']) && $_REQUEST['getlist'] == true) {
 		$list[] = array(
 			'label' => '<span class="ac_productno">'.$prod['product_no'].': </span><span class="ac_productname">'.$prod['productname'].'</span><br><span class="ac_venno_tit">'.$ven_part_no_lbl.': </span><span class="ac_vendorno">'.$prod['vendor_part_no'].'</span><br><span class="ac_mfrno_tit">'.$mfr_part_no_lbl.': </span><span class="ac_mfrno">'.$prod['mfr_part_no'].'</span>',
 			'value' 		=> $prod['productname'],
-			'price' 		=> $prod['unit_price'],
+			'price' 		=> CurrencyField::convertToUserFormat($prod['unit_price']),
 			'desc' 			=> $prod['description'],
 			'crmid' 		=> $prod['productid'],
 			'inStock' 		=> $prod['qtyinstock'],
@@ -30,7 +31,7 @@ if (isset($_REQUEST['getlist']) && $_REQUEST['getlist'] == true) {
 			'reOrderLvl'	=> $prod['reorderlevel'],
 			'packSize'		=> $prod['packsize'] == NULL ? '1' : $prod['packsize'],
 			'usageUnit'		=> getTranslatedString($prod['usageunit'], 'Products'),
-			'costPrice'		=> $prod['cost_price'] == NULL ? '0' : $prod['cost_price'],
+			'costPrice'		=> $prod['cost_price'] == NULL ? '0' : CurrencyField::convertToUserFormat($prod['cost_price']),
 			'entityType'	=> 'Products'
 			);
 	}
@@ -39,7 +40,7 @@ if (isset($_REQUEST['getlist']) && $_REQUEST['getlist'] == true) {
 		$list[] = array(
 			'label' 		=> $ser['service_no'].': '.$ser['servicename'],
 			'value' 		=> $ser['servicename'],
-			'price' 		=> $ser['unit_price'],
+			'price' 		=> CurrencyField::convertToUserFormat($ser['unit_price']),
 			'desc' 			=> $ser['description'],
 			'crmid' 		=> $ser['serviceid'],
 			'inStock' 		=> '0',
