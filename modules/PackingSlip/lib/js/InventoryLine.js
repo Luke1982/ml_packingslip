@@ -258,7 +258,9 @@ function InventoryLine(data) {
 		inventoryLines.push(line);
 
 		// Update the sequence
-		updateSeq();		
+		updateSeq();
+		// Make sure first line delete tool is hidden
+		hideFirstDelete();
 	}
 
 	/*
@@ -326,7 +328,9 @@ function InventoryLine(data) {
 		inventoryLines.push(line);
 
 		// Update the sequence
-		updateSeq();	
+		updateSeq();
+		// Make sure first line delete tool is hidden
+		hideFirstDelete();	
 	}
 
 	/*
@@ -338,7 +342,9 @@ function InventoryLine(data) {
 		domLine.style.display = "none";
 
 		// Update the sequence
-		updateSeq();		
+		updateSeq();
+		// Make sure first line delete tool is hidden
+		hideFirstDelete();	
 	}
 
 	// Event listeners

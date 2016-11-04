@@ -15,6 +15,8 @@ window.addEventListener("load", function(){
 	Sortable.create(list, {
 		onUpdate: function(){
 			updateSeq();
+			// Make sure first line delete tool is hidden
+			hideFirstDelete();
 			console.log("dragged");
 		},
 		animation : 150,
@@ -49,6 +51,7 @@ function buildInventory() {
 		line.props = line.setProps(line.propInputs);
 		inventoryLines.push(line);
 	}
+	hideFirstDelete();
 	console.log(inventoryLines);
 }
 
@@ -129,6 +132,21 @@ function updateTaxes(taxType) {
 		}
 	}
 
+}
+
+/*
+ * Hides the delete button on the first line
+ */
+function hideFirstDelete() {
+	var delTools = document.getElementsByClassName("delete_line_tool");
+	for (var i = 0; i < delTools.length; i++) {
+		if (i == 0) {
+			delTools[i].style.display = 'none';
+		} else {
+			console.log("waarom dit niet");
+			delTools[i].removeAttribute("style");
+		}
+	}
 }
 
 // Key listener

@@ -20,7 +20,7 @@
 					<td><a href="javascript:;" class="icon-copyline copy_line_tool line_tool" title="{$MOD.LBL_COPY_LINE}"></a></td>
 				</tr>
 				<tr>
-					<td><a href="javascript:;" class="icon-trash delete_line_tool line_tool" title="{$MOD.LBL_DEL_LINE}"></a></td>
+					<td><a href="javascript:;" style="display: none" class="icon-trash delete_line_tool line_tool" title="{$MOD.LBL_DEL_LINE}"></a></td>
 				</tr>
 			</tbody>
 		</table>
