@@ -64,9 +64,7 @@
 		</tr>
 		{* 	Logic that calls a productline depending in products being available or not,
 			calls the line as many times as needed (1 for createview). *}
-		{if $AVAILABLE_PRODUCTS eq true}
-			{assign var="ASSOCIATEDPRODUCTS" value=$ASSOCIATEDPRODUCTS} {* Set an empty array with one key for createview *}
-		{else}
+		{if $AVAILABLE_PRODUCTS neq true}
 			{assign var="ASSOCIATEDPRODUCTS" value=','|explode:'0'} {* Set an empty array with one key for createview *}
 		{/if}
 
