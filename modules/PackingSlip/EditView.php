@@ -264,10 +264,12 @@ $smarty->assign('AVAILABLE_FIELDS', get_detailmodule_fields());
 
 $smarty->assign('FINALS', get_inventory_finals($focus));
 
-if ($focus->mode == 'edit')
+if ($focus->mode == 'edit') {
+	$smarty->assign("AVAILABLE_PRODUCTS", 'true');
 	$smarty->display("modules/PackingSlip/InventoryEditView.tpl");
-else
+} else {
 	$smarty->display('modules/PackingSlip/InventoryCreateView.tpl');
+}
 
 function get_detailmodule_fields() {
 	require_once('classes/DetailModule.php');

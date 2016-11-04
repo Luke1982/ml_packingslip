@@ -157,17 +157,13 @@ function sensex_info()
 
 								   <!-- This if is added to restrict display in more tab-->
 								   {if $divName eq 'basicTab'}
-								   	<!-- Added to display the product details -->
-									<!-- This if is added when we want to populate product details from the related entity  for ex. populate product details in new SO page when select Quote -->
-									{if $AVAILABLE_PRODUCTS eq true}
+								   {* 	ProductDetails template file looks for associated products and decides how many
+								   		times to show ProductLine.tpl *}
 									<tr>
 										<td colspan="4" align="left" id="product_table_row">
-											{include file="modules/PackingSlip/ProductDetailsEditView.tpl"}
+											{include file="modules/PackingSlip/ProductDetails.tpl"}
 										</td>
 									</tr>
-									{else}
-										{include file="modules/PackingSlip/ProductDetails.tpl"}
-									{/if}
 								   {/if}
 
 								   <tr>

@@ -148,13 +148,16 @@ function sensex_info()
 
 									   {/foreach}
 
-
-									   <!-- Added to display the Product Details in Inventory-->
+									   <!-- This if is added to restrict display in more tab-->
+									   {* {if $divName eq 'basicTab'} *}
+									   {* 	ProductDetails template file looks for associated products and decides how many
+									   		times to show ProductLine.tpl *}
 										<tr>
 											<td colspan="4" align="left" id="product_table_row">
-												{include file="modules/PackingSlip/ProductDetailsEditView.tpl"}
+												{include file="modules/PackingSlip/ProductDetails.tpl"}
 											</td>
 										</tr>
+									   {* {/if} *}
 
 									   <tr>
 										<td  colspan=4 style="padding:5px">
