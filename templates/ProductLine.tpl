@@ -49,19 +49,19 @@
 			</tr>				
 			<tr>
 				<td>{$MOD.LBL_STOCK}</td>
-				<td><span class="product_line_in_stock">0</span></td>
+				<td><span class="product_line_in_stock">{if !$CREATEMODE}{$product_line.stock_qty}{else}0{/if}</span></td>
 			</tr>
 			<tr>
 				<td>{$MOD.LBL_QTY_PER_UNIT}</td>
-				<td><span class="product_line_qty_per_unit">0</span></td>
+				<td><span class="product_line_qty_per_unit">{if !$CREATEMODE}{$product_line.pack_size}&nbsp;/&nbsp;{$product_line.usageunit}{else}0{/if}</span></td>
 			</tr>
 			<tr>
 				<td>{$MOD.LBL_BACKORDER_LVL}</td>
-				<td><span class="product_line_backorder_lvl">0</span></td>
+				<td><span class="product_line_backorder_lvl">{if !$CREATEMODE}{$product_line.qtyindemand}{else}0{/if}</span></td>
 			</tr>
 			<tr>
 				<td>{$MOD.LBL_QTY_ORDERED}</td>
-				<td><span class="product_line_ordered">0</span></td>
+				<td><span class="product_line_ordered">{if !$CREATEMODE}{$product_line.reorderlevel}{else}0{/if}</span></td>
 			</tr>
 		</table>
 	</td>

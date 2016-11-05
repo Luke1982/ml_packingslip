@@ -1,5 +1,7 @@
 <?php
 
+require_once('include/fields/CurrencyField.php');
+
 Class ProductCollection {
 	private $productProps = array();
 	private $db;
@@ -16,6 +18,11 @@ Class ProductCollection {
 											CASE WHEN vtiger_products.productid != '' THEN vtiger_products.unit_price ELSE vtiger_service.unit_price END AS unit_price,
 											CASE WHEN vtiger_products.productid != '' THEN vtiger_products.mfr_part_no ELSE '' END AS mfr_part_no,
 											CASE WHEN vtiger_products.productid != '' THEN vtiger_products.vendor_part_no ELSE '' END AS vendor_part_no,
+											CASE WHEN vtiger_products.productid != '' THEN vtiger_products.cost_price ELSE '' END AS cost_price,
+											CASE WHEN vtiger_products.productid != '' THEN vtiger_products.pack_size ELSE '' END AS pack_size,
+											CASE WHEN vtiger_products.productid != '' THEN vtiger_products.usageunit ELSE '' END AS usageunit,
+											CASE WHEN vtiger_products.productid != '' THEN vtiger_products.reorderlevel ELSE '' END AS reorderlevel,
+											CASE WHEN vtiger_products.productid != '' THEN vtiger_products.qtyindemand ELSE '' END AS qtyindemand,
 											CASE WHEN vtiger_products.productid != '' THEN vtiger_products.qtyinstock ELSE 'NA' END AS qtyinstock,
 											CASE WHEN vtiger_products.productid != '' THEN 'Products' ELSE 'Services' END AS entitytype,
 											vtiger_inventoryproductrel.* FROM 
@@ -57,7 +64,12 @@ Class ProductCollection {
 			'entity_type'		=>		'',
 			'stock_qty'			=>		'',
 			'mfr_part_no'		=>		'',
-			'vendor_part_no'	=>		''
+			'vendor_part_no'	=>		'',
+			'cost_price'		=>		0,
+			'pack_size'			=>		0,
+			'usageunit'			=>		'',
+			'reorderlevel'		=>		0,
+			'qtyindemand'		=>		0
 			);
 	}
 
@@ -69,7 +81,7 @@ Class ProductCollection {
 		$this->productProps['product_id'] 			= $product['productid'];
 		$this->productProps['seq'] 					= $product['sequence_no'];
 		$this->productProps['qty'] 					= $product['quantity'];
-		$this->productProps['list_price'] 			= $product['listprice'];
+		$this->productProps['list_price'] 			= CurrencyField::convertToUserFormat($product['listprice']);
 		$this->productProps['disc_perc'] 			= $product['discount_percent'];
 		$this->productProps['disc_am'] 				= $product['discount_amount'];
 		$this->productProps['comment'] 				= $product['comment'];
@@ -86,6 +98,11 @@ Class ProductCollection {
 		$this->productProps['stock_qty']			= $product['qtyinstock'];
 		$this->productProps['mfr_part_no']			= $product['mfr_part_no'];
 		$this->productProps['vendor_part_no']		= $product['vendor_part_no'];
+		$this->productProps['cost_price']			= CurrencyField::convertToUserFormat($product['cost_price']);
+		$this->productProps['pack_size']			= $product['pack_size'];
+		$this->productProps['usageunit']			= getTranslatedString($product['usageunit'], 'Products'); // To-do: translation not working;
+		$this->productProps['reorderlevel']			= $product['reorderlevel'];
+		$this->productProps['qtyindemand']			= $product['qtyindemand'];
 
 		return $this->productProps;
 	}
