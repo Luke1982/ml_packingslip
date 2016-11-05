@@ -35,7 +35,7 @@
 		   </tr>
 		   <tr>
 				<td class="setComment">
-					<textarea name="product_line_comment" class="product_line_comment" style="width:100%;height:80px">{if !$CREATEMODE}{$product_line.comment}{/if}</textarea>
+					<textarea name="product_line_comment" class="product_line_comment" style="width:100%;height:100px">{if !$CREATEMODE}{$product_line.comment}{/if}</textarea>
 				</td>
 		   </tr>
 		</table>				
@@ -107,7 +107,7 @@
 				</tr>
 				<tr>
 					<td align="right" colspan="3" class="product_line_taxes" style="{if $TAX_TYPE eq "group"}display:none;{/if}" nowrap>
-						<table width="100%" cellpadding="0" cellspacing="0">
+						<table width="100%" class="product_line_taxtable">
 							<tbody>
 							<tr>
 								<td colspan="2" class="sales_col_header">{$APP.LBL_TAX}</td>
@@ -117,8 +117,8 @@
 								{foreach from=$GROUP_TAXES item=tax key=tax_no}
 									{if $tax.deleted == 0}
 									<tr>
-										<td align="right"><b>{$tax.taxlabel} (%) : </b></td>
-										<td width="70" align="right"><input type="number" step="any" data-taxname="{$tax.taxname}" name="product_line_tax" class="product_line_tax" cleanline="leavealone" value="{$tax.percentage}" style="width: 70px;"></td>
+										<td><b>{$tax.taxlabel} (%) : </b></td>
+										<td><input type="number" step="any" data-taxname="{$tax.taxname}" name="product_line_tax" class="product_line_tax" cleanline="leavealone" value="{$tax.percentage}" style="width: 70px;"></td>
 									</tr>
 									{/if}
 								{/foreach}
@@ -127,8 +127,8 @@
 								{foreach from=$product_line.taxes item=tax key=tax_no}
 									{if $tax.deleted == 0}
 									<tr>
-										<td align="right"><b>{$tax.taxlabel} (%) : </b></td>
-										<td width="70" style="padding: 5px 0;" align="right"><input type="number" data-taxname="{$tax.taxname}" name="product_line_tax" class="small product_line_tax" value="{$tax.current_percentage}" style="width: 70px;"></td>
+										<td><b>{$tax.taxlabel} (%) : </b></td>
+										<td><input type="number" data-taxname="{$tax.taxname}" name="product_line_tax" class="small product_line_tax" value="{$tax.current_percentage}" style="width: 70px;"></td>
 									</tr>
 									{/if}
 								{/foreach}								
@@ -145,24 +145,24 @@
 		<table width="100%" cellpadding="0" cellspacing="0">
 			<tbody>
 				<tr>
-					<td align="right" width="50%" nowrap><b>{$APP.LBL_TOTAL} : </b></td>
-					<td align="right" width="5%" nowrap><b>{$selected_cur_symbol}</b></td>
-					<td align="right" width="45%" nowrap><span class="product_line_gross target" style="width: 70px;">{if !$CREATEMODE}{$product_line.line_gross_total}{else}0{/if}</span></td>
+					<td nowrap><b>{$APP.LBL_TOTAL} : </b></td>
+					<td nowrap><b>{$selected_cur_symbol}</b></td>
+					<td nowrap><span class="product_line_gross target" style="width: 70px;">{if !$CREATEMODE}{$product_line.line_gross_total}{else}0{/if}</span></td>
 				</tr>
 				<tr>
-					<td align="right" width="50%" nowrap><b>{$APP.LBL_TOTAL_AFTER_DISCOUNT} : </b></td>
-					<td align="right" width="5%" nowrap><b>{$selected_cur_symbol}</b></td>
-					<td align="right" width="45%" nowrap><span class="product_line_net target" style="width: 70px;">{if !$CREATEMODE}{$product_line.line_net_total}{else}0{/if}</span></td>
+					<td nowrap><b>{$APP.LBL_TOTAL_AFTER_DISCOUNT} : </b></td>
+					<td nowrap><b>{$selected_cur_symbol}</b></td>
+					<td nowrap><span class="product_line_net target" style="width: 70px;">{if !$CREATEMODE}{$product_line.line_net_total}{else}0{/if}</span></td>
 				</tr>
 				<tr {if $TAX_TYPE eq "group"}style="display:none"{/if} class="product_line_totals_tax">
-					<td align="right" width="50%" nowrap><b>{$APP.LBL_TAX} : </b></td>
-					<td align="right" width="5%" nowrap><b>{$selected_cur_symbol}</b></td>
-					<td align="right" width="45%" nowrap><span class="product_line_tax_amount target" style="width: 70px;">{if !$CREATEMODE}{$product_line.line_tax_amount}{else}0{/if}</span></td>
+					<td nowrap><b>{$APP.LBL_TAX} : </b></td>
+					<td nowrap><b>{$selected_cur_symbol}</b></td>
+					<td nowrap><span class="product_line_tax_amount target" style="width: 70px;">{if !$CREATEMODE}{$product_line.line_tax_amount}{else}0{/if}</span></td>
 				</tr>
 				<tr {if $TAX_TYPE eq "group"}style="display:none"{/if} class="product_line_totals_net">
-					<td align="right" width="50%" nowrap><b>{$APP.LBL_NET_TOTAL} : </b></td>
-					<td align="right" width="5%" nowrap><b>{$selected_cur_symbol}</b></td>
-					<td align="right" width="45%" nowrap><span class="product_line_after_tax target" style="width: 70px;">{if !$CREATEMODE}{$product_line.total_after_tax}{else}0{/if}</span></td>
+					<td nowrap><b>{$APP.LBL_NET_TOTAL} : </b></td>
+					<td nowrap><b>{$selected_cur_symbol}</b></td>
+					<td nowrap><span class="product_line_after_tax target" style="width: 70px;">{if !$CREATEMODE}{$product_line.total_after_tax}{else}0{/if}</span></td>
 				</tr>
 			</tbody>								
 		</table>				
