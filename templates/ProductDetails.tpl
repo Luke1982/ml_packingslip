@@ -17,11 +17,12 @@
 <link rel="stylesheet" type="text/css" href="modules/PackingSlip/lib/css/PackingSlip.css">
 <!-- Insert InventoryLine JS class -->
 <script type="text/javascript" src="modules/PackingSlip/lib/js/InventoryLine.js"></script>
-<script type="text/javascript">var taxType = "{$TAX_TYPE}";</script>
-
-<!-- MajorLabel new inventory lines: createview-->
-
-{* <pre>{$AVAILABLE_FIELDS|print_r}</pre> *}
+<!-- Set some global JS vars -->
+<script type="text/javascript">
+	var taxType = "{$TAX_TYPE}";
+	var decSep = "{$DECIMAL_SEP}";
+	var grpSep = "{$GROUP_SEP}";
+</script>
 
 <table width="100%"  border="0" align="center" cellpadding="0" cellspacing="0" class="crmTable editview_inventory_table" id="proTab">
 	<tbody id="proBody">

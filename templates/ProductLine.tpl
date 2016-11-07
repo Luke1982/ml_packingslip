@@ -45,7 +45,7 @@
 		<table width="100%" cellpadding="0" cellspacing="0">
 			<tr>
 				<td>{$MOD.LBL_DEL_REC}</td>
-				<td><input type="number" step="any" name="product_line_del_rec" class="product_line_del_rec" style="width: 70px" value=""></td>
+				<td><input type="text" name="product_line_del_rec" class="product_line_del_rec" style="width: 70px" value=""></td>
 			</tr>				
 			<tr>
 				<td>{$MOD.LBL_STOCK}</td>
@@ -70,7 +70,7 @@
 		<table width="100%" cellpadding="0" cellspacing="0">
 			<tr>
 				<td>{$MOD.LBL_COSTPRICE}</td>
-				<td><input type="number" step="any" name="product_line_costprice" class="product_line_costprice" style="width: 70px" value="{if !$CREATEMODE}{$product_line.cost_price}{else}0{/if}"></td>
+				<td><input type="text" name="product_line_costprice" class="product_line_costprice" style="width: 70px" value="{if !$CREATEMODE}{$product_line.cost_price}{else}0{/if}"></td>
 			</tr>
 		</table>
 	</td>
@@ -85,7 +85,7 @@
 					</td>
 					<td align="center" colspan="1" nowrap>X</td>
 					<td align="right" colspan="1" nowrap>
-						<b>{$APP.LBL_LIST_PRICE} : </b><input value="{if !$CREATEMODE}{$product_line.list_price}{/if}" type="number" step="any" name="product_line_listprice" class="product_line_listprice" style="width:70px">
+						<b>{$APP.LBL_LIST_PRICE} : </b><input value="{if !$CREATEMODE}{$product_line.list_price}{/if}" type="text" name="product_line_listprice" class="product_line_listprice" style="width:70px">
 					</td>
 				</tr>
 				<tr>
@@ -102,7 +102,7 @@
 						</label>
 					</td>
 					<td align="right" colspan="1" nowrap>
-						<b>{$APP.LBL_DISCOUNT} : </b><input type="number" step="any" name="product_line_discount" value="{if !$CREATEMODE}{$show_discount}{/if}" class="product_line_discount" style="width: 70px;">
+						<b>{$APP.LBL_DISCOUNT} : </b><input type="text" name="product_line_discount" value="{if !$CREATEMODE}{$show_discount}{/if}" class="product_line_discount" style="width: 70px;">
 					</td>
 				</tr>
 				<tr>
@@ -118,7 +118,7 @@
 									{if $tax.deleted == 0}
 									<tr>
 										<td><b>{$tax.taxlabel} (%) : </b></td>
-										<td><input type="number" step="any" data-taxname="{$tax.taxname}" name="product_line_tax" class="product_line_tax" cleanline="leavealone" value="{$tax.percentage}" style="width: 70px;"></td>
+										<td><input type="text" data-taxname="{$tax.taxname}" name="product_line_tax" class="product_line_tax" cleanline="leavealone" value="{$tax.percentage}" style="width: 70px;"></td>
 									</tr>
 									{/if}
 								{/foreach}
@@ -128,7 +128,7 @@
 									{if $tax.deleted == 0}
 									<tr>
 										<td><b>{$tax.taxlabel} (%) : </b></td>
-										<td><input type="number" data-taxname="{$tax.taxname}" name="product_line_tax" class="small product_line_tax" value="{$tax.current_percentage}" style="width: 70px;"></td>
+										<td><input type="text" data-taxname="{$tax.taxname}" name="product_line_tax" class="small product_line_tax" value="{$tax.current_percentage}" style="width: 70px;"></td>
 									</tr>
 									{/if}
 								{/foreach}								

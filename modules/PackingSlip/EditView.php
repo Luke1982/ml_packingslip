@@ -264,6 +264,9 @@ $smarty->assign('AVAILABLE_FIELDS', get_detailmodule_fields());
 
 $smarty->assign('FINALS', get_inventory_finals($focus));
 
+$smarty->assign("DECIMAL_SEP", $current_user->column_fields['currency_decimal_separator']);
+$smarty->assign("GROUP_SEP", $current_user->column_fields['currency_grouping_separator']);
+
 if ($focus->mode == 'edit') {
 	$smarty->assign("AVAILABLE_PRODUCTS", 'true');
 	$smarty->display("modules/PackingSlip/InventoryEditView.tpl");
