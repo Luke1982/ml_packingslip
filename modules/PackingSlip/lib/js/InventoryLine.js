@@ -96,6 +96,20 @@ function InventoryLine(data) {
 		return input.value;
 	}
 
+	function __convertToJSNo(string) {
+		// remove thousands separator
+		string = string.replace(grpSep, "");
+		// If decimal separator is comma, replace with dot
+		if (decSep == ",") {
+			string = string.replace(decSep, ".");
+		}
+		return string;
+	}
+
+	function __convertToUserFormat(number) {
+		return number.formatMoney(2, decSep, grpSep);
+	}	
+
 	// __triggerInput = function(field) {
 	// 	field.dispatchEvent(new Event("input", {
 	// 		"bubbles" : true 
@@ -137,7 +151,6 @@ function InventoryLine(data) {
 		var hiddenTaxFields = domLine.getElementsByClassName("product_line_hdntaxes")[0];
 		var inputToUpdate = hiddenTaxFields.getElementsByClassName("hdn_product_"+taxName)[0];
 		inputToUpdate.value = taxInput.value;
-		// console.log(inputToUpdate);
 	}
 
 	__calculateTaxAmount = function(taxPerc, amount) {
