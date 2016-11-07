@@ -82,8 +82,8 @@ Class ProductCollection {
 		$this->productProps['seq'] 					= $product['sequence_no'];
 		$this->productProps['qty'] 					= $product['quantity'];
 		$this->productProps['list_price'] 			= CurrencyField::convertToUserFormat($product['listprice']);
-		$this->productProps['disc_perc'] 			= $product['discount_percent'];
-		$this->productProps['disc_am'] 				= $product['discount_amount'];
+		$this->productProps['disc_perc'] 			= CurrencyField::convertToUserFormat($product['discount_percent']);
+		$this->productProps['disc_am'] 				= CurrencyField::convertToUserFormat($product['discount_amount']);
 		$this->productProps['comment'] 				= $product['comment'];
 		$this->productProps['desc'] 				= $product['description'];
 		$this->productProps['taxes'] 				= $this->getAllProductTaxes($product);
