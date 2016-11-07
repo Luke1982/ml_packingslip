@@ -57,11 +57,11 @@
 			</tr>
 			<tr>
 				<td>{$MOD.LBL_BACKORDER_LVL}</td>
-				<td><span class="product_line_backorder_lvl">{if !$CREATEMODE}{$product_line.qtyindemand}{else}0{/if}</span></td>
+				<td><span class="product_line_backorder_lvl">{if !$CREATEMODE}{$product_line.reorderlevel}{else}0{/if}</span></td>
 			</tr>
 			<tr>
 				<td>{$MOD.LBL_QTY_ORDERED}</td>
-				<td><span class="product_line_ordered">{if !$CREATEMODE}{$product_line.reorderlevel}{else}0{/if}</span></td>
+				<td><span class="product_line_ordered">{if !$CREATEMODE}{$product_line.qtyindemand}{else}0{/if}</span></td>
 			</tr>
 		</table>
 	</td>
@@ -70,7 +70,7 @@
 		<table width="100%" cellpadding="0" cellspacing="0">
 			<tr>
 				<td>{$MOD.LBL_COSTPRICE}</td>
-				<td><input type="number" step="any" name="product_line_costprice" class="product_line_costprice" style="width: 70px" value=""></td>
+				<td><input type="number" step="any" name="product_line_costprice" class="product_line_costprice" style="width: 70px" value="{if !$CREATEMODE}{$product_line.cost_price}{else}0{/if}"></td>
 			</tr>
 		</table>
 	</td>
