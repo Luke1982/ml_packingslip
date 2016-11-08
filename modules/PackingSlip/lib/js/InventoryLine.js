@@ -377,6 +377,13 @@ function InventoryLine(data) {
 		// var parentLine = e.srcElement.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode;
 		__calcDomLine(parentLine);
 		console.log("discount changed");		
+	});	
+
+	commentField.addEventListener("input", function(e){
+		var parentLine = findUp("product_line", e.srcElement);
+		// var parentLine = e.srcElement.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode;
+		__calcDomLine(parentLine);
+		console.log("comment changed");		
 	});
 
 	for (var i = 0; i < discountRadios.length; i++) {
