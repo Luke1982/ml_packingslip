@@ -19,7 +19,7 @@ Class ProductCollection {
 											CASE WHEN vtiger_products.productid != '' THEN vtiger_products.mfr_part_no ELSE '' END AS mfr_part_no,
 											CASE WHEN vtiger_products.productid != '' THEN vtiger_products.vendor_part_no ELSE '' END AS vendor_part_no,
 											CASE WHEN vtiger_products.productid != '' THEN vtiger_products.cost_price ELSE '' END AS cost_price,
-											CASE WHEN vtiger_products.productid != '' THEN vtiger_products.pack_size ELSE '' END AS pack_size,
+											CASE WHEN vtiger_products.productid != '' THEN vtiger_products.qty_per_unit ELSE '' END AS qty_per_unit,
 											CASE WHEN vtiger_products.productid != '' THEN vtiger_products.usageunit ELSE '' END AS usageunit,
 											CASE WHEN vtiger_products.productid != '' THEN vtiger_products.reorderlevel ELSE '' END AS reorderlevel,
 											CASE WHEN vtiger_products.productid != '' THEN vtiger_products.qtyindemand ELSE '' END AS qtyindemand,
@@ -70,7 +70,7 @@ Class ProductCollection {
 											vtiger_inventorydetails.cost_gross AS cost_gross,
 											vtiger_crmentity.description AS comment,
 											CASE WHEN vtiger_products.productid != '' THEN vtiger_products.productname ELSE '' END AS productname,
-											CASE WHEN vtiger_products.productid != '' THEN vtiger_products.pack_size ELSE '' END AS pack_size,
+											CASE WHEN vtiger_products.productid != '' THEN vtiger_products.qty_per_unit ELSE '' END AS qty_per_unit,
 											CASE WHEN vtiger_products.productid != '' THEN vtiger_products.usageunit ELSE '' END AS usageunit,
 											CASE WHEN vtiger_products.productid != '' THEN vtiger_products.reorderlevel ELSE '' END AS reorderlevel,
 											CASE WHEN vtiger_products.productid != '' THEN vtiger_products.qtyindemand ELSE '' END AS qtyindemand,
@@ -112,7 +112,7 @@ Class ProductCollection {
 			'mfr_part_no'		=>		'',
 			'vendor_part_no'	=>		'',
 			'cost_price'		=>		0,
-			'pack_size'			=>		0,
+			'qty_per_unit'		=>		0,
 			'usageunit'			=>		'',
 			'reorderlevel'		=>		0,
 			'qtyindemand'		=>		0,
@@ -146,7 +146,7 @@ Class ProductCollection {
 		$this->productProps['mfr_part_no']			= $product['mfr_part_no'];
 		$this->productProps['vendor_part_no']		= $product['vendor_part_no'];
 		$this->productProps['cost_price']			= CurrencyField::convertToUserFormat($product['cost_price']);
-		$this->productProps['pack_size']			= $product['pack_size'];
+		$this->productProps['qty_per_unit']			= $product['qty_per_unit'];
 		$this->productProps['usageunit']			= getTranslatedString($product['usageunit'], 'Products');
 		$this->productProps['reorderlevel']			= $product['reorderlevel'];
 		$this->productProps['qtyindemand']			= $product['qtyindemand'];

@@ -53,7 +53,7 @@
 			</tr>
 			<tr>
 				<td>{$MOD.LBL_QTY_PER_UNIT}</td>
-				<td><span class="product_line_qty_per_unit">{if !$CREATEMODE}{$product_line.pack_size}&nbsp;/&nbsp;{$product_line.usageunit}{else}0{/if}</span></td>
+				<td><span class="product_line_qty_per_unit">{if !$CREATEMODE}{$product_line.qty_per_unit}&nbsp;/&nbsp;{$product_line.usageunit}{else}0{/if}</span></td>
 			</tr>
 			<tr>
 				<td>{$MOD.LBL_BACKORDER_LVL}</td>
