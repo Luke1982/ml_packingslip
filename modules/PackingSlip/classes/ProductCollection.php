@@ -115,7 +115,8 @@ Class ProductCollection {
 			'pack_size'			=>		0,
 			'usageunit'			=>		'',
 			'reorderlevel'		=>		0,
-			'qtyindemand'		=>		0
+			'qtyindemand'		=>		0,
+			'units_del_rec'		=>		0
 			);
 	}
 
@@ -149,6 +150,7 @@ Class ProductCollection {
 		$this->productProps['usageunit']			= getTranslatedString($product['usageunit'], 'Products');
 		$this->productProps['reorderlevel']			= $product['reorderlevel'];
 		$this->productProps['qtyindemand']			= $product['qtyindemand'];
+		$this->productProps['units_del_rec']		= isset($product['units_delivered_received']) ? $product['units_delivered_received'] : 0;
 
 		return $this->productProps;
 	}

@@ -45,7 +45,7 @@
 		<table width="100%" cellpadding="0" cellspacing="0">
 			<tr>
 				<td>{$MOD.LBL_DEL_REC}</td>
-				<td><input type="text" name="product_line_del_rec" class="product_line_del_rec" style="width: 70px" value=""></td>
+				<td><input type="text" name="product_line_del_rec" class="product_line_del_rec" style="width: 70px" value="{$product_line.units_del_rec}"></td>
 			</tr>				
 			<tr>
 				<td>{$MOD.LBL_STOCK}</td>
