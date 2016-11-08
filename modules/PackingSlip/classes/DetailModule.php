@@ -32,10 +32,14 @@ class DetailModule {
 	}
 
 	private function saveSingleRecord($record) {
-		if ($record['lineitem_id'] == '') {
-			$this->saveNewRecord($record);
-		} else {
-			$this->updateExistingRecord($record);
+		if ($record['deleted'] == false) {
+			if ($record['lineitem_id'] == '') {
+				$this->saveNewRecord($record);
+			} else {
+				$this->updateExistingRecord($record);
+			}
+		} else if ($record['deleted'] == true && $record['lineitem_id'] != '') {
+			// This was an existing line, but got deleted
 		}
 	}
 
