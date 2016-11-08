@@ -68,13 +68,16 @@ Class ProductCollection {
 											vtiger_inventorydetails.units_delivered_received AS units_delivered_received,
 											vtiger_inventorydetails.cost_price AS cost_price,
 											vtiger_inventorydetails.cost_gross AS cost_gross,
+											vtiger_crmentity.description AS comment,
+											CASE WHEN vtiger_products.productid != '' THEN vtiger_products.productname ELSE '' END AS productname,
 											CASE WHEN vtiger_products.productid != '' THEN vtiger_products.pack_size ELSE '' END AS pack_size,
 											CASE WHEN vtiger_products.productid != '' THEN vtiger_products.usageunit ELSE '' END AS usageunit,
 											CASE WHEN vtiger_products.productid != '' THEN vtiger_products.reorderlevel ELSE '' END AS reorderlevel,
 											CASE WHEN vtiger_products.productid != '' THEN vtiger_products.qtyindemand ELSE '' END AS qtyindemand,
 											CASE WHEN vtiger_products.productid != '' THEN vtiger_products.qtyinstock ELSE 'NA' END AS qtyinstock,
 											CASE WHEN vtiger_products.productid != '' THEN 'Products' ELSE 'Services' END AS entitytype 
-											FROM vtiger_inventorydetails LEFT JOIN vtiger_products ON vtiger_products.productid = vtiger_inventorydetails.productid 
+											FROM vtiger_inventorydetails INNER JOIN vtiger_products ON vtiger_products.productid = vtiger_inventorydetails.productid 
+											INNER JOIN vtiger_crmentity ON vtiger_inventorydetails.inventorydetailsid = vtiger_crmentity.crmid 
 											WHERE vtiger_inventorydetails.related_to = ? ORDER BY ?", array($crm_id, 'sequence_no'));
 		return $product_coll;
 	}
