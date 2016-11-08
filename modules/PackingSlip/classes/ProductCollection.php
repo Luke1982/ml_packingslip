@@ -69,7 +69,7 @@ Class ProductCollection {
 											vtiger_inventorydetails.cost_price AS cost_price,
 											vtiger_inventorydetails.cost_gross AS cost_gross,
 											vtiger_crmentity.description AS comment,
-											CASE WHEN vtiger_products.productid != '' THEN vtiger_products.productname ELSE '' END AS productname,
+											CASE WHEN vtiger_products.productid != '' THEN vtiger_products.productname ELSE vtiger_service.servicename END AS productname,
 											CASE WHEN vtiger_products.productid != '' THEN vtiger_products.qty_per_unit ELSE '' END AS qty_per_unit,
 											CASE WHEN vtiger_products.productid != '' THEN vtiger_products.usageunit ELSE '' END AS usageunit,
 											CASE WHEN vtiger_products.productid != '' THEN vtiger_products.reorderlevel ELSE '' END AS reorderlevel,
@@ -78,7 +78,8 @@ Class ProductCollection {
 											CASE WHEN vtiger_products.productid != '' THEN 'Products' ELSE 'Services' END AS entitytype 
 											FROM vtiger_inventorydetails LEFT JOIN vtiger_products ON vtiger_products.productid = vtiger_inventorydetails.productid 
 											LEFT JOIN vtiger_crmentity ON vtiger_inventorydetails.inventorydetailsid = vtiger_crmentity.crmid 
-											WHERE vtiger_inventorydetails.related_to = ?", array($crm_id));
+											LEFT JOIN vtiger_service ON vtiger_service.serviceid = vtiger_inventorydetails.productid 
+											WHERE vtiger_inventorydetails.related_to = ? AND vtiger_crmentity.deleted = ?", array($crm_id, 0));
 		return $product_coll;
 	}
 
