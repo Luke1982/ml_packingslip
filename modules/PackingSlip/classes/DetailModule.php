@@ -4,7 +4,6 @@ class DetailModule {
 
 	private $db;
 	private $fields = array();
-	private $master_id = 0;
 
 	function __construct($db) {
 		$this->db = $db;
@@ -27,20 +26,21 @@ class DetailModule {
 		$save_currentModule = $currentModule;
 		$currentModule = 'InventoryDetails';
 
-		$this->master_id = $_REQUEST['currentid'];
+		$master_id = $_REQUEST['currentid'] == '' ? $_REQUEST['record'] : $_REQUEST['currentid'];
+
 		if (count($records) > 0) {
 			foreach ($records as $record) {
-				$this->processSingleRecord($record);
+				$this->processSingleRecord($record, $master_id);
 			}
 		}
-
+		// die();
 		$currentModule = $save_currentModule;
 	}
 
-	private function processSingleRecord($record) {
+	private function processSingleRecord($record, $master_id) {
 		if ($record['deleted'] == 'false') {
 			if ($record['lineitem_id'] == '') {
-				$this->saveNewRecord($record);
+				$this->saveNewRecord($record, $master_id);
 			} else {
 				$this->updateExistingRecord($record);
 			}
@@ -49,13 +49,13 @@ class DetailModule {
 		}
 	}
 
-	private function saveNewRecord($record) {
+	private function saveNewRecord($record, $master_id) {
 		global $current_user;
 		require_once('modules/InventoryDetails/InventoryDetails.php');
 
 		$invdet_focus = new InventoryDetails();
 		$invdet_focus->column_fields = $record;
-		$invdet_focus->column_fields['related_to'] = $this->master_id;
+		$invdet_focus->column_fields['related_to'] = $master_id;
 
  		$handler = vtws_getModuleHandlerFromName('InventoryDetails', $current_user); 
  		$meta = $handler->getMeta();
@@ -72,7 +72,6 @@ class DetailModule {
 		$invdet_focus->retrieve_entity_info($record['lineitem_id'], 'InventoryDetails');
 		$invdet_focus->id = $record['lineitem_id'];
 		$invdet_focus->mode = 'edit';
-		$_REQUEST['module'] = 'InventoryDetails';
 
 		$invdet_focus->column_fields['account_id'] = $_REQUEST['ps_accountid'];
 		$invdet_focus->column_fields['contact_id'] = $_REQUEST['ps_contactid'];
