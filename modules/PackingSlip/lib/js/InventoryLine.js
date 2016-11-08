@@ -77,7 +77,7 @@ function InventoryLine(data) {
 
 	// Global helpers
 	__setNonEditableNo = function(amount, target) {
-		target.innerHTML = amount.toFixed(2); // Always use two decimals for the filled amounts
+		target.innerHTML = amount.formatMoney(); // Use global formatting function
 		return Math.round(amount * 100) / 100;
 	}
 
@@ -93,7 +93,7 @@ function InventoryLine(data) {
 	}
 
 	__getInput = function(input) {
-		return input.value;
+		return input.value.formatJS();
 	}
 
 	// __triggerInput = function(field) {
