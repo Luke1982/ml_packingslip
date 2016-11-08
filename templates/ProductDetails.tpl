@@ -22,6 +22,7 @@
 	var taxType = "{$TAX_TYPE}";
 	var decSep = "{$DECIMAL_SEP}";
 	var grpSep = "{$GROUP_SEP}";
+	var decimals = "{$DECIMALS}";
 </script>
 
 <table width="100%"  border="0" align="center" cellpadding="0" cellspacing="0" class="crmTable editview_inventory_table" id="proTab">
