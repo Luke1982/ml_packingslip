@@ -310,6 +310,8 @@ function InventoryLine(data) {
 		var lineClone = domLine.cloneNode(true);
 		// Add a new ID to the copied line
 		lineClone.getElementsByClassName("hdn_product_id")[0].value = inventoryLines.length;
+		// Clear the lineitem_id for this line
+		lineClone.getElementsByClassName("hdn_product_line_id")[0].value = "";
 		// Get new Radio names for this line
 		lineClone = __setNewRadioNames(lineClone);
 		// Update the row no's for the new line's name attributes on the hidden inputs
