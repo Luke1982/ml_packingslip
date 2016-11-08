@@ -176,8 +176,8 @@
 		<input type="hidden" class="hdn_product_seq" name="hdn_product[{$row_no}][sequence_no]" value="{if !$CREATEMODE}{$product_line.seq}{else}1{/if}" />
 		<input type="hidden" class="hdn_product_crm_id" name="hdn_product[{$row_no}][productid]" value="{if !$CREATEMODE}{$product_line.product_id}{/if}" />
 		<input type="hidden" class="hdn_product_qty" name="hdn_product[{$row_no}][quantity]" value="{if !$CREATEMODE}{$product_line.qty}{/if}" />
-		<input type="hidden" class="hdn_product_units_del_rec" name="hdn_product[{$row_no}][units_delivered_received]" value="" />
-		<input type="hidden" class="hdn_product_cost_price" name="hdn_product[{$row_no}][cost_price]" value="" />
+		<input type="hidden" class="hdn_product_units_del_rec" name="hdn_product[{$row_no}][units_delivered_received]" value="{if !$CREATEMODE}{$product_line.units_del_rec}{/if}" />
+		<input type="hidden" class="hdn_product_cost_price" name="hdn_product[{$row_no}][cost_price]" value="{if !$CREATEMODE}{$product_line.cost_price}{/if}" />
 		<input type="hidden" class="hdn_product_listprice" name="hdn_product[{$row_no}][listprice]" value="{if !$CREATEMODE}{$product_line.list_price}{/if}" />
 		<input type="hidden" class="hdn_product_discount_per" name="hdn_product[{$row_no}][discount_percent]" value="" />
 		<input type="hidden" class="hdn_product_discount_am" name="hdn_product[{$row_no}][discount_amount]" value="" cleanline="leavealone"/>
