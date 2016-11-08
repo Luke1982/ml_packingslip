@@ -126,20 +126,20 @@ class PackingSlip extends CRMEntity {
 			$this->insertIntoAttachment($this->id,$module);
 		}
 		//in ajax save we should not call this function, because this will delete all the existing product values
-		if(isset($_REQUEST)) {
-			if($_REQUEST['action'] != 'PackingSlipAjax' && $_REQUEST['ajxaction'] != 'DETAILVIEW' && $_REQUEST['action'] != 'MassEditSave')
-			{
+		// if(isset($_REQUEST)) {
+		// 	if($_REQUEST['action'] != 'PackingSlipAjax' && $_REQUEST['ajxaction'] != 'DETAILVIEW' && $_REQUEST['action'] != 'MassEditSave')
+		// 	{
 				//Based on the total Number of rows we will save the product relationship with this entity
 				require_once('classes/DetailModule.php');
 				global $adb;
 				$detail_module = new DetailModule($adb);
 				$detail_module->processRecords($_REQUEST['hdn_product']);				
-			}
-		}
+		// 	}
+		// }
 		// Update the currency id and the conversion rate for the invoice
-		$update_query = "update vtiger_packingslip set currency_id=?, conversion_rate=? where packingslipid=?";
-		$update_params = array($this->column_fields['currency_id'], $this->column_fields['conversion_rate'], $this->id); 
-		$this->db->pquery($update_query, $update_params);		
+		// $update_query = "update vtiger_packingslip set currency_id=?, conversion_rate=? where packingslipid=?";
+		// $update_params = array($this->column_fields['currency_id'], $this->column_fields['conversion_rate'], $this->id); 
+		// $this->db->pquery($update_query, $update_params);		
 	}
 
 	function restore($module, $id) {

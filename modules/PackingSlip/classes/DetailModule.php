@@ -23,12 +23,18 @@ class DetailModule {
 	}
 
 	public function processRecords($records = array()) {
-		// $this->master_id = $_REQUEST['currentid'];
+		global $currentModule;
+		$save_currentModule = $currentModule;
+		$currentModule = 'InventoryDetails';
+
+		$this->master_id = $_REQUEST['currentid'];
 		if (count($records) > 0) {
 			foreach ($records as $record) {
 				$this->processSingleRecord($record);
 			}
 		}
+
+		$currentModule = $save_currentModule;
 	}
 
 	private function processSingleRecord($record) {
@@ -49,17 +55,13 @@ class DetailModule {
 
 		$invdet_focus = new InventoryDetails();
 		$invdet_focus->column_fields = $record;
-		$invdet_focus->column_fields['related_to'] = $_REQUEST['currentid'];
+		$invdet_focus->column_fields['related_to'] = $this->master_id;
 
  		$handler = vtws_getModuleHandlerFromName('InventoryDetails', $current_user); 
  		$meta = $handler->getMeta();
  		$invdet_focus->column_fields = DataTransform::sanitizeRetrieveEntityInfo($invdet_focus->column_fields,$meta);
 
-		echo "<pre>";
-		print_r($invdet_focus->column_fields);
-		echo "</pre>";
-
- 		$invdet_focus->save('InventoryDetails');		
+ 		$invdet_focus->save('InventoryDetails');
 	}
 
 	private function updateExistingRecord($record) {
@@ -68,15 +70,9 @@ class DetailModule {
 
 		$invdet_focus = new InventoryDetails();
 		$invdet_focus->retrieve_entity_info($record['lineitem_id'], 'InventoryDetails');
+		$invdet_focus->id = $record['lineitem_id'];
 		$invdet_focus->mode = 'edit';
-
-		echo "<pre>";
-		print_r($_REQUEST);
-		echo "</pre>";
-		// echo "<pre>";
-		// print_r($invdet_focus->column_fields);
-		// echo "</pre>";
-
+		$_REQUEST['module'] = 'InventoryDetails';
 
 		$invdet_focus->column_fields['account_id'] = $_REQUEST['ps_accountid'];
 		$invdet_focus->column_fields['contact_id'] = $_REQUEST['ps_contactid'];
@@ -92,10 +88,6 @@ class DetailModule {
 		$handler = vtws_getModuleHandlerFromName('InventoryDetails', $current_user);
 		$meta = $handler->getMeta();
 		$invdet_focus->column_fields = DataTransform::sanitizeRetrieveEntityInfo($invdet_focus->column_fields, $meta);
-
-		echo "<pre>";
-		print_r($invdet_focus->column_fields);
-		echo "</pre>";
 
 		$invdet_focus->save('InventoryDetails');
 	}

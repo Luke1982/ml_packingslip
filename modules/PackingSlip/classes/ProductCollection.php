@@ -40,7 +40,6 @@ Class ProductCollection {
 				$this->collectedProductLines[] = $this->createProductLine($product);
 			}
 		}
-
 		return $this->collectedProductLines;
 	}
 
@@ -78,7 +77,7 @@ Class ProductCollection {
 											CASE WHEN vtiger_products.productid != '' THEN 'Products' ELSE 'Services' END AS entitytype 
 											FROM vtiger_inventorydetails INNER JOIN vtiger_products ON vtiger_products.productid = vtiger_inventorydetails.productid 
 											INNER JOIN vtiger_crmentity ON vtiger_inventorydetails.inventorydetailsid = vtiger_crmentity.crmid 
-											WHERE vtiger_inventorydetails.related_to = ? ORDER BY ?", array($crm_id, 'sequence_no'));
+											WHERE vtiger_inventorydetails.related_to = ? ORDER BY ? ASC", array($crm_id, 'sequence_no'));
 		return $product_coll;
 	}
 
