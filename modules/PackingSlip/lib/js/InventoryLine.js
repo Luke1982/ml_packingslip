@@ -96,16 +96,6 @@ function InventoryLine(data) {
 		return input.value;
 	}
 
-	function __convertToJSNo(string) {
-		// remove thousands separator
-		string = string.replace(grpSep, "");
-		// If decimal separator is comma, replace with dot
-		if (decSep == ",") {
-			string = string.replace(decSep, ".");
-		}
-		return string;
-	}
-
 	// __triggerInput = function(field) {
 	// 	field.dispatchEvent(new Event("input", {
 	// 		"bubbles" : true 
