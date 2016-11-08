@@ -26,12 +26,12 @@ class DetailModule {
 		$this->master_id = $_REQUEST['currentid'];
 		if (count($records) > 0) {
 			foreach ($records as $record) {
-				$this->saveSingleRecord($record);
+				$this->processSingleRecord($record);
 			}
 		}
 	}
 
-	private function saveSingleRecord($record) {
+	private function processSingleRecord($record) {
 		if ($record['deleted'] == false) {
 			if ($record['lineitem_id'] == '') {
 				$this->saveNewRecord($record);
