@@ -29,14 +29,51 @@ Class ProductCollection {
 											vtiger_inventoryproductrel LEFT JOIN vtiger_products ON vtiger_products.productid=vtiger_inventoryproductrel.productid 
 											LEFT JOIN vtiger_service ON vtiger_service.serviceid=vtiger_inventoryproductrel.productid 
 											WHERE id=? ORDER BY ?", array($crm_id, 'sequence_no'));
-
-		while ($product = $this->db->fetch_array($product_coll)) {
-			$this->collectedProductLines[] = $this->createProductLine($product);
+		if ($this->db->num_rows($product_coll) > 0) { // If no rows are there, records were saved on InventoryDetails module
+			while ($product = $this->db->fetch_array($product_coll)) {
+				$this->collectedProductLines[] = $this->createProductLine($product);
+			}
+		} else if ($this->db->num_rows($product_coll) == 0) { // Get InventoryDetails lines
+			$id_lines = $this->getIdRecordSet($crm_id);
 		}
 		return $this->collectedProductLines;
 	}
 
-	public function save($request) {
+	/*
+	 * Gets a recordset from the InventoryDetails module table
+	 * @param: CRM ID of the parent element
+	 */
+	private function getIdRecordSet($crm_id) {
+		// TODO:
+		// - Decide tax percent when id_tax_percent is set in getAllProductTaxes
+		// - Use id_extgross if set in calcLineGrossTotal
+		// - Use id_extnet if set in calcLineNetTotal
+		$product_coll = $this->db->pquery("SELECT vtiger_inventorydetails.inventorydetailsid END AS lineitem_id,
+											vtiger_inventorydetails.productid END AS productid,
+											vtiger_inventorydetails.sequence_no END AS sequence_no,
+											vtiger_inventorydetails.quantity END AS quantity,
+											vtiger_inventorydetails.listprice END AS listprice,
+											vtiger_inventorydetails.tax_percent END AS id_tax_percent,
+											vtiger_inventorydetails.extgross END AS id_extgross,
+											vtiger_inventorydetails.discount_percent END AS discount_percent,
+											vtiger_inventorydetails.discount_amount END AS discount_amount,
+											vtiger_inventorydetails.extnet END AS id_extnet,
+											vtiger_inventorydetails.linetax END AS id_linetax,
+											vtiger_inventorydetails.linetotal END AS id_linetotal,
+											vtiger_inventorydetails.units_delivered_received END AS units_delivered_received,
+											vtiger_inventorydetails.cost_price END AS cost_price,
+											vtiger_inventorydetails.cost_gross END AS cost_gross,
+											CASE WHEN vtiger_products.productid != '' THEN vtiger_products.pack_size ELSE '' END AS pack_size,
+											CASE WHEN vtiger_products.productid != '' THEN vtiger_products.usageunit ELSE '' END AS usageunit,
+											CASE WHEN vtiger_products.productid != '' THEN vtiger_products.reorderlevel ELSE '' END AS reorderlevel,
+											CASE WHEN vtiger_products.productid != '' THEN vtiger_products.qtyindemand ELSE '' END AS qtyindemand,
+											CASE WHEN vtiger_products.productid != '' THEN vtiger_products.qtyinstock ELSE 'NA' END AS qtyinstock,
+											CASE WHEN vtiger_products.productid != '' THEN 'Products' ELSE 'Services' END AS entitytype 
+											FROM vtiger_inventorydetails LEFT JOIN vtiger_products ON vtiger_products.productid ON vtiger_inventorydetails.productid 
+											WHERE vtiger_inventorydetails.related_to = ? ORDER BY ?", array($crm_id, 'sequence_no'));
+	}
+
+	public function save($request) { // TO BE REMOVED!
 		echo "<pre>";
 		print_r($request['hdn_product']);
 		echo "</pre>";
@@ -91,7 +128,7 @@ Class ProductCollection {
 		$this->productProps['discount_type']		= $this->getDiscountType();
 		$this->productProps['line_net_total'] 		= $this->calcLineNetTotal();
 		$this->productProps['tax_amount']			= $this->getLineTaxAmount($this->productProps['taxes']);	
-		$this->productProps['total_after_tax']		= $this->productProps['line_net_total'] + $this->productProps['tax_amount'];	
+		$this->productProps['total_after_tax']		= $this->productProps['line_net_total'] + $this->productProps['tax_amount']; // TO-DO, rebuild for inventorydetails, has field for this	
 		$this->productProps['product_name']			= $product['productname'];
 		$this->productProps['product_no']			= $product['productcode'];
 		$this->productProps['entity_type']			= $product['entitytype'];
@@ -100,7 +137,7 @@ Class ProductCollection {
 		$this->productProps['vendor_part_no']		= $product['vendor_part_no'];
 		$this->productProps['cost_price']			= CurrencyField::convertToUserFormat($product['cost_price']);
 		$this->productProps['pack_size']			= $product['pack_size'];
-		$this->productProps['usageunit']			= getTranslatedString($product['usageunit'], 'Products'); // To-do: translation not working;
+		$this->productProps['usageunit']			= getTranslatedString($product['usageunit'], 'Products');
 		$this->productProps['reorderlevel']			= $product['reorderlevel'];
 		$this->productProps['qtyindemand']			= $product['qtyindemand'];
 
