@@ -106,10 +106,6 @@ function InventoryLine(data) {
 		return string;
 	}
 
-	function __convertToUserFormat(number) {
-		return number.formatMoney(2, decSep, grpSep);
-	}	
-
 	// __triggerInput = function(field) {
 	// 	field.dispatchEvent(new Event("input", {
 	// 		"bubbles" : true 
