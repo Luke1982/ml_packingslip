@@ -32,15 +32,16 @@ Class ProductCollection {
 
 		if ($this->db->num_rows($product_coll) > 0) { // If no rows are there, records were saved on InventoryDetails module
 			while ($product = $this->db->fetch_array($product_coll)) {
-				$this->collectedProductLines[] = $this->createProductLine($product);
+				$this->collectedProductLines[$product['sequence_no']] = $this->createProductLine($product);
 			}
 		} else if ($this->db->num_rows($product_coll) == 0) { // Get InventoryDetails lines
 			$id_lines = $this->getIdRecordSet($crm_id);
 			while ($product = $this->db->fetch_array($id_lines)) {
-				$this->collectedProductLines[] = $this->createProductLine($product);
+				$this->collectedProductLines[$product['sequence_no']] = $this->createProductLine($product);
 			}
 		}
-		return $this->collectedProductLines;
+		ksort($this->collectedProductLines);
+		return array_values($this->collectedProductLines);
 	}
 
 	/*
@@ -75,9 +76,9 @@ Class ProductCollection {
 											CASE WHEN vtiger_products.productid != '' THEN vtiger_products.qtyindemand ELSE '' END AS qtyindemand,
 											CASE WHEN vtiger_products.productid != '' THEN vtiger_products.qtyinstock ELSE 'NA' END AS qtyinstock,
 											CASE WHEN vtiger_products.productid != '' THEN 'Products' ELSE 'Services' END AS entitytype 
-											FROM vtiger_inventorydetails INNER JOIN vtiger_products ON vtiger_products.productid = vtiger_inventorydetails.productid 
-											INNER JOIN vtiger_crmentity ON vtiger_inventorydetails.inventorydetailsid = vtiger_crmentity.crmid 
-											WHERE vtiger_inventorydetails.related_to = ? ORDER BY ? ASC", array($crm_id, 'sequence_no'));
+											FROM vtiger_inventorydetails LEFT JOIN vtiger_products ON vtiger_products.productid = vtiger_inventorydetails.productid 
+											LEFT JOIN vtiger_crmentity ON vtiger_inventorydetails.inventorydetailsid = vtiger_crmentity.crmid 
+											WHERE vtiger_inventorydetails.related_to = ?", array($crm_id));
 		return $product_coll;
 	}
 
