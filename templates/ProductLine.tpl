@@ -187,7 +187,7 @@
 		<input type="hidden" class="hdn_product_tax_per" name="hdn_product[{$row_no}][tax_percent]" value="" />
 		<input type="hidden" class="hdn_product_total" name="hdn_product[{$row_no}][linetotal]" value="{if !$CREATEMODE}{$product_line.total_after_tax}{/if}" />
 		<input type="hidden" class="hdn_product_entity_type" name="hdn_product[{$row_no}][entity_type]" value="{if !$CREATEMODE}{$product_line.entity_type}{/if}" />
-		<textarea class="hdn_product_comment" name="hdn_product[{$row_no}][comment]">{if !$CREATEMODE}{$product_line.comment}{/if}</textarea>
+		<textarea class="hdn_product_comment" name="hdn_product[{$row_no}][description]">{if !$CREATEMODE}{$product_line.comment}{/if}</textarea>
 		{* Individual taxes *}
 		<div class="product_line_hdntaxes">
 		{if $CREATEMODE}
