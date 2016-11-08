@@ -169,13 +169,13 @@ function docKeyUp(e) {
 	}
 }
 
-// Moneyformat on Number's prototype
+// Moneyformat on Number's prototype, refactorered to use global user prefs
 // http://stackoverflow.com/questions/149055/how-can-i-format-numbers-as-money-in-javascript/149099#149099
-Number.prototype.formatMoney = function(c, d, t){
+Number.prototype.formatMoney = function(){
 var n = this, 
-    c = isNaN(c = Math.abs(c)) ? 2 : c, 
-    d = d == undefined ? "." : d, 
-    t = t == undefined ? "," : t, 
+    c = decimals, 
+    d = decSep, 
+    t = grpSep, 
     s = n < 0 ? "-" : "", 
     i = String(parseInt(n = Math.abs(Number(n) || 0).toFixed(c))), 
     j = (j = i.length) > 3 ? j % 3 : 0;
