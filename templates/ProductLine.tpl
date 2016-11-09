@@ -83,7 +83,7 @@
 						<span class="product_line_qty_lbl">{$APP.LBL_QTY} :</span>&nbsp;
 						<input type="number" step="any" class="product_line_qty" style="width:50px" value="{if !$CREATEMODE}{$product_line.qty}{/if}"/>
 					</td>
-					<td align="center" colspan="1" nowrap>X</td>
+					<td align="center" colspan="1" nowrap>&times;</td>
 					<td align="right" colspan="1" nowrap>
 						<b>{$APP.LBL_LIST_PRICE} (<span class="currency_symbol">{$selected_cur_symbol}</span>)</b><input value="{if !$CREATEMODE}{$product_line.list_price}{/if}" type="text" class="product_line_listprice" style="width:70px">
 					</td>
