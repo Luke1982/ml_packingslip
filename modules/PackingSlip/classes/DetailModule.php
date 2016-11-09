@@ -102,9 +102,4 @@ class DetailModule {
 
 		DeleteEntity('InventoryDetails', 'InventoryDetails', $invdet_focus, $invdet_focus->id, $invdet_focus->id);
 	}
-
-	private function getWebserviceId($modulename) {
-		$r = $this->db->pquery("SELECT id FROM vtiger_ws_entity WHERE name = ?", array($modulename));
-		return $this->db->query_result($r, 0, 'id');
-	}
 }
