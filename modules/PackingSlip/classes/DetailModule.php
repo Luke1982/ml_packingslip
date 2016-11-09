@@ -9,6 +9,7 @@ class DetailModule {
 		$this->db = $db;
 	}
 
+	// To be deleted? Remember the call in EditView.php!
 	public function getAvailableFields() {
 		$q = "SELECT vtiger_field.columnname FROM vtiger_field INNER JOIN vtiger_tab ON vtiger_field.tabid = vtiger_tab.tabid WHERE vtiger_field.tablename = ? AND vtiger_field.presence != ?";
 		$p = array('vtiger_inventorydetails', 1);
@@ -46,6 +47,7 @@ class DetailModule {
 			}
 		} else if ($record['deleted'] == 'true' && $record['lineitem_id'] != '') {
 			// This was an existing line, but got deleted
+			$this->deleteRecord($record);
 		}
 	}
 
@@ -89,6 +91,16 @@ class DetailModule {
 		$invdet_focus->column_fields = DataTransform::sanitizeRetrieveEntityInfo($invdet_focus->column_fields, $meta);
 
 		$invdet_focus->save('InventoryDetails');
+	}
+
+	private function deleteRecord($record) {
+		require_once('modules/InventoryDetails/InventoryDetails.php');
+
+		$invdet_focus = new InventoryDetails();
+		$invdet_focus->retrieve_entity_info($record['lineitem_id'], 'InventoryDetails');
+		$invdet_focus->id = $record['lineitem_id'];
+
+		DeleteEntity('InventoryDetails', 'InventoryDetails', $invdet_focus, $invdet_focus->id, $invdet_focus->id);
 	}
 
 	private function getWebserviceId($modulename) {
