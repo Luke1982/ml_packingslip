@@ -38,11 +38,22 @@ class DetailModule {
 		$currentModule = $save_currentModule;
 	}
 
+	/*
+	 * Processes a single line/record. Method decides wether to
+	 * save, update, delete or do nothing at all when a 
+	 * line was only alive on screen but got deleted before
+	 * ever being saved as InventoryDetails line
+	 *
+	 * @param 1: Array of line info. Array keys MUST correspond with InventoryDetails fieldnames
+	 * @param 2: ID of the master module, in this case a PackingSlip
+	 */
 	private function processSingleRecord($record, $master_id) {
-		if ($record['deleted'] == 'false') {
+		if ($record['deleted'] == 'false') { // Do nothing with records that were only alive on screen but got deleted right away
 			if ($record['lineitem_id'] == '') {
+			// This is a new line
 				$this->saveNewRecord($record, $master_id);
 			} else {
+			// This is an existing line that needs to be updated
 				$this->updateExistingRecord($record);
 			}
 		} else if ($record['deleted'] == 'true' && $record['lineitem_id'] != '') {
