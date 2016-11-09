@@ -44,6 +44,7 @@ if (isset($_REQUEST['getlist']) && $_REQUEST['getlist'] == true) {
 			'price' 		=> CurrencyField::convertToUserFormat($ser['unit_price']),
 			'desc' 			=> $ser['description'],
 			'crmid' 		=> $ser['serviceid'],
+			'taxes'			=> getProductTaxes($ser['serviceid']),
 			'inStock' 		=> '0',
 			'inDemand' 		=> '0',
 			'reOrderLvl'	=> '0',
