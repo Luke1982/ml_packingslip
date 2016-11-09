@@ -122,6 +122,9 @@
 									</tr>
 									{/if}
 								{/foreach}
+										{* Add a last fixed input for the total tax percentage for the entire product line *}
+										<td><b>{$MOD.LBL_TAX_PERC_SUM} (%) : </b></td>
+										<td><input type="text" readonly="readonly" class="small product_line_total_tax_perc" cleanline="leavealone" value="{$FINALS.grouptaxes.total_tax_percentage}" style="width: 70px;"></td>								
 							{else}
 								{* Get taxes saved earlier when editing existing record *}
 								{foreach from=$product_line.taxes item=tax key=tax_no}
@@ -131,7 +134,10 @@
 										<td><input type="text" data-taxname="{$tax.taxname}" class="small product_line_tax" cleanline="leavealone" value="{$tax.current_percentage}" style="width: 70px;"></td>
 									</tr>
 									{/if}
-								{/foreach}								
+								{/foreach}
+										{* Add a last fixed input for the total tax percentage for the entire product line *}
+										<td><b>{$MOD.LBL_TAX_PERC_SUM} (%) : </b></td>
+										<td><input type="text" readonly="readonly" class="small product_line_total_tax_perc" cleanline="leavealone" value="{$product_line.total_tax_perc}" style="width: 70px;"></td>
 							{/if}								
 							</tbody>
 						</table>
@@ -184,7 +190,7 @@
 		<input type="hidden" class="hdn_product_gross" name="hdn_product[{$row_no}][extgross]" value="{if !$CREATEMODE}{$product_line.line_gross_total}{/if}" />
 		<input type="hidden" class="hdn_product_net" name="hdn_product[{$row_no}][extnet]" value="{if !$CREATEMODE}{$product_line.line_net_total}{/if}" />
 		<input type="hidden" class="hdn_product_tax_am" name="hdn_product[{$row_no}][linetax]" value="{if !$CREATEMODE}{$product_line.tax_amount}{/if}" />
-		<input type="hidden" class="hdn_product_tax_per" name="hdn_product[{$row_no}][tax_percent]" value="" />
+		<input type="hidden" class="hdn_product_tax_per" name="hdn_product[{$row_no}][tax_percent]" value="{if !$CREATEMODE}{$product_line.total_tax_perc}{/if}" />
 		<input type="hidden" class="hdn_product_total" name="hdn_product[{$row_no}][linetotal]" value="{if !$CREATEMODE}{$product_line.total_after_tax}{/if}" />
 		<input type="hidden" class="hdn_product_entity_type" name="hdn_product[{$row_no}][entity_type]" value="{if !$CREATEMODE}{$product_line.entity_type}{/if}" />
 		<textarea class="hdn_product_comment" name="hdn_product[{$row_no}][description]">{if !$CREATEMODE}{$product_line.comment}{/if}</textarea>
@@ -203,7 +209,7 @@
 				{if $tax.deleted == 0}
 				<input type="hidden" class="hdn_product_{$tax.taxname}" cleanline="leavealone" name="hdn_product[{$row_no}][{$tax.taxname}]" value="{$tax.current_percentage}">
 				{/if}								
-			{/foreach}								
+			{/foreach}						
 		{/if}		
 		</div>
 	</td>

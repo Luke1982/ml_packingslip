@@ -18,6 +18,7 @@ Class InventoryFinals {
 		$finals['subtotal']			=	$record['subtotal'] == NULL ? 0 : $record['subtotal'];
 		$finals['total']			=	$record['total'] == NULL ? 0 : $record['total'];
 		$finals['taxtype']			=	$record['taxtype'];
+		$finals['grouptaxes']		=	$this->getGroupTaxes();
 		$finals['discount_percent']	=	$record['discount_percent'] == NULL ? 0 : $record['discount_percent'];
 		$finals['discount_amount']	=	$record['discount_amount'] == NULL ? 0 : $record['discount_amount'];
 		$finals['discount_type']	=	$this->getDiscType($finals['discount_percent'], $finals['discount_amount']);
@@ -43,6 +44,27 @@ Class InventoryFinals {
 		} else {
 			return 'd';
 		}
+	}
+
+	private function getGroupTaxes() {
+		$group_taxes = array();
+		$total_tax_perc = 0;
+
+		$res = $this->db->pquery("SELECT * FROM vtiger_inventorytaxinfo", array());
+		while($tax = $this->db->fetch_array($res)) {
+			$group_taxes[$tax['taxname']] = array(
+					'taxid' 			=> $tax['taxid'],
+					'taxname' 			=> $tax['taxname'],
+					'taxlabel'			=> $tax['taxlabel'],
+					'default_percentage'=> $tax['percentage'],
+					'deleted'			=> $tax['deleted']
+				);
+			if ($tax['deleted'] == 0) {
+				$total_tax_percent += $tax['percentage'];
+			}
+		}
+		$group_taxes['total_tax_percentage'] = $total_tax_percent;
+		return $group_taxes;		
 	}
 
 }

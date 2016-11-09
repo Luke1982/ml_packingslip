@@ -32,7 +32,8 @@ $mod_strings = Array(
 	'LBL_QTY_PER_UNIT' => 'Aantal per eenheid',
 	'LBL_BACKORDER_LVL' => 'Aantal in backorder',
 	'LBL_QTY_ORDERED' => 'Aantal in bestelling',
-	'LBL_DEL_REC' => 'Eenheden ontvangen / geleverd',	
+	'LBL_DEL_REC' => 'Eenheden ontvangen / geleverd',
+	'LBL_TAX_PERC_SUM' => 'Totaal belastingpercentage',	
 	// Helptexts
 	'LBL_DELIVERDATE_HELPTEXT' => 'Voer een afleverdatum in voor de goederen van deze pakbon.',
 	'LBL_ISSUEDATE_HELPTEXT' => 'Voer een afgiftedatum in van deze pakbon. Dit zal meestal de huidige datum zijn.',

@@ -25,6 +25,7 @@ function InventoryLine(data) {
 	var priceField = data.source.getElementsByClassName("product_line_listprice")[0];
 	var discountField = data.source.getElementsByClassName("product_line_discount")[0];
 	var discountRadios = data.source.getElementsByClassName("product_line_disc_radio");
+	var totalTaxPerc = data.source.getElementsByClassName("product_line_total_tax_perc")[0];
 	var taxInputs = data.source.getElementsByClassName("product_line_tax");
 
 	// Targets
@@ -48,6 +49,7 @@ function InventoryLine(data) {
 	var hdnTaxPercField = data.source.getElementsByClassName("hdn_product_tax_per")[0];
 	var hdnTotalField = data.source.getElementsByClassName("hdn_product_total")[0];
 	var hdnCommentField = data.source.getElementsByClassName("hdn_product_comment")[0];
+	var hdnTotalTaxPercField = data.source.getElementsByClassName("hdn_product_tax_per")[0];
 
 	// Instance methods
 	this.setProps = function(inputs) {
@@ -140,19 +142,26 @@ function InventoryLine(data) {
 		inputToUpdate.value = taxInput.value;
 	}
 
+	function __updateTotalTaxPercentage(taxPercSum) {
+		hdnTotalTaxPercField.value = taxPercSum;
+		totalTaxPerc.value = taxPercSum;
+		console.log("Tax percentage sum updated");
+	}
+
 	__calculateTaxAmount = function(taxPerc, amount) {
 		return amount * (taxPerc / 100);
 	}
 
 	function __addTaxes() {
-		var totalTax = 0;
+		var taxPercSum = 0;
 		for (var i = 0; i < taxInputs.length; i++) {
 			if (taxInputs[i].value != "") {
 				var toAdd = parseFloat(taxInputs[i].value); // Make sure we are using numbers
-				totalTax += toAdd;
+				taxPercSum += toAdd;
 			}
 		}
-		return totalTax;
+		__updateTotalTaxPercentage(taxPercSum);
+		return taxPercSum;
 	}
 
 	/*

@@ -32,7 +32,8 @@ $mod_strings = Array(
 	'LBL_QTY_PER_UNIT' => 'Qty per unit',
 	'LBL_BACKORDER_LVL' => 'Qty in backorder',
 	'LBL_QTY_ORDERED' => 'Qty in order',
-	'LBL_DEL_REC' => 'Units delivered / received',	
+	'LBL_DEL_REC' => 'Units delivered / received',
+	'LBL_TAX_PERC_SUM' => 'Total tax percentage',	
 	// Helptexts
 	'LBL_DELIVERDATE_HELPTEXT' => 'Enter a deliverydate for this packing slip',
 	'LBL_ISSUEDATE_HELPTEXT' => 'Enter an issuedate for this packingslip.',
