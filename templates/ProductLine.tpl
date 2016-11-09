@@ -102,7 +102,7 @@
 						</label>
 					</td>
 					<td align="right" colspan="1" nowrap>
-						<b>{$APP.LBL_DISCOUNT} : </b><input type="text" value="{if !$CREATEMODE}{$show_discount}{/if}" class="product_line_discount" style="width: 70px;">
+						<b>{$APP.LBL_DISCOUNT} (<span class="discount_symbol">{if $product_line.discount_type eq 'p'}%{else}-/-{/if}</span>)</b><input type="text" value="{if !$CREATEMODE}{$show_discount}{/if}" class="product_line_discount" style="width: 70px;">
 					</td>
 				</tr>
 				<tr>

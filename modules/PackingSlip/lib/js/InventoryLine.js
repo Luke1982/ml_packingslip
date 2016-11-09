@@ -117,13 +117,14 @@ function InventoryLine(data) {
 		var discType = __getDiscountType(parent);
 		if (discType == "d") {
 			// Direct discount
+			parent.getElementsByClassName("discount_symbol")[0].innerHTML = "-/-";
 			return {
 				"discountValue" : discVal,
 				"discountType"	: discType
 			};
 		} else if (discType == "p") {
 			// Discount percentage
-			// discVal = currentGross * (discVal / 100);
+			parent.getElementsByClassName("discount_symbol")[0].innerHTML = "%";
 			discVal = Math.round(discVal * 100) / 100; // Round to two decimals only when needed
 			return {
 				"discountValue" : discVal,
