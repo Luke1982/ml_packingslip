@@ -128,7 +128,7 @@ Class ProductCollection {
 		$this->productProps['line_id'] 				= $product['lineitem_id'];
 		$this->productProps['product_id'] 			= $product['productid'];
 		$this->productProps['seq'] 					= $product['sequence_no'];
-		$this->productProps['qty'] 					= $product['quantity'];
+		$this->productProps['qty'] 					= $this->formatNumber($product['quantity']);
 		$this->productProps['list_price'] 			= CurrencyField::convertToUserFormat($product['listprice']);
 		$this->productProps['disc_perc'] 			= CurrencyField::convertToUserFormat($product['discount_percent']);
 		$this->productProps['disc_am'] 				= CurrencyField::convertToUserFormat($product['discount_amount']);
@@ -151,9 +151,13 @@ Class ProductCollection {
 		$this->productProps['usageunit']			= getTranslatedString($product['usageunit'], 'Products');
 		$this->productProps['reorderlevel']			= $product['reorderlevel'];
 		$this->productProps['qtyindemand']			= $product['qtyindemand'];
-		$this->productProps['units_del_rec']		= isset($product['units_delivered_received']) ? $product['units_delivered_received'] : 0;
+		$this->productProps['units_del_rec']		= isset($product['units_delivered_received']) ? $this->formatNumber($product['units_delivered_received']) : 0;
 
 		return $this->productProps;
+	}
+
+	private function formatNumber($no) {
+		return number_format($no, 2, '.', '');
 	}
 
 	private function calcLineGrossTotal() {
