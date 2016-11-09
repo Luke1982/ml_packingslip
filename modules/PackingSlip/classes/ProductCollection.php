@@ -103,6 +103,7 @@ Class ProductCollection {
 			'desc'				=>		'',
 			'taxes'				=>		array(),
 			'tax_amount'		=>		0,
+			'id_tax_percent'	=>		0,
 			'line_gross_total'	=>		0,
 			'discount_type'		=>		'',
 			'line_net_total'	=>		0,
@@ -134,12 +135,13 @@ Class ProductCollection {
 		$this->productProps['disc_am'] 				= CurrencyField::convertToUserFormat($product['discount_amount']);
 		$this->productProps['comment'] 				= $product['comment'];
 		$this->productProps['desc'] 				= $product['description'];
-		$this->productProps['taxes'] 				= $this->getAllProductTaxes($product);
+		$this->productProps['taxes'] 				= $this->getAllProductTaxes($product); // Array
 		$this->productProps['line_gross_total'] 	= $this->calcLineGrossTotal();
 		$this->productProps['discount_type']		= $this->getDiscountType();
 		$this->productProps['line_net_total'] 		= $this->calcLineNetTotal();
 		$this->productProps['tax_amount']			= $this->getLineTaxAmount($this->productProps['taxes']);	
-		$this->productProps['total_after_tax']		= $this->productProps['line_net_total'] + $this->productProps['tax_amount']; // TO-DO, rebuild for inventorydetails, has field for this	
+		$this->productProps['total_after_tax']		= $this->productProps['line_net_total'] + $this->productProps['tax_amount'];
+		$this->productProps['total_tax_perc']		= isset($product['id_tax_percent']) ? $product['id_tax_percent'] : $this->getSumOfAllTaxPercentages($this->productProps['taxes']);
 		$this->productProps['product_name']			= $product['productname'];
 		$this->productProps['product_no']			= $product['productcode'];
 		$this->productProps['entity_type']			= $product['entitytype'];
@@ -188,6 +190,20 @@ Class ProductCollection {
 			$total_tax_percentage = $total_tax_percentage + $tax['current_percentage'];
 		}
 		return ($this->productProps['line_net_total'] * ($total_tax_percentage / 100)) > 0 ? ($this->productProps['line_net_total'] * ($total_tax_percentage / 100)) : 0;
+	}
+
+	/*
+	 * Function that adds all tax percentages for this product.
+	 * Only used when product is retrieved from old inventoryproductrel table.
+	 * @param: Array with taxes created earlier in the "createProductLine" function.
+	 */
+	private function getSumOfAllTaxPercentages($taxes) {
+		$tax_perc_sum = 0;
+		foreach ($taxes as $tax) {
+			if ($tax['deleted'] == 0) {
+				$tax_perc_sum += $tax['current_percentage'];
+			}
+		}
 	}
 
 	private function getAllProductTaxes($product) {
