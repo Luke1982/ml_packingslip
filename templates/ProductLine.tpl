@@ -45,7 +45,7 @@
 		<table width="100%" cellpadding="0" cellspacing="0">
 			<tr>
 				<td>{$MOD.LBL_DEL_REC}</td>
-				<td><input type="text" class="product_line_del_rec" style="width: 70px" value="{$product_line.units_del_rec}"></td>
+				<td><input type="number" step="any" class="product_line_del_rec" style="width: 70px" value="{$product_line.units_del_rec}"></td>
 			</tr>				
 			<tr>
 				<td>{$MOD.LBL_STOCK}</td>
@@ -69,7 +69,7 @@
 	<td width=10% class="lvtCol editview_inv_purcol" valign="top">
 		<table width="100%" cellpadding="0" cellspacing="0">
 			<tr>
-				<td>{$MOD.LBL_COSTPRICE}</td>
+				<td>{$MOD.LBL_COSTPRICE} (<span class="currency_symbol">{$selected_cur_symbol}</span>)</td>
 				<td><input type="text" class="product_line_costprice" style="width: 70px" value="{if !$CREATEMODE}{$product_line.cost_price}{else}0{/if}"></td>
 			</tr>
 		</table>
@@ -85,7 +85,7 @@
 					</td>
 					<td align="center" colspan="1" nowrap>X</td>
 					<td align="right" colspan="1" nowrap>
-						<b>{$APP.LBL_LIST_PRICE} : </b><input value="{if !$CREATEMODE}{$product_line.list_price}{/if}" type="text" class="product_line_listprice" style="width:70px">
+						<b>{$APP.LBL_LIST_PRICE} (<span class="currency_symbol">{$selected_cur_symbol}</span>)</b><input value="{if !$CREATEMODE}{$product_line.list_price}{/if}" type="text" class="product_line_listprice" style="width:70px">
 					</td>
 				</tr>
 				<tr>
