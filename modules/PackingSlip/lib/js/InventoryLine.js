@@ -146,8 +146,10 @@ function InventoryLine(data) {
 	function __addTaxes() {
 		var totalTax = 0;
 		for (var i = 0; i < taxInputs.length; i++) {
-			var toAdd = parseFloat(taxInputs[i].value);
-			totalTax += toAdd;
+			if (taxInputs[i].value != "") {
+				var toAdd = parseFloat(taxInputs[i].value); // Make sure we are using numbers
+				totalTax += toAdd;
+			}
 		}
 		return totalTax;
 	}
