@@ -26,6 +26,7 @@ if (isset($_REQUEST['getlist']) && $_REQUEST['getlist'] == true) {
 			'price' 		=> CurrencyField::convertToUserFormat($prod['unit_price']),
 			'desc' 			=> $prod['description'],
 			'crmid' 		=> $prod['productid'],
+			'taxes'			=> getProductTaxes($prod['productid']),
 			'inStock' 		=> $prod['qtyinstock'],
 			'inDemand' 		=> $prod['qtyindemand'],
 			'reOrderLvl'	=> $prod['reorderlevel'],
@@ -53,5 +54,17 @@ if (isset($_REQUEST['getlist']) && $_REQUEST['getlist'] == true) {
 			);		
 	}
 	echo json_encode($list);
+}
+
+function getProductTaxes($id) {
+	global $adb;
+	$taxes = array();
+
+	$r = $adb->pquery("SELECT taxid, taxpercentage FROM vtiger_producttaxrel WHERE productid = ?", array($id));
+	while ($tax = $adb->fetch_array($r)) {
+		$taxes[] = $tax;
+	}
+
+	return $taxes;
 }
 ?>

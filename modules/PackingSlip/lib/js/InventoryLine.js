@@ -152,6 +152,11 @@ function InventoryLine(data) {
 		return amount * (taxPerc / 100);
 	}
 
+	/*
+	 * Gets all input fields that represent a tax percentage
+	 * and creates a sum of the percentages. Also updates the
+	 * readonly taxpercentage field
+	 */
 	function __addTaxes() {
 		var taxPercSum = 0;
 		for (var i = 0; i < taxInputs.length; i++) {
@@ -482,7 +487,22 @@ function InventoryLine(data) {
 				callingLine.getElementsByClassName("product_line_qty_per_unit")[0].innerHTML = source[i].packSize + " / " + source[i].usageUnit;
 				callingLine.getElementsByClassName("product_line_backorder_lvl")[0].innerHTML = source[i].inDemand;
 				callingLine.getElementsByClassName("product_line_ordered")[0].innerHTML = source[i].reOrderLvl;
+				// Fill the taxes
+				(function(_i){
+					__fillTaxesOnAutocomplete(callingLine, source[_i].taxes);
+				})(i);
 			}
+		}
+	}
+
+	function __fillTaxesOnAutocomplete(domLine, taxObject) {
+		// First clear out all the taxInputs
+		for (var i = 0; i < taxInputs.length; i++) {
+			taxInputs[i].value = 0;
+		}
+		// Then fill the ones the product has
+		for (var i = 0; i < taxObject.length; i++) {
+			domLine.getElementsByClassName("tax"+taxObject[i].taxid)[0].value = taxObject[i].taxpercentage;
 		}
 	}
 }

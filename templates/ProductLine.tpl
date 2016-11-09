@@ -118,7 +118,7 @@
 									{if $tax.deleted == 0}
 									<tr>
 										<td><b>{$tax.taxlabel} (%) : </b></td>
-										<td><input type="text" data-taxname="{$tax.taxname}" class="product_line_tax" cleanline="leavealone" value="{$tax.percentage}" style="width: 70px;"></td>
+										<td><input type="text" data-taxname="{$tax.taxname}" class="product_line_tax {$tax.taxname}" cleanline="leavealone" value="{$tax.percentage}" style="width: 70px;"></td>
 									</tr>
 									{/if}
 								{/foreach}
@@ -131,7 +131,7 @@
 									{if $tax.deleted == 0}
 									<tr>
 										<td><b>{$tax.taxlabel} (%) : </b></td>
-										<td><input type="text" data-taxname="{$tax.taxname}" class="small product_line_tax" cleanline="leavealone" value="{$tax.current_percentage}" style="width: 70px;"></td>
+										<td><input type="text" data-taxname="{$tax.taxname}" class="small product_line_tax {$tax.taxname}" cleanline="leavealone" value="{$tax.current_percentage}" style="width: 70px;"></td>
 									</tr>
 									{/if}
 								{/foreach}
