@@ -143,7 +143,7 @@ Class ProductCollection {
 		$this->productProps['product_name']			= $product['productname'];
 		$this->productProps['product_no']			= $product['productcode'];
 		$this->productProps['entity_type']			= $product['entitytype'];
-		$this->productProps['stock_qty']			= $product['qtyinstock'];
+		$this->productProps['stock_qty']			= $this->formatNumber($product['qtyinstock']);
 		$this->productProps['mfr_part_no']			= $product['mfr_part_no'];
 		$this->productProps['vendor_part_no']		= $product['vendor_part_no'];
 		$this->productProps['cost_price']			= CurrencyField::convertToUserFormat($product['cost_price']);
