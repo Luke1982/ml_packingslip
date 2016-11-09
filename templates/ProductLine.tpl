@@ -180,7 +180,7 @@
 		<input type="hidden" class="hdn_product_cost_price" name="hdn_product[{$row_no}][cost_price]" value="{if !$CREATEMODE}{$product_line.cost_price}{/if}" />
 		<input type="hidden" class="hdn_product_listprice" name="hdn_product[{$row_no}][listprice]" value="{if !$CREATEMODE}{$product_line.list_price}{/if}" />
 		<input type="hidden" class="hdn_product_discount_per" name="hdn_product[{$row_no}][discount_percent]" value="" />
-		<input type="hidden" class="hdn_product_discount_am" name="hdn_product[{$row_no}][discount_amount]" value="" cleanline="leavealone"/>
+		<input type="hidden" class="hdn_product_discount_am" name="hdn_product[{$row_no}][discount_amount]" value="" />
 		<input type="hidden" class="hdn_product_gross" name="hdn_product[{$row_no}][extgross]" value="{if !$CREATEMODE}{$product_line.line_gross_total}{/if}" />
 		<input type="hidden" class="hdn_product_net" name="hdn_product[{$row_no}][extnet]" value="{if !$CREATEMODE}{$product_line.line_net_total}{/if}" />
 		<input type="hidden" class="hdn_product_tax_am" name="hdn_product[{$row_no}][linetax]" value="{if !$CREATEMODE}{$product_line.tax_amount}{/if}" />
