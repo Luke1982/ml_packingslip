@@ -319,12 +319,11 @@ function getListOfRecords(obj, sModule, iId,sParentTab)
 	<tbody>
 		<!-- Inventory table subheader (detailview) -->
 		<tr class="detailview_inventory_header">
-			<td width=5% valign="top" class="lvtCol detailview_inv_toolcol_header inv_col_header" align="left">{$APP.LBL_TOOLS}</td>
-			<td width=30% valign="top" class="lvtCol detailview_inv_detailcol_header inv_col_header" align="left">{$MOD.LBL_ITEM_INFO}</td>
-			<td width=15% valign="top" class="lvtCol detailview_inv_invcol_header inv_col_header" align="left">{$MOD.LBL_INVENTORY_INFO}</td>
-			<td width=15% valign="top" class="lvtCol detailview_inv_purcol_header inv_col_header" align="left">{$MOD.LBL_BUY_INFO}</td>
-			<td width=15% valign="top" class="lvtCol detailview_inv_salescol_header inv_col_header" align="left">{$MOD.LBL_SALES_INFO}</td>
-			<td width=20% valign="top" class="lvtCol detailview_inv_totalscol_header inv_col_header" align="left">{$APP.LBL_TOTAL}</td>
+			<td width=25% valign="top" class="lvtCol detailview_inv_detailcol_header inv_col_header" align="left">{$MOD.LBL_ITEM_INFO}</td>
+			<td width=20% valign="top" class="lvtCol detailview_inv_invcol_header inv_col_header" align="left">{$MOD.LBL_INVENTORY_INFO}</td>
+			<td width=20% valign="top" class="lvtCol detailview_inv_purcol_header inv_col_header" align="left">{$MOD.LBL_BUY_INFO}</td>
+			<td width=20% valign="top" class="lvtCol detailview_inv_salescol_header inv_col_header" align="left">{$MOD.LBL_SALES_INFO}</td>
+			<td width=15% valign="top" class="lvtCol detailview_inv_totalscol_header inv_col_header" align="left">{$APP.LBL_TOTAL}</td>
 		</tr>
 		{foreach from=$ASSOCIATED_PRODUCTS item=product_line key=row_no}
 			{include file='modules/PackingSlip/DetailViewProductLine.tpl'}	
