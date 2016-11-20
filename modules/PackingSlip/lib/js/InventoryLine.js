@@ -186,9 +186,9 @@ function InventoryLine(data) {
 		var discount 			= __determineDiscount(domLine);
 		if (discount.discountType == "d") {
 			// Direct price discount calculations
-			var newLineHdnDiscAm 	= __setInput(hdnDiscAmountField, discount.discountValue);
+			var newLineHdnDiscAm 	= __setInput(hdnDiscAmountField, discount.discountValue.formatJSNo());
 			var newLineHdnDiscPer 	= __setInput(hdnDiscPercField, 0);
-			var newLineNet 			= __setNonEditableNo((newLineGross - discount.discountValue), netPrice);
+			var newLineNet 			= __setNonEditableNo((newLineGross - discount.discountValue.formatJSNo()), netPrice);
 			var newLineHdnNet 		= __setInput(hdnLineNetField, newLineNet);
 		} else {
 			// Percentage discount calculations
