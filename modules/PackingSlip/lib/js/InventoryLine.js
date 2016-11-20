@@ -110,7 +110,7 @@ function InventoryLine(data) {
 
 	__determineDiscount = function(parent) {
 		var currentGross = parent.getElementsByClassName("product_line_gross")[0].innerHTML;
-		var discVal = parent.getElementsByClassName("product_line_discount")[0].value;
+		var discVal = parent.getElementsByClassName("product_line_discount")[0].value.formatJSNo();
 		var discType = __getDiscountType(parent);
 		if (discType == "d") {
 			// Direct discount
