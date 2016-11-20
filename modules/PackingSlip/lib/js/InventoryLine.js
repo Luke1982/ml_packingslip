@@ -84,18 +84,19 @@ function InventoryLine(data) {
 	}
 
 	__setInput = function(input, newValue) {
-		// If input is numeric type remove dots
-		// and replace comma by dot
-		if (input.type == "number") {
-			newValue = newValue.replace(".", "");
-			newValue = newValue.replace(",", ".");
-		}
 		input.value = newValue;
+		// If input is hidden type remove dots
+		// and replace comma by dot
+		if (input.type == "hidden" && typeof newValue === "string") {
+			newValue = newValue.replace(grpSep, "");
+			newValue = newValue.replace(decSep, ".");
+			input.value = newValue;
+		}
 		return newValue;
 	}
 
 	__getInput = function(input) {
-		return input.value.formatJS();
+		return input.value.formatJSNo();
 	}
 
 	__getDiscountType = function(parent) {
@@ -133,7 +134,7 @@ function InventoryLine(data) {
 		var taxName = taxInput.getAttribute("data-taxname");
 		var hiddenTaxFields = domLine.getElementsByClassName("product_line_hdntaxes")[0];
 		var inputToUpdate = hiddenTaxFields.getElementsByClassName("hdn_product_"+taxName)[0];
-		inputToUpdate.value = taxInput.value;
+		inputToUpdate.value = taxInput.value.formatJSNo();
 	}
 
 	function __updateTotalTaxPercentage(taxPercSum) {
@@ -155,7 +156,8 @@ function InventoryLine(data) {
 		var taxPercSum = 0;
 		for (var i = 0; i < taxInputs.length; i++) {
 			if (taxInputs[i].value != "") {
-				var toAdd = parseFloat(taxInputs[i].value); // Make sure we are using numbers
+				console.log(typeof taxInputs[i].value);
+				var toAdd = parseFloat(taxInputs[i].value.formatJSNo()); // Make sure we are using numbers
 				taxPercSum += toAdd;
 			}
 		}
@@ -293,7 +295,6 @@ function InventoryLine(data) {
 			}
 			return coll;
 		}
-
 		return domLine;
 	}
 
