@@ -33,7 +33,7 @@ if (isset($_REQUEST['getlist']) && $_REQUEST['getlist'] == true) {
 			'desc' 			=> $prod['description'],
 			'crmid' 		=> $prod['productid'],
 			'taxes'			=> getProductTaxes($prod['productid']),
-			'inStock' 		=> $prod['qtyinstock'],
+			'inStock' 		=> CurrencyField::convertToUserFormat($prod['qtyinstock']),
 			'inDemand' 		=> $prod['qtyindemand'],
 			'reOrderLvl'	=> $prod['reorderlevel'],
 			'packSize'		=> $prod['packsize'] == NULL ? '1' : $prod['packsize'],
