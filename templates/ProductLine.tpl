@@ -107,7 +107,7 @@
 				</tr>
 				<tr>
 					<td align="right" colspan="3" class="product_line_taxes" style="{if $TAX_TYPE eq "group"}display:none;{/if}" nowrap>
-						<table width="100%" class="product_line_taxtable">
+						<table width="100%" class="product_line_taxtable" border="0" cellpadding="0" cellspacing="0">
 							<tbody>
 							<tr>
 								<td colspan="2" class="sales_col_header">{$APP.LBL_TAX}</td>
