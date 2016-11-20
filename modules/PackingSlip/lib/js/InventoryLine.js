@@ -98,12 +98,6 @@ function InventoryLine(data) {
 		return input.value.formatJS();
 	}
 
-	// __triggerInput = function(field) {
-	// 	field.dispatchEvent(new Event("input", {
-	// 		"bubbles" : true 
-	// 	}));
-	// }
-
 	__getDiscountType = function(parent) {
 		var discRadios = parent.getElementsByClassName("product_line_disc_radio");
 		for (var i = 0; i < discRadios.length; i++) {
@@ -429,14 +423,14 @@ function InventoryLine(data) {
 		var parentLine = findUp("product_line", e.srcElement);
 		// var parentLine = e.srcElement.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode;
 		__insertEmptyLine(productTable, parentLine);
-		console.log(inventoryLines);
+		// console.log(inventoryLines);
 	});
 
 	deleteLineTool.addEventListener("click", function(e){
 		var parentLine = findUp("product_line", e.srcElement);
 		// var parentLine = e.srcElement.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode;
 		__deleteLine(parentLine);
-		console.log(inventoryLines);
+		// console.log(inventoryLines);
 	});
 
 	copyLineTool.addEventListener("click", function(e){
@@ -444,33 +438,50 @@ function InventoryLine(data) {
 		var parentLine = findUp("product_line", e.srcElement);
 		// var parentLine = e.srcElement.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode;
 		__copyLine(productTable, parentLine);
-		console.log(inventoryLines);
+		// console.log(inventoryLines);
 	});
 
 	// Autocomplete
+	window.acList;
 
-	var r = new XMLHttpRequest();
-	r.open ("GET", "index.php?module=PackingSlip&action=PackingSlipAjax&file=inventoryAjax&getlist=true");
-	r.onreadystatechange = function() {
-		if (r.readyState == 4 && r.status == "200") {
-			// List is retrieved
-			var acList = JSON.parse(r.responseText);
-
-			new Awesomplete(nameField, {
-				list : acList,
-				autoFirst : true,
-				maxItems : 6
-			});
-
-			window.addEventListener("awesomplete-selectcomplete", function(e){
-				var callingLine = findUp("product_line", e.srcElement);
-				__autocompleteCallback(e.text.label, callingLine, acList);
-				__calcDomLine(callingLine);
-			});
-
+	var ac = new Awesomplete(nameField, {
+		list : [],
+		autoFirst : true,
+		maxItems : 6,
+		minChars: 2,
+		data: function(item, input) {
+			var constructedLabel = "<span class='ac_productno'>"+item.productno+"</span>";
+			constructedLabel += "<span class='ac_productname'>"+item.value+"</span><br>";
+			constructedLabel += "<span class='ac_venno_tit'>"+item.ven_part_lbl+"</span>";
+			constructedLabel += "<span class='ac_vendorno'>"+item.ven_part_no+"</span><br>";
+			constructedLabel += "<span class='ac_mfrno_tit'>"+item.mfr_part_lbl+"</span>";
+			constructedLabel += "<span class='ac_mfrno'>"+item.mfr_part_no+"</span>";
+			return {
+				label: constructedLabel,
+				value: item.value
+			};
 		}
-	}
-	r.send();	
+	});
+
+	nameField.addEventListener("input", function(e){
+		var r = new XMLHttpRequest();
+		r.open ("GET", "index.php?module=PackingSlip&action=PackingSlipAjax&file=inventoryAjax&getlist=true&term="+e.srcElement.value);
+		r.onreadystatechange = function() {
+			if (r.readyState == 4 && r.status == "200") {
+				// List is retrieved
+				acList = JSON.parse(r.responseText);
+				ac._list = acList;
+				ac.evaluate();
+			}
+		}
+		r.send();		
+	});
+
+	window.addEventListener("awesomplete-selectcomplete", function(e){
+		var callingLine = findUp("product_line", e.srcElement);
+		__autocompleteCallback(e.text.value, callingLine, acList);
+		__calcDomLine(callingLine);
+	});	
 
 	function __autocompleteCallback(label, callingLine, source) {
 		for(var i = 0; i < source.length; i++) {
