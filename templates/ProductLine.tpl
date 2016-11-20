@@ -45,7 +45,7 @@
 		<table width="100%" cellpadding="0" cellspacing="0">
 			<tr>
 				<td>{$MOD.LBL_DEL_REC}</td>
-				<td><input type="number" step="any" class="product_line_del_rec" style="width: 70px" value="{$product_line.units_del_rec}"></td>
+				<td><input type="text" class="product_line_del_rec" style="width: 70px" value="{$product_line.units_del_rec}"></td>
 			</tr>				
 			<tr>
 				<td>{$MOD.LBL_STOCK}</td>
@@ -81,7 +81,7 @@
 				<tr>
 					<td align="left" colspan="1" nowrap>
 						<span class="product_line_qty_lbl">{$APP.LBL_QTY} :</span>&nbsp;
-						<input type="number" step="any" class="product_line_qty" style="width:50px" value="{if !$CREATEMODE}{$product_line.qty}{/if}"/>
+						<input type="text" class="product_line_qty" style="width:50px" value="{if !$CREATEMODE}{$product_line.qty}{/if}"/>
 					</td>
 					<td align="center" colspan="1" nowrap>&times;</td>
 					<td align="right" colspan="1" nowrap>
