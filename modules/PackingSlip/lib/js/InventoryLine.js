@@ -180,7 +180,7 @@ function InventoryLine(data) {
 		// Set the costprice
 		var newHdnCostPrice		= __setInput(hdnCostPriceField, costPriceField.value);
 		// Set the gross line total
-		var newLineGross 		= __setNonEditableNo( (qtyField.value * __getInput(priceField)), grossPrice);
+		var newLineGross 		= __setNonEditableNo( (qtyField.value.formatJSNo() * __getInput(priceField)), grossPrice);
 		var newLineHdnGross 	= __setInput(hdnLineGrossField, newLineGross);
 		// Calculate the discount and net lineprice
 		var discount 			= __determineDiscount(domLine);
