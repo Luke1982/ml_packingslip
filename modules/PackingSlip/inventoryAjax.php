@@ -74,6 +74,7 @@ function getProductTaxes($id) {
 
 	$r = $adb->pquery("SELECT taxid, taxpercentage FROM vtiger_producttaxrel WHERE productid = ?", array($id));
 	while ($tax = $adb->fetch_array($r)) {
+		$tax['taxpercentage'] = CurrencyField::convertToUserFormat($tax['taxpercentage']);
 		$taxes[] = $tax;
 	}
 
