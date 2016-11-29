@@ -1,4 +1,5 @@
 var inventoryLines = [];
+var totals;
 
 window.addEventListener("load", function(){
 
@@ -33,7 +34,20 @@ window.addEventListener("load", function(){
 			updateTaxes(taxSelect.value);
 		});
 	}
-	taxType();	
+	taxType();
+
+	/* Build the totals part of the inventory
+
+	* baseId	:  Totals table ID
+	* lineTotalsClass : Classname of the span that holds the line totals
+	* subTotalId : Id of the totals subtotal span
+
+	*/
+	totals = new InventoryTotals({
+		baseId: "editview_inv_totals",
+		lineTotalClass : "product_line_after_tax",
+		subTotalId : "totSubtotal"
+	});
 
 });
 
@@ -143,7 +157,6 @@ function hideFirstDelete() {
 		if (i == 0) {
 			delTools[i].style.display = 'none';
 		} else {
-			console.log("waarom dit niet");
 			delTools[i].removeAttribute("style");
 		}
 	}

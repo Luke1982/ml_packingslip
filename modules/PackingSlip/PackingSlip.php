@@ -133,7 +133,7 @@ class PackingSlip extends CRMEntity {
 				require_once('classes/DetailModule.php');
 				global $adb;
 				$detail_module = new DetailModule($adb);
-				$detail_module->processRecords($_REQUEST['hdn_product']);				
+				$detail_module->processRecords($_REQUEST['hdn_products']);				
 		// 	}
 		// }
 		// Update the currency id and the conversion rate for the invoice

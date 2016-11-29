@@ -326,7 +326,7 @@ function getListOfRecords(obj, sModule, iId,sParentTab)
 			<td width=20% valign="top" class="lvtCol detailview_inv_salescol_header inv_col_header" align="left">{$MOD.LBL_SALES_INFO}</td>
 			<td width=15% valign="top" class="lvtCol detailview_inv_totalscol_header inv_col_header" align="left">{$APP.LBL_TOTAL}</td>
 		</tr>
-		{foreach from=$ASSOCIATED_PRODUCTS item=product_line key=row_no}
+		{foreach from=$ASSOCIATED_PRODUCTS item=line key=row_no}
 			{include file='modules/PackingSlip/DetailViewProductLine.tpl'}	
 		{/foreach}
 	</tbody>

@@ -27,6 +27,7 @@ function InventoryLine(data) {
 	var discountRadios = data.source.getElementsByClassName("product_line_disc_radio");
 	var totalTaxPerc = data.source.getElementsByClassName("product_line_total_tax_perc")[0];
 	var taxInputs = data.source.getElementsByClassName("product_line_tax");
+	var totalTaxInput = data.source.getElementsByClassName("product_line_total_tax_perc")[0];
 
 	// Targets
 	var grossPrice = data.source.getElementsByClassName("product_line_gross")[0];
@@ -153,16 +154,19 @@ function InventoryLine(data) {
 	 * readonly taxpercentage field
 	 */
 	function __addTaxes() {
-		var taxPercSum = 0;
-		for (var i = 0; i < taxInputs.length; i++) {
-			if (taxInputs[i].value != "") {
-				console.log(typeof taxInputs[i].value);
-				var toAdd = parseFloat(taxInputs[i].value.formatJSNo()); // Make sure we are using numbers
-				taxPercSum += toAdd;
+		if (taxInputs.length > 0) {
+			var taxPercSum = 0;
+			for (var i = 0; i < taxInputs.length; i++) {
+				if (taxInputs[i].value != "") {
+					var toAdd = parseFloat(taxInputs[i].value.formatJSNo()); // Make sure we are using numbers
+					taxPercSum += toAdd;
+				}
 			}
+			__updateTotalTaxPercentage(taxPercSum);
+			return taxPercSum;
+		} else {
+			return totalTaxInput.value;
 		}
-		__updateTotalTaxPercentage(taxPercSum);
-		return taxPercSum;
 	}
 
 	/*
@@ -288,8 +292,8 @@ function InventoryLine(data) {
 
 		function incrementNames(coll) {
 			for (var i = 0; i < coll.length; i++) {
-				var baseName = coll[i].name.substring(0, 12);
-				var endName = coll[i].name.substring(13, coll[i].name.length);
+				var baseName = coll[i].name.substring(0, 13);
+				var endName = coll[i].name.substring(14, coll[i].name.length);
 				coll[i].name = baseName + inventoryLines.length + endName;
 				// console.log(coll[i].name);
 			}
@@ -409,15 +413,23 @@ function InventoryLine(data) {
 		});
 	}
 
-	for (var i = 0; i < taxInputs.length; i++) {
-		taxInputs[i].addEventListener("input", function(e){
-			var parentLine = findUp("product_line", e.srcElement);
-			__updateHiddenTaxField(parentLine, e.srcElement);
-			// var parentLine = e.srcElement.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode;
-			__calcDomLine(parentLine);
-			console.log("Tax Changed");
-		});
+	if (taxInputs.length > 0) {
+		for (var i = 0; i < taxInputs.length; i++) {
+			taxInputs[i].addEventListener("input", function(e){
+				var parentLine = findUp("product_line", e.srcElement);
+				__updateHiddenTaxField(parentLine, e.srcElement);
+				// var parentLine = e.srcElement.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode;
+				__calcDomLine(parentLine);
+				console.log("Tax Changed");
+			});
+		}
 	}
+
+	totalTaxInput.addEventListener("input", function(e){
+		var parentLine = findUp("product_line", e.srcElement);
+		__calcDomLine(parentLine);
+		console.log("Total Tax Changed");
+	});
 
 	newLineTool.addEventListener("click", function(e){
 		var productTable = document.getElementById("proBody");
@@ -514,7 +526,9 @@ function InventoryLine(data) {
 		}
 		// Then fill the ones the product has
 		for (var i = 0; i < taxObject.length; i++) {
-			domLine.getElementsByClassName("tax"+taxObject[i].taxid)[0].value = taxObject[i].taxpercentage;
+			if (domLine.getElementsByClassName("tax"+taxObject[i].taxid).length > 0) {
+				domLine.getElementsByClassName("tax"+taxObject[i].taxid)[0].value = taxObject[i].taxpercentage;
+			}
 		}
 	}
 }
