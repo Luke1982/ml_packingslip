@@ -17,7 +17,7 @@
 	<!-- Column 2: Item info -->
 	<td width=25% valign="top" class="lvtCol detailview_inv_detailcol inv_col" align="left">
 		<h4 class="detailview_invline_productname"><a target="_blank" href="{$product_link}">{$product_line.product_name}</a></h4>
-		<div class="detailview_invline_comment">{$product_line.comment|truncate:'150'}</div>
+		<div class="detailview_invline_comment">{$product_line.comment|html_entity_decode|truncate:'250'}</div>
 	</td>
 	<!-- Column 3: Inventory info -->
 	<td width=20% valign="top" class="lvtCol detailview_inv_invcol inv_col" align="left">

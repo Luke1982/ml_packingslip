@@ -70,6 +70,7 @@
 			{assign var="CREATEMODE" value=true}
 			{assign var="ASSOCIATEDPRODUCTS" value=','|explode:'0'} {* Set an empty array with one key for createview *}
 		{/if}
+			{* <pre>{$ASSOCIATEDPRODUCTS|print_r}</pre> *}
 
 		{foreach from=$ASSOCIATEDPRODUCTS item=product_line key=row_no name=name}
 			{include file="modules/PackingSlip/ProductLine.tpl"}
@@ -173,5 +174,4 @@
 		</tr>
 	</tbody>
 </table>
-<pre>{$GROUP_TAXES|print_r}</pre>
 <!-- End MajorLabel new inventory lines -->

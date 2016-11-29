@@ -11,6 +11,7 @@
  ********************************************************************************/
 
 -->*}
+<link rel="stylesheet" type="text/css" href="modules/PackingSlip/lib/css/PackingSlip.css">
 <script language="JavaScript" type="text/javascript" src="include/js/dtlviewajax.js"></script>
 <script src="include/scriptaculous/scriptaculous.js" type="text/javascript"></script>
 <div id="convertleaddiv" style="display:block;position:absolute;left:225px;top:150px;"></div>

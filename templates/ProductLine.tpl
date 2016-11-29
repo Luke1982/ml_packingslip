@@ -181,17 +181,17 @@
 		<input type="hidden" class="hdn_product_line_id" name="hdn_product[{$row_no}][lineitem_id]" value="{if !$CREATEMODE}{$product_line.line_id}{/if}" />
 		<input type="hidden" class="hdn_product_seq" name="hdn_product[{$row_no}][sequence_no]" value="{if !$CREATEMODE}{$product_line.seq}{else}1{/if}" />
 		<input type="hidden" class="hdn_product_crm_id" name="hdn_product[{$row_no}][productid]" value="{if !$CREATEMODE}{$product_line.product_id}{/if}" />
-		<input type="hidden" class="hdn_product_qty" name="hdn_product[{$row_no}][quantity]" value="{if !$CREATEMODE}{$product_line.qty}{/if}" />
-		<input type="hidden" class="hdn_product_units_del_rec" name="hdn_product[{$row_no}][units_delivered_received]" value="{if !$CREATEMODE}{$product_line.units_del_rec}{/if}" />
-		<input type="hidden" class="hdn_product_cost_price" name="hdn_product[{$row_no}][cost_price]" value="{if !$CREATEMODE}{$product_line.cost_price}{/if}" />
-		<input type="hidden" class="hdn_product_listprice" name="hdn_product[{$row_no}][listprice]" value="{if !$CREATEMODE}{$product_line.list_price}{/if}" />
-		<input type="hidden" class="hdn_product_discount_per" name="hdn_product[{$row_no}][discount_percent]" value="" />
-		<input type="hidden" class="hdn_product_discount_am" name="hdn_product[{$row_no}][discount_amount]" value="" />
-		<input type="hidden" class="hdn_product_gross" name="hdn_product[{$row_no}][extgross]" value="{if !$CREATEMODE}{$product_line.line_gross_total}{/if}" />
-		<input type="hidden" class="hdn_product_net" name="hdn_product[{$row_no}][extnet]" value="{if !$CREATEMODE}{$product_line.line_net_total}{/if}" />
-		<input type="hidden" class="hdn_product_tax_am" name="hdn_product[{$row_no}][linetax]" value="{if !$CREATEMODE}{$product_line.tax_amount}{/if}" />
-		<input type="hidden" class="hdn_product_tax_per" name="hdn_product[{$row_no}][tax_percent]" value="{if !$CREATEMODE}{$product_line.total_tax_perc}{/if}" />
-		<input type="hidden" class="hdn_product_total" name="hdn_product[{$row_no}][linetotal]" value="{if !$CREATEMODE}{$product_line.total_after_tax}{/if}" />
+		<input type="hidden" class="hdn_product_qty" name="hdn_product[{$row_no}][quantity]" value="{if !$CREATEMODE}{$product_line.raw.qty}{/if}" />
+		<input type="hidden" class="hdn_product_units_del_rec" name="hdn_product[{$row_no}][units_delivered_received]" value="{if !$CREATEMODE}{$product_line.raw.units_del_rec}{/if}" />
+		<input type="hidden" class="hdn_product_cost_price" name="hdn_product[{$row_no}][cost_price]" value="{if !$CREATEMODE}{$product_line.raw.cost_price}{/if}" />
+		<input type="hidden" class="hdn_product_listprice" name="hdn_product[{$row_no}][listprice]" value="{if !$CREATEMODE}{$product_line.raw.list_price}{/if}" />
+		<input type="hidden" class="hdn_product_discount_per" name="hdn_product[{$row_no}][discount_percent]" value="{if !$CREATEMODE}{$product_line.raw.disc_perc}{/if}" />
+		<input type="hidden" class="hdn_product_discount_am" name="hdn_product[{$row_no}][discount_amount]" value="{if !$CREATEMODE}{$product_line.raw.disc_am}{/if}" />
+		<input type="hidden" class="hdn_product_gross" name="hdn_product[{$row_no}][extgross]" value="{if !$CREATEMODE}{$product_line.raw.line_gross_total}{/if}" />
+		<input type="hidden" class="hdn_product_net" name="hdn_product[{$row_no}][extnet]" value="{if !$CREATEMODE}{$product_line.raw.line_net_total}{/if}" />
+		<input type="hidden" class="hdn_product_tax_am" name="hdn_product[{$row_no}][linetax]" value="{if !$CREATEMODE}{$product_line.raw.tax_amount}{/if}" />
+		<input type="hidden" class="hdn_product_tax_per" name="hdn_product[{$row_no}][tax_percent]" value="{if !$CREATEMODE}{$product_line.raw.total_tax_perc}{/if}" />
+		<input type="hidden" class="hdn_product_total" name="hdn_product[{$row_no}][linetotal]" value="{if !$CREATEMODE}{$product_line.raw.total_after_tax}{/if}" />
 		<input type="hidden" class="hdn_product_entity_type" name="hdn_product[{$row_no}][entity_type]" value="{if !$CREATEMODE}{$product_line.entity_type}{/if}" />
 		<textarea class="hdn_product_comment" name="hdn_product[{$row_no}][description]">{if !$CREATEMODE}{$product_line.comment}{/if}</textarea>
 		{* Individual taxes *}

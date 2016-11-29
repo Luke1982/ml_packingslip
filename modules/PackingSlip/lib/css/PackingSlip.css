@@ -38,7 +38,8 @@
 }
 
 /* General CSS */
-.product_line > td {
+.product_line > td,
+.detailview_inventoryline > td {
 	background-image: none;
 	border-bottom: 1px solid #666666;
 }
@@ -49,7 +50,8 @@
 	color: #fff;
 }
 
-.editview_inventory_subheader td {
+.editview_inventory_subheader td,
+.detailview_inventory_header td {
 	padding: 8px 5px;
 }
 
@@ -182,6 +184,19 @@
 	display: inline-block;
 	width: 110px;
 	font-weight: 600;
+}
+
+/* Detailview specific CSS */
+.detailview_inventoryline .inv_col {
+	padding: 5px;
+}
+
+.detailview_invline_productname {
+	margin-top: 0;
+}
+
+.inv_col {
+	font-weight: 400;
 }
 
 ::-webkit-scrollbar {
