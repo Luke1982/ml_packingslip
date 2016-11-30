@@ -3,7 +3,7 @@
 <name>PackingSlip</name>
 <label>PackingSlip</label>
 <parent>Inventory</parent>
-<version>0.49</version>
+<version>0.50</version>
 <dependencies>
 <vtiger_version>5.5.0</vtiger_version>
 </dependencies>
@@ -24,7 +24,7 @@
  * at <http://corebos.org/documentation/doku.php?id=en:devel:vpl11>
  *************************************************************************************************
  *  Module       : coreBOS PackingSlip
- *  Version      : 0.49
+ *  Version      : 0.50
  *************************************************************************************************/
 ]]></inline>
 </license>
