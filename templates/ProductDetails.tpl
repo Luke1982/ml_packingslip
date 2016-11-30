@@ -123,7 +123,7 @@
 						{if $group_tax.deleted == 0}
 						<tr>
 							<td align="right" width="50%"><b>{$group_tax.taxlabel} (%) :</b></td>
-							<td align="right" width="50%"><input type="text" name="group_tax_{$group_tax_no}" class="group_tax" value="{$group_tax.default_percentage}" id="totTax{$group_tax_no}" style="width: 70px;"></td>
+							<td align="right" width="50%"><input type="text" name="grouptax_{$group_tax.taxid}" class="group_tax" value="{$group_tax.current_percentage}" id="totTax{$group_tax_no}" style="width: 70px;"></td>
 						</tr>
 						{/if}
 						{/foreach}
@@ -179,7 +179,9 @@
 </table>
 <!-- End MajorLabel new inventory lines -->
 
-<h1>GROUP TAXES</h1>
+{* <h1>GROUP TAXES</h1>
 <pre>{$GROUP_TAXES|print_r}</pre>
 <h1>FINALS</h1>
 <pre>{$FINALS|print_r}</pre>
+<h1>FINALS TEST</h1>
+<pre>{$FINALS.test|print_r}</pre> *}

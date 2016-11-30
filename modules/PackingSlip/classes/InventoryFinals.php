@@ -5,13 +5,15 @@ require_once('include/fields/CurrencyField.php');
 Class InventoryFinals {
 	private $finals = array();
 	private $db;
+	private $record_grouptaxes = array();
 
 	function __construct($db) {
 		$this->db = $db;
 	}
 
 	public function get($entity) {
-		$res = $this->db->pquery("SELECT adjustment, salescommission, exciseduty, subtotal, total, taxtype, discount_percent, discount_amount, s_h_amount, currency_id, conversion_rate FROM $entity->table_name WHERE $entity->table_index = ?", array($entity->id));
+		$res = $this->db->pquery("SELECT * FROM $entity->table_name WHERE $entity->table_index = ?", array($entity->id));
+
 		$record = $this->db->fetch_array($res);
 
 		$finals['adjustment']		=	$record['adjustment'] == NULL ? 0 : CurrencyField::convertToUserFormat($record['adjustment']);
@@ -20,7 +22,7 @@ Class InventoryFinals {
 		$finals['subtotal']			=	$record['subtotal'] == NULL ? 0 : CurrencyField::convertToUserFormat($record['subtotal']);
 		$finals['total']			=	$record['total'] == NULL ? 0 : CurrencyField::convertToUserFormat($record['total']);
 		$finals['taxtype']			=	$record['taxtype'];
-		$finals['grouptaxes']		=	$this->getGroupTaxes();
+		$finals['grouptaxes']		=	$this->getGroupTaxes($record);
 		$finals['discount_percent']	=	$record['discount_percent'] == NULL ? 0 : CurrencyField::convertToUserFormat($record['discount_percent']);
 		$finals['discount_amount']	=	$record['discount_amount'] == NULL ? 0 : CurrencyField::convertToUserFormat($record['discount_amount']);
 		$finals['discount_type']	=	$this->getDiscType($finals['discount_percent'], $finals['discount_amount']);
@@ -48,7 +50,7 @@ Class InventoryFinals {
 		}
 	}
 
-	private function getGroupTaxes() {
+	private function getGroupTaxes($record) {
 		$group_taxes = array();
 		$total_tax_perc = 0;
 
@@ -59,7 +61,8 @@ Class InventoryFinals {
 					'taxname' 			=> $tax['taxname'],
 					'taxlabel'			=> $tax['taxlabel'],
 					'default_percentage'=> CurrencyField::convertToUserFormat($tax['percentage']),
-					'deleted'			=> $tax['deleted']
+					'deleted'			=> $tax['deleted'],
+					'current_percentage'=> $this->getCurrentPercForTaxId($tax['taxid'], $record, 'grouptax')
 				);
 			if ($tax['deleted'] == 0) {
 				$total_tax_percent += $tax['percentage'];
@@ -67,6 +70,22 @@ Class InventoryFinals {
 		}
 		$group_taxes['total_tax_percentage'] = CurrencyField::convertToUserFormat($total_tax_percent);
 		return $group_taxes;		
+	}
+
+	/*
+	 * Function that gets the current tax percentage for a
+	 * record, based on the tax ID
+	 * @param 1: the tax ID we're looking for
+	 * @param 2: all the columnfields of the current record
+	 * @param 3: the tax type, either 'grouptax' of 'shtax'
+	 */
+	private function getCurrentPercForTaxId($taxid = 0, $record = array(), $taxtype = '') {
+		foreach ($record as $columnname => $value) {
+			$searchkey = $taxtype.'_'.$taxid;
+			if ($columnname == $searchkey) {
+				return CurrencyField::convertToUserFormat($record[$searchkey]);
+			}
+		}
 	}
 
 }
