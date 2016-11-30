@@ -501,12 +501,11 @@ class PackingSlip extends CRMEntity {
 		$r = $adb->pquery($q, $p);
 
 		while ($tax = $adb->fetch_array($r)) {
-			$q = "ALTER TABLE ? ADD COLUMN ? DECIMAL(7,3) DEFAULT ?";
-			$p = array(
-					$this->table_name,
-					'grouptax_'.$tax['taxid'],
-					$tax['percentage']
-				);
+			$name = 'grouptax_'.$tax['taxid'];
+			$percentage = $tax['percentage'];
+
+			$q = "ALTER TABLE $this->table_name ADD COLUMN $name DECIMAL(7,3) DEFAULT $percentage";
+			$p = array();
 			$adb->pquery($q, $p);
 		}
 	}
