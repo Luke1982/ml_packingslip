@@ -471,6 +471,9 @@ class PackingSlip extends CRMEntity {
 
 			// Add columns to the module table that represent global group taxes
 			$this->addGroupTaxColumns();
+			// Add event handlers for tax additions. Adding a tax in the system will
+			// add a column to the module table
+			$this->addTaxEvents();
 
 		} else if($event_type == 'module.disabled') {
 			// TODO Handle actions when this module is disabled.
@@ -488,7 +491,6 @@ class PackingSlip extends CRMEntity {
 			// TODO Handle actions before this module is updated.
 		} else if($event_type == 'module.postupdate') {
 			// TODO Handle actions after this module is updated.
-			$this->addTaxEvents();
 		}
 	}
 
@@ -501,6 +503,23 @@ class PackingSlip extends CRMEntity {
 
 		while ($tax = $adb->fetch_array($r)) {
 			$name = 'grouptax_'.$tax['taxid'];
+			$percentage = $tax['percentage'];
+
+			$q = "ALTER TABLE $this->table_name ADD COLUMN $name DECIMAL(7,3) DEFAULT $percentage";
+			$p = array();
+			$adb->pquery($q, $p);
+		}
+	}
+
+	private function addShTaxColumns() {
+		global $adb;
+
+		$q = "SELECT taxid, percentage FROM vtiger_shippingtaxinfo";
+		$p = array();
+		$r = $adb->pquery($q, $p);
+
+		while ($tax = $adb->fetch_array($r)) {
+			$name = 'shtax_'.$tax['taxid'];
 			$percentage = $tax['percentage'];
 
 			$q = "ALTER TABLE $this->table_name ADD COLUMN $name DECIMAL(7,3) DEFAULT $percentage";
