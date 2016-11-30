@@ -510,6 +510,7 @@ class PackingSlip extends CRMEntity {
 	}
 
 	private function addTaxEvents() {
+		global $adb;
 		require 'include/events/include.inc';
 
 		$file_path = 'modules/'.get_class($this).'/classes/events/ModuleTax.php';
