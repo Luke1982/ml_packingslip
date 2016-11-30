@@ -213,6 +213,9 @@ function InventoryLine(data) {
 
 		// Finally, update the line in JS memory
 		updateInventory(domLine);
+
+		// Update the totals of the inventory module
+		totals.updateTotals();
 	}
 
 	/*

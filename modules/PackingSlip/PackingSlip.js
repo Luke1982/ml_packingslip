@@ -41,14 +41,21 @@ window.addEventListener("load", function(){
 	* baseId	:  Totals table ID
 	* lineTotalsClass : Classname of the span that holds the line totals
 	* subTotalId : Id of the totals subtotal span
+	* discountRadioName : Name attribute of the discount radio group
+	* groupTaxClass : class of the group tax input fields
+	* shTaxClass : class of the Sales and Handling input fields
 
 	*/
 	totals = new InventoryTotals({
 		baseId: "editview_inv_totals",
 		lineTotalClass : "product_line_after_tax",
-		subTotalId : "totSubtotal"
+		subTotalId : "totSubtotal",
+		discountRadioName : "editview_inv_tot_disctype",
+		groupTaxClass : "group_tax",
+		shTaxClass : "sh_tax"
 	});
-
+	// Initialize totals
+	totals.init();
 });
 
 /*

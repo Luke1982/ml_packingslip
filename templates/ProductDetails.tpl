@@ -94,11 +94,11 @@
 					<tbody>
 						<tr>
 							<td align="right" width="50%">
-								<input type="radio" name="editview_inv_tot_disctype" id="discount_amount_radio" />
+								<input type="radio" name="editview_inv_tot_disctype" id="discount_amount_radio" discounttype="d" checked="checked" />
 								<input type="number" style="width: 70px" name="editview_inv_disc_am" class="inv_totals_input editview_inv_disc_am" id="totDiscAm" value="">
 							</td>
 							<td align="right" width="50%">
-								<input type="radio" name="editview_inv_tot_disctype" id="discount_perc_radio" />
+								<input type="radio" name="editview_inv_tot_disctype" id="discount_perc_radio" discounttype="p" />
 								<input type="number" style="width: 70px" name="editview_inv_disc_per" class="inv_totals_input editview_inv_disc_per" id="totDiscPe" value="">
 							</td>
 						</tr>
@@ -119,11 +119,13 @@
 				<!-- Taxes inputs table -->
 				<table width="100%"  border="0" align="center" cellspacing="0">
 					<tbody>
-						{foreach from=$GROUP_TAXES item=group_tax key=group_tax_no}
+						{foreach from=$FINALS.grouptaxes item=group_tax key=group_tax_no}
+						{if $group_tax.deleted == 0}
 						<tr>
 							<td align="right" width="50%"><b>{$group_tax.taxlabel} (%) :</b></td>
-							<td align="right" width="50%"><input type="number" name="group_tax_{$group_tax_no}" class="group_tax" value="{$group_tax.percentage}" id="totTax{$group_tax_no}" style="width: 70px;"></td>
+							<td align="right" width="50%"><input type="text" name="group_tax_{$group_tax_no}" class="group_tax" value="{$group_tax.default_percentage}" id="totTax{$group_tax_no}" style="width: 70px;"></td>
 						</tr>
+						{/if}
 						{/foreach}
 					</tbody>
 				</table>
@@ -135,7 +137,7 @@
 		<tr>
 			<td align="right" valign="top" width="70%" colspan="1"><span class="inv_totals_text editview_inv_sh_tot_label">{$APP.LBL_SHIPPING_AND_HANDLING_CHARGES}</span></td>
 			<td align="right" valign="top" colspan="1" width="20%">
-				<input type="number" name="editview_inv_sh" class="inv_totals_input inv_totals_sh_input" style="width: 70px;" id="totSHAm" value="{$FINALS.s_h_amount}">
+				<input type="text" name="editview_inv_sh" class="inv_totals_input inv_totals_sh_input" style="width: 70px;" id="totSHAm" value="{$FINALS.s_h_amount}">
 			</td>
 			<td align="right" valign="top" colspan="1" width="10%">
 				<span class="inv_totals_text editview_inv_sh_tot_value" id="totSHVal">0</span>
@@ -150,7 +152,7 @@
 						{foreach from=$SH_TAXES item=sh_tax key=sh_tax_no}
 						<tr>
 							<td align="right" width="50%"><b>{$sh_tax.taxlabel} (%) :</b></td>
-							<td align="right" width="50%"><input type="number" name="sh_tax_{$sh_tax_no}" id="totSHTax{$sh_tax_no}" class="sh_tax inv_totals_input" value="{$sh_tax.percentage}" style="width: 70px;"></td>
+							<td align="right" width="50%"><input type="text" name="sh_tax_{$sh_tax_no}" id="totSHTax{$sh_tax_no}" class="sh_tax inv_totals_input" value="{$sh_tax.percentage}" style="width: 70px;"></td>
 						</tr>
 						{/foreach}
 					</tbody>
@@ -163,7 +165,7 @@
 		<tr>
 			<td align="right" valign="top" width="70%" colspan="1"><span class="inv_totals_text editview_inv_sh_tot_label">{$APP.LBL_ADJUSTMENT}</span></td>
 			<td align="right" valign="top" colspan="1" width="20%">
-				<input type="number" name="editview_inv_adj" class="inv_totals_input" style="width: 70px;" id="totAdjAm" value="{$FINALS.adjustment}">
+				<input type="text" name="editview_inv_adj" class="inv_totals_input" style="width: 70px;" id="totAdjAm" value="{$FINALS.adjustment}">
 			</td>
 			<td align="right" valign="top" colspan="1" width="10%">
 				<span class="inv_totals_text editview_inv_sh_tot_value" id="totAdjVal">0</span>
@@ -176,3 +178,8 @@
 	</tbody>
 </table>
 <!-- End MajorLabel new inventory lines -->
+
+<h1>GROUP TAXES</h1>
+<pre>{$GROUP_TAXES|print_r}</pre>
+<h1>FINALS</h1>
+<pre>{$FINALS|print_r}</pre>
