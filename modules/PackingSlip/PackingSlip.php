@@ -488,6 +488,7 @@ class PackingSlip extends CRMEntity {
 			// TODO Handle actions before this module is updated.
 		} else if($event_type == 'module.postupdate') {
 			// TODO Handle actions after this module is updated.
+			$this->addTaxEvents();
 		}
 	}
 
@@ -506,6 +507,15 @@ class PackingSlip extends CRMEntity {
 			$p = array();
 			$adb->pquery($q, $p);
 		}
+	}
+
+	private function addTaxEvents() {
+		require 'include/events/include.inc';
+
+		$file_path = 'modules/'.get_class($this).'/classes/events/ModuleTax.php';
+		$class_name = 'ModuleTax';
+		$em = new VTEventsManager($adb);
+		$em->registerHandler('corebos.add.tax', $file_path, $class_name);		
 	}
 
 	/**
