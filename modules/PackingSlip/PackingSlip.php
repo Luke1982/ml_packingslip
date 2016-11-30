@@ -488,8 +488,6 @@ class PackingSlip extends CRMEntity {
 			// TODO Handle actions before this module is updated.
 		} else if($event_type == 'module.postupdate') {
 			// TODO Handle actions after this module is updated.
-			// Add columns to the module table that represent global group taxes
-			$this->addGroupTaxColumns();
 		}
 	}
 
