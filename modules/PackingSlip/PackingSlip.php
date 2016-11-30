@@ -469,6 +469,9 @@ class PackingSlip extends CRMEntity {
 			$field = Vtiger_Field::getInstance('related_to', $module_instance);
 			$field->setRelatedModules(array('PackingSlip'));
 
+			// Add columns to the module table that represent global group taxes
+			$this->addGroupTaxColumns();
+
 		} else if($event_type == 'module.disabled') {
 			// TODO Handle actions when this module is disabled.
 		} else if($event_type == 'module.enabled') {
@@ -485,6 +488,24 @@ class PackingSlip extends CRMEntity {
 			// TODO Handle actions before this module is updated.
 		} else if($event_type == 'module.postupdate') {
 			// TODO Handle actions after this module is updated.
+		}
+	}
+
+	private function addGroupTaxColumns() {
+		global $adb;
+
+		$q = "SELECT taxid, percentage FROM vtiger_inventorytaxinfo";
+		$p = array();
+		$r = $adb->pquery($q, $p);
+
+		while ($tax = $adb->fetch_array($r)) {
+			$q = "ALTER TABLE ? ADD COLUMN ? DECIMAL(7,3) DEFAULT ?";
+			$p = array(
+					$this->table_name,
+					'grouptax_'.$tax['taxid'],
+					$tax['percentage']
+				);
+			$adb->pquery($q, $p);
 		}
 	}
 
