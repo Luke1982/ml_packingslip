@@ -250,7 +250,7 @@ function InventoryTotals(params) {
 		var a = document.getElementById("totAdjAm").value;
 		var r = __currentValues.totalAfterSHAmount + a;
 
-		__currentValues.grandTotal = r;
+		__currentValues.grandTotal = Number(r);
 		return r;
 	}
 }
