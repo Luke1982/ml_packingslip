@@ -52,8 +52,6 @@
   `subtotal` decimal(29,3) DEFAULT NULL,
   `total` decimal(29,3) DEFAULT NULL,
   `taxtype` varchar(25) DEFAULT '',
-  `grouptaxes` varchar(255) DEFAULT '',
-  `shtaxes` varchar(255) DEFAULT '',
   `discount_percent` decimal(29,3) DEFAULT NULL,
   `discount_amount` decimal(29,3) DEFAULT NULL,
   `s_h_amount` decimal(29,3) DEFAULT NULL,
